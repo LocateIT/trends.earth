@@ -28,7 +28,7 @@ from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QDate
 
 from LDMP import log
 from LDMP.api import run_script
@@ -40,11 +40,6 @@ from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
-
-
-class tr_calculate_urban(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_calculate_urban", message)
 
 
 class UrbanSummaryWorker(AbstractWorker):
@@ -153,12 +148,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         if not ret:
             return
 
-        # Limit area that can be processed
+        # Limit area for the urban tool to 10,000 sq km
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 25000:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.".format(aoi_area)))
+                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.".format(aoi_area)))
             return False
 
         self.calculate_on_GEE()
@@ -179,7 +174,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
     def calculate_on_GEE(self):
         self.close()
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'un_adju': self.get_pop_def_is_un(),
                    'isi_thr': self.spinBox_isi_thr.value(),
                    'ntl_thr': self.spinBox_ntl_thr.value(),
@@ -196,12 +191,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         resp = run_script(get_script_slug('urban-area'), payload)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Urban area change calculation submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Urban area change calculation submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit urban area task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit urban area task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -211,14 +206,53 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
         self.setupUi(self)
 
-        self.add_output_tab(['.xlsx', '.json', '.tif'])
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
+        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
 
     def showEvent(self, event):
         super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
 
         self.combo_layer_urban_series.populate()
 
+    def select_output_file_layer(self):
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the output file'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Filename (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_layer.setText(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def select_output_file_table(self):
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the summary table'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_table.setText(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
     def btn_calculate(self):
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_layer.text():
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the indicator layer."))
+            return
+
+        if not self.output_file_table.text():
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."))
+            return
+
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -287,7 +321,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         ######################################################################
         # Process the wkts using a summary worker
         output_indicator_tifs = []
-        output_indicator_json = self.output_tab.output_basename.text() + '.json'
+        output_indicator_json = self.output_file_layer.text()
         for n in range(len(wkts)):
             # Compute the pixel-aligned bounding box (slightly larger than 
             # aoi). Use this instead of croptocutline in gdal.Warp in order to 
@@ -341,8 +375,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
                      areas = areas + these_areas
                      populations = populations + these_populations
 
-        make_summary_table(areas, populations, 
-                self.output_tab.output_basename.text() + '.xlsx')
+        make_summary_table(areas, populations, self.output_file_table.text())
 
         # Add the indicator layers to the map
         output_indicator_bandinfos = [BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
@@ -371,6 +404,10 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
 
 
 def make_summary_table(areas, populations, out_file):
+                          
+    def tr(s):
+        return QtWidgets.QApplication.translate("LDMP", s)
+
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_urban.xlsx'))
 
     ##########################################################################
@@ -392,10 +429,10 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
-                                      tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                      QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr_calculate_urban.tr("Error"),
-                                   tr_calculate_urban.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

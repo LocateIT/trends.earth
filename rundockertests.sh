@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Run docker tests on your local machine
 
 PLUGIN_NAME="LDMP"

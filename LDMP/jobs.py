@@ -23,8 +23,8 @@ import binascii
 
 import datetime
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
-        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication)
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, pyqtSignal, \
+    QSortFilterProxyModel, QSize, QObject, QEvent
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
@@ -34,6 +34,7 @@ mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
 
+from LDMP import __version__
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
@@ -43,11 +44,6 @@ from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
-
-
-class tr_jobs(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_jobs", message)
 
 
 def json_serial(obj):
@@ -87,6 +83,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         """Constructor."""
         super(DlgJobs, self).__init__(parent)
 
+        self.settings = QSettings()
+
         self.setupUi(self)
 
         self.connection_in_progress = False
@@ -102,6 +100,11 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         # Only enable download button if a job is selected
         self.download.setEnabled(False)
+
+        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
+        if jobs_cache:
+            self.jobs = jobs_cache
+            self.update_jobs_table()
 
         self.jobs_view.viewport().installEventFilter(tool_tipper(self.jobs_view))
 
@@ -154,13 +157,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         #######################################################################
         #######################################################################
 
-        try:
-            jobs_cache = json.loads(QSettings().value("LDMP/jobs_cache", '{}'))
-        except TypeError:
-            # For backward compatibility need to handle case of jobs caches 
-            # that were stored inappropriately in past version of Trends.Earth
-            jobs_cache = {}
-        if jobs_cache is not {}:
+        jobs_cache = self.settings.value("LDMP/jobs_cache", None)
+        if jobs_cache:
             self.jobs = jobs_cache
             self.update_jobs_table()
 
@@ -181,15 +179,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         elif not self.jobs_view.selectedIndexes():
             self.download.setEnabled(False)
         else:
-            rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
-            job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
-            statuses = [job.get('status', None) for job in self.jobs if job.get('id', None) in job_ids]
-
-            if len(statuses) > 0:
-                for status in statuses:
+            rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
+            if rows and self.jobs:
+                for row in rows:
                     # Don't set button to enabled if any of the tasks aren't 
                     # yet finished, or if any are invalid
-                    if status != 'FINISHED':
+                    if 'status' in self.jobs[row] and self.jobs[row]['status'] != 'FINISHED':
                         self.download.setEnabled(False)
                         return
                 self.download.setEnabled(True)
@@ -212,8 +207,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job['script_name'] = job['script']['name']
                         # Clean up the script name so the version tag doesn't 
                         # look so odd
-                        job['script_name'] = re.sub(r'([0-9]+(_[0-9]+)+)$', r'(v\g<1>)', job['script_name'])
-                        job['script_name'] = job['script_name'].replace('_', '.')
+                        job['script_name'] = re.sub(r'([0-9]+)_([0-9]+)$', r'(v\g<1>.\g<2>)', job['script_name'])
                         job['script_description'] = job['script']['description']
                     else:
                         # Handle case of scripts that have been removed or that are
@@ -230,34 +224,37 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                     job['params'] = job['params']
 
                 # Cache jobs for later reuse
-                QSettings().setValue("LDMP/jobs_cache", json.dumps(self.jobs, default=json_serial))
+                self.settings.setValue("LDMP/jobs_cache", self.jobs)
 
                 self.update_jobs_table()
+
                 self.connectionEvent.emit(False)
                 return True
-
         self.connectionEvent.emit(False)
         return False
 
     def update_jobs_table(self):
         if self.jobs:
             table_model = JobsTableModel(self.jobs, self)
-            self.proxy_model = QSortFilterProxyModel()
-            self.proxy_model.setSourceModel(table_model)
-            self.jobs_view.setModel(self.proxy_model)
+            proxy_model = QSortFilterProxyModel()
+            proxy_model.setSourceModel(table_model)
+            self.jobs_view.setModel(proxy_model)
             # Add "Details" buttons in cell
             for row in range(0, len(self.jobs)):
                 btn = QtWidgets.QPushButton(self.tr("Details"))
                 btn.clicked.connect(self.btn_details)
-                self.jobs_view.setIndexWidget(self.proxy_model.index(row, 6), btn)
+                btn.setMinimumSize(QSize(75, 0))
+                btn.setMaximumSize(QSize(150, 16777215))
+                self.jobs_view.setIndexWidget(proxy_model.index(row, 5), btn)
 
-            self.jobs_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.Fixed)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
-            self.jobs_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
+            #self.jobs_view.widget(proxy_model.index(row, 2)).setTextAlignment(Qt.AlignCenter)
+
+            # self.jobs_view.setMinimumSize(QSize(0, 100))
+            # self.jobs_view.setColumnWidth(1, 400)
+            # self.jobs_view.setColumnWidth(2, 200)
+            # self.jobs_view.setColumnWidth(3, 200)
+            # self.jobs_view.setColumnWidth(4, 200)
+            # self.jobs_view.setColumnWidth(5, 200)
 
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
 
@@ -280,17 +277,14 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         details_dlg.exec_()
 
     def btn_download(self):
-        # Use set below in case multiple cells within the same row are selected
-        rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
-        job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
-        jobs = [job for job in self.jobs if job['id'] in job_ids]
+        rows = list(set(index.row() for index in self.jobs_view.selectedIndexes()))
 
         filenames = []
-        for job in jobs:
-            # Check if we need a download filename - some tasks don't need to 
-            # save data, but if any of the chosen tasks do, then we need to 
-            # choose a folder. Right now only TimeSeriesTable doesn't need a 
-            # filename.
+        for row in rows:
+            job = self.jobs[row]
+            # Check if we need a download filename - some tasks don't need to save
+            # data, but if any of the chosen \tasks do, then we need to choose a
+            # folder. Right now only TimeSeriesTable doesn't need a filename.
             if job['results'].get('type') != 'TimeSeriesTable':
                 f = None
                 while not f:
@@ -301,7 +295,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job_info = job['script_name']
                     f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                           self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
-                                                          QSettings().value("LDMP/output_dir", None),
+                                                          self.settings.value("LDMP/output_dir", None),
                                                           self.tr('Base filename (*.json)'))
 
                     # Strip the extension so that it is a basename
@@ -309,7 +303,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
-                            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                            self.settings.setValue("LDMP/output_dir", os.path.dirname(f))
                             log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
                         else:
                             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -325,7 +319,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         for row, f in zip(rows, filenames):
             job = self.jobs[row]
-            log(u"Processing job {}.".format(job.get('id', None)))
+            log(u"Processing job {}".format(job))
             result_type = job['results'].get('type')
             if result_type == 'CloudResults':
                 download_cloud_results(job, f, self.tr)
@@ -343,13 +337,12 @@ class JobsTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('task_name', self.tr('Task name')),
-                          ('script_name', self.tr('Job')),
-                          ('start_date', self.tr('Start time')),
-                          ('end_date', self.tr('End time')),
-                          ('id', self.tr('ID')),
-                          ('status', self.tr('Status')),
-                          ('INVALID', self.tr('Details'))]
+        colname_tuples = [('task_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Task name')),
+                          ('script_name', QtWidgets.QApplication.translate('LDMPPlugin', 'Job')),
+                          ('start_date', QtWidgets.QApplication.translate('LDMPPlugin', 'Start time')),
+                          ('end_date', QtWidgets.QApplication.translate('LDMPPlugin', 'End time')),
+                          ('status', QtWidgets.QApplication.translate('LDMPPlugin', 'Status')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
@@ -454,21 +447,21 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             if band_info['add_to_map']:
                 add_layer(out_file, band_number, band_info)
 
-    mb.pushMessage(tr_jobs.tr("Downloaded"),
-                   tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
+    mb.pushMessage(tr("Downloaded"),
+                   tr(u"Downloaded results to {}".format(out_file)),
                    level=0, duration=5)
 
 
 def download_timeseries(job, tr):
-    log("Processing timeseries results...")
+    log("processing timeseries results...")
     table = job['results'].get('table', None)
     if not table:
         return None
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlotTimeries()
     labels = {'title': job['task_name'],
-              'bottom': tr_jobs.tr('Time'),
-              'left': [tr_jobs.tr('Integrated NDVI'), tr_jobs.tr('NDVI x 10000')]}
+              'bottom': tr('Time'),
+              'left': [tr('Integrated NDVI'), tr('NDVI x 10000')]}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()

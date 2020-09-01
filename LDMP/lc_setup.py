@@ -18,10 +18,10 @@ import os
 import json
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import (QColor, QRegExpValidator, QFont, QPainter)
-from qgis.PyQt.QtCore import (QSettings, QDate, Qt, QSize, QAbstractTableModel, 
-        QRegExp, QJsonValue, QSortFilterProxyModel, QAbstractListModel, 
-        QCoreApplication)
+from qgis.PyQt.QtGui import QRegExpValidator, QFont, QPainter, QLinearGradient, \
+    QColor
+from qgis.PyQt.QtCore import QSettings, QDate, Qt, QSize, QAbstractTableModel, \
+    QRegExp, QJsonValue, QSortFilterProxyModel
 
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -30,22 +30,6 @@ from LDMP import log
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
-from LDMP.layers import tr_style_text
-
-
-class tr_lc_setup(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_lc_setup", message)
-
-
-# Load the default classes and their assigned color codes
-with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                       'data', 'land_cover_classes_IPCC.json')) as class_file:
-    classes = json.load(class_file)
-final_classes = {}
-for key in classes.keys():
-    classes[key]['label'] = key
-    final_classes[tr_style_text(key)] = classes[key]
 
 
 def json_serial(obj):
@@ -94,31 +78,6 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
         self.selectAll()
 
 
-class LCClassComboBox(QtWidgets.QComboBox):
-    def __init__(self, parent=None, *args):
-        super(LCClassComboBox, self).__init__(parent)
-
-        # Add the translations of the item labels in order of their codes
-        self.addItems(sorted(list(final_classes), key = lambda k: final_classes[k]['value']))
-
-        for n in range(0, len(final_classes.keys())):
-            color = final_classes[self.itemData(n, Qt.DisplayRole)]['color']
-            self.setItemData(n, QColor(color), Qt.BackgroundRole)
-            if color == '#000000':
-                self.setItemData(n, QColor('#FFFFFF'), Qt.ForegroundRole)
-            else:
-                self.setItemData(n, QColor('#000000'), Qt.ForegroundRole)
-
-        self.index_changed()
-        self.currentIndexChanged.connect(self.index_changed)
-
-    def index_changed(self):
-        color = final_classes[self.currentText()]['color']
-        if color == '#000000':
-            self.setStyleSheet('QComboBox:editable {{background-color: {}; color: #FFFFFF;}}'.format(color))
-        else:
-            self.setStyleSheet('QComboBox:editable {{background-color: {};}}'.format(color))
-
 class LCAggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
@@ -127,9 +86,9 @@ class LCAggTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Code', tr_lc_setup.tr('Input code')),
-                          ('Initial_Label', tr_lc_setup.tr('Input class')),
-                          ('Final_Label', tr_lc_setup.tr('Output class'))]
+        colname_tuples = [('Initial_Code', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Input code')),
+                          ('Initial_Label', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Input class')),
+                          ('Final_Label', QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', 'Output class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
@@ -142,8 +101,6 @@ class LCAggTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
-            return Qt.AlignCenter
         elif role != Qt.DisplayRole:
             return None
         return self.classes[index.row()].get(self.colnames_json[index.column()], '')
@@ -158,8 +115,8 @@ class LCAggTableModel(QAbstractTableModel):
 def read_class_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,
-                tr_lc_setup.tr("Error"),
-                tr_lc_setup.tr(u"Cannot read {}.".format(f)))
+                QtWidgets.QApplication.translate("Error"),
+                QtWidgets.QApplication.translate(u"Cannot read {}.".format(f), None))
         return None
 
     with open(f) as class_file:
@@ -172,8 +129,9 @@ def read_class_file(f):
             or 'Final_Label' not in classes[0]):
 
         QtWidgets.QMessageBox.critical(None,
-                                       tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid class definition.".format(f)))
+                                   QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation', "Error"),
+                                   QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                u"{} does not appear to contain a valid class definition.".format(f)))
         return None
     else:
         log(u'Loaded class definition from {}'.format(f))
@@ -187,6 +145,15 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         self.default_classes = default_classes
 
         self.setupUi(self)
+
+        self.final_classes = {'No data': -32768,
+                              'Tree-covered': 1,
+                              'Grassland': 2,
+                              'Cropland': 3,
+                              'Wetland': 4,
+                              'Artificial': 5,
+                              'Other land': 6,
+                              'Water body': 7}
 
         self.btn_save.clicked.connect(self.btn_save_pressed)
         self.btn_load.clicked.connect(self.btn_load_pressed)
@@ -209,9 +176,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
         else:
             return
         classes = read_class_file(f)
@@ -221,16 +187,17 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
 
     def btn_save_pressed(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                     self.tr('Choose where to save this land cover definition'),
-                                                     QSettings().value("LDMP/lc_def_dir", None),
-                                                     self.tr('Land cover definition (*.json)'))
+                                              QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                           'Choose where to save this land cover definition'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              QtWidgets.QApplication.translate('DlgCalculateLCSetAggregation',
+                                                                           'Land cover definition (*.json)'))
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
             class_def = self.get_agg_as_dict_list()
@@ -245,7 +212,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             initial_code = self.remap_view.model().index(row, 0).data()
             label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
             label_widget = self.remap_view.indexWidget(label_widget_index)
-            out[initial_code] = final_classes[label_widget.currentText()]['value']
+            out[initial_code] = self.final_classes[label_widget.currentText()]
         return out
 
     def get_agg_as_dict_list(self):
@@ -260,8 +227,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             # Get the currently assigned label for this code
             label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
             label_widget = self.remap_view.indexWidget(label_widget_index)
-            this_out['Final_Label'] = final_classes[label_widget.currentText()]['label']
-            this_out['Final_Code'] = final_classes[label_widget.currentText()]['value']
+            this_out['Final_Label'] = label_widget.currentText()
+            this_out['Final_Code'] = self.final_classes[this_out['Final_Label']]
 
             out.append(this_out)
         # Sort output by initial code
@@ -277,44 +244,28 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             # Get the currently assigned label for this code
             label_widget_index = self.remap_view.model().index(row, 2)
             label_widget = self.remap_view.indexWidget(label_widget_index)
-            final_code = final_classes[label_widget.currentText()]['value']
+            final_code = self.final_classes[label_widget.currentText()]
             out[0].append(initial_code)
             out[1].append(final_code)
         return out
 
-    def setup_class_table(self, classes=[]):
-        # Load the codes each class will be recoded to.
-        # 
-        # The "classes" parameter will include any mappings derived from a 
-        # class definition file, or, in the case or reading in user land cover 
-        # files, classes from the file itself.
-        # 
-        # The default codes stored in self.default_classes are derived either 
-        # from the data/land_cover_classes_ESA_to_IPCC.json file when this class is 
-        # instantiated from the LCSetupWidget, or from the values within a 
-        # custom user data file when this class is instantiated from the 
-        # DlgDataIOImportLC class.
-        if len(classes) > 0:
-            input_codes = sorted([c['Initial_Code'] for c in classes])
-            default_codes = sorted([c['Initial_Code'] for c in self.default_classes])
-            new_codes = [c for c in input_codes if c not in default_codes]
-            missing_codes = [c for c in default_codes if c not in input_codes]
-            if len(new_codes) > 0:
-                QtWidgets.QMessageBox.warning(None,
-                                              self.tr("Warning"),
-                                              self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]))))
-            if len(missing_codes) > 0:
-                QtWidgets.QMessageBox.warning(None,
-                                              self.tr("Warning"),
-                                              self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]))))
+    def setup_class_table(self, classes):
+        default_codes = sorted([c['Initial_Code'] for c in self.default_classes])
+        input_codes = sorted([c['Initial_Code'] for c in classes])
+        new_codes = [c for c in input_codes if c not in default_codes]
+        missing_codes = [c for c in default_codes if c not in input_codes]
+        if len(new_codes) > 0:
+            QtWidgets.QMessageBox.warning(None, self.tr("Warning"),
+                                      self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]), None)))
+        if len(missing_codes) > 0:
+            QtWidgets.QMessageBox.warning(None, self.tr("Warning"),
+                                      self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]), None)))
 
-            # Setup a new classes list with the new class codes for all classes 
-            # included in default classes, and any other class codes that are 
-            # missing added from the default class list
-            classes = [c for c in classes if c['Initial_Code'] in default_codes]
-            classes.extend([c for c in self.default_classes if c['Initial_Code'] not in input_codes])
-        else:
-            classes = self.default_classes
+        # Setup a new classes list with the new class codes for all classes 
+        # included in default calsses, and and any other class codes that are 
+        # missing added from the default class list
+        classes = [c for c in classes if c['Initial_Code'] in default_codes]
+        classes.extend([c for c in self.default_classes if c['Initial_Code'] not in input_codes])
 
         table_model = LCAggTableModel(classes, parent=self)
         proxy_model = QSortFilterProxyModel()
@@ -323,40 +274,53 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
 
         # Add selector in cell
         for row in range(0, len(classes)):
-            lc_class_combo = LCClassComboBox()
-
-
-            # Now Set the default final codes for each row. Note that the 
-            # QComboBox entries are potentially translated, so need to link the 
-            # translated names back to a particular code.
-            
-            # Get the input code for this row and the final label it should map 
-            # to by default
-            input_code = table_model.index(row, 0).data()
-            final_label = [c['Final_Label'] for c in classes if c['Initial_Code'] == input_code][0]
-
-            # Figure out which label translation this Final_Label (in English) 
-            # is equivalent to
-            label_to_label_tr = {final_classes[key]['label']: key for key in final_classes.keys()}
-            final_label_tr = label_to_label_tr[final_label]
-
-            # Now find the index in the combo box of this translated final 
-            # label
-            ind = lc_class_combo.findText(final_label_tr)
+            lc_classes = QtWidgets.QComboBox()
+            lc_classes.currentIndexChanged.connect(self.lc_class_combo_changed)
+            # Add the classes in order of their codes
+            lc_classes.addItems(sorted(list(self.final_classes.keys()), key=lambda k: self.final_classes[k]))
+            ind = lc_classes.findText(classes[row]['Final_Label'])
             if ind != -1:
-                lc_class_combo.setCurrentIndex(ind)
-            self.remap_view.setIndexWidget(proxy_model.index(row, 2), lc_class_combo)
+                lc_classes.setCurrentIndex(ind)
+            self.remap_view.setIndexWidget(proxy_model.index(row, self.remap_view.model().columnCount() - 1), lc_classes)
 
-        self.remap_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
-        self.remap_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-        self.remap_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
-        
         self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
-
+        self.remap_view.setColumnWidth(1, 450)
+        self.remap_view.horizontalHeader().setStretchLastSection(True)
         return True
 
+    def lc_class_combo_changed(self, index):
+        if self.sender().currentText() == self.tr('No data'):
+            class_color = "#000000"
+        elif self.sender().currentText() == self.tr('Tree-covered'):
+            class_color = "#787F1B"
+        elif self.sender().currentText() == self.tr('Grassland'):
+            class_color = "#FFAC42"
+        elif self.sender().currentText() == self.tr('Cropland'):
+            class_color = "#FFFB6E"
+        elif self.sender().currentText() == self.tr('Wetland'):
+            class_color = "#00DB84"
+        elif self.sender().currentText() == self.tr('Artificial'):
+            class_color = "#E60017"
+        elif self.sender().currentText() == self.tr('Other land'):
+            class_color = "#FFF3D7"
+        elif self.sender().currentText() == self.tr('Water body'):
+            class_color = "#0053C4"
+        else:
+            class_color = "#d7d6d5"
+
+        #TODO: Fix this so color coding is working
+        # Note double brackets to escape for string.format
+        # gradient = QLinearGradient(1, .5, .6, .5)
+        # gradient.setColorAt(.6, QColor(class_color))
+        # gradient.setColorAt(.6, QColor('#d7d6d5'))
+        # self.sender().setItemData(index, gradient, Qt.BackgroundRole)
+
+        # self.sender().setStyleSheet('''QComboBox {{background: qlineargradient(x1:1, y1:.5, x2:.6, y2:.5,
+        #                                                                        stop:0.6 {class_color},
+        #                                                                        stop:0.8 #d7d6d5);}}'''.format(class_color=class_color))
+
     def reset_class_table(self):
-        self.setup_class_table()
+        self.setup_class_table(self.default_classes)
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation):
@@ -394,7 +358,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         # Setup the vertical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self)
-        label_lc_baseline_year.setText(self.tr("Land cover in initial year "))
+        label_lc_baseline_year.setText(QtWidgets.QApplication.translate("DlgCalculateLC", "Land cover in initial year ", None))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -410,10 +374,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         self.deg_def_matrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
         self.deg_def_matrix.verticalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(row, QtWidgets.QHeaderView.Stretch)
-        for col in range(0, self.deg_def_matrix.columnCount()):
-            self.deg_def_matrix.verticalHeader().setSectionResizeMode(col, QtWidgets.QHeaderView.Stretch)
+        self.deg_def_matrix.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.Stretch)
+        self.deg_def_matrix.verticalHeader().setResizeMode(QtWidgets.QHeaderView.Stretch)
 
         self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
@@ -432,9 +394,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
             if os.access(f, os.R_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot read {}. Choose a different file.".format(f), None))
         else:
             return None
 
@@ -447,24 +408,26 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         if not flag:
             QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("{} does not appear to contain a valid matrix definition.".format(f)))
+                                       QtWidgets.QApplication.translate('DlgCalculateLC', "Error"),
+                                       QtWidgets.QApplication.translate('DlgCalculateLC',
+                                                                    u"{} does not appear to contain a valid matrix definition.".format(f)))
             return None
         else:
             return True
 
     def trans_matrix_savefile(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                     self.tr('Choose where to save this transition matrix definition'),
-                                                     QSettings().value("LDMP/lc_def_dir", None),
-                                                     self.tr('Transition matrix definition (*.json)'))
+                                              QtWidgets.QApplication.translate('DlgCalculateLC',
+                                                                           'Choose where to save this transition matrix definition'),
+                                              QSettings().value("LDMP/lc_def_dir", None),
+                                              QtWidgets.QApplication.translate('DlgCalculateLC',
+                                                                           'Transition matrix definition (*.json)'))
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
                 QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f), None))
                 return
 
             matrix = self.trans_matrix_get()
@@ -520,7 +483,7 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
         self.setupUi(self)
 
         default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                         'data', 'land_cover_classes_ESA_to_IPCC.json')
+                                         'data', 'land_cover_classes.json')
         self.dlg_esa_agg = DlgCalculateLCSetAggregation(read_class_file(default_class_file), parent=self)
 
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)

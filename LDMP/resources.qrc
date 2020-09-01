@@ -4,23 +4,24 @@
     <file>icons/SDG_15.svg</file>
     <file>icons/trends_earth_logo_bl.svg</file>
     <file>trends_earth_logo_square_32x32.png</file>
+    <file>trend_plugin_logo.png</file>
     <file>icons/trends_earth_logo_bl_small.png</file>
     <file>icons/GEF_logo_small.png</file>
     <file>icons/CI_logo_small.png</file>
     <file>icons/NASA_logo_small.png</file>
     <file>icons/LU_logo_small.png</file>
-    <file>icons/calculator.svg</file>
+    <file>icons/calculator1.svg</file>
     <file>icons/clipboard.svg</file>
-    <file>icons/cloud-download.svg</file>
+    <file>icons/cloud-download1.svg</file>
     <file>icons/cog.svg</file>
-    <file>icons/document.svg</file>
-    <file>icons/folder.svg</file>
-    <file>icons/graph.svg</file>
-    <file>icons/globe.svg</file>
-    <file>icons/info.svg</file>
-    <file>icons/map-marker.svg</file>
-    <file>icons/tree.svg</file>
-    <file>icons/wrench.svg</file>
+    <file>icons/document1.svg</file>
+    <file>icons/folder1.svg</file>
+    <file>icons/graph1.svg</file>
+    <file>icons/globe1.svg</file>
+    <file>icons/info1.svg</file>
+    <file>icons/map-marker1.svg</file>
+    <file>icons/tree1.svg</file>
+    <file>icons/wrench2.svg</file>
     <file>icons/spinner.gif</file>
   </qresource>
 </RCC>

@@ -15,11 +15,11 @@
 from builtins import object
 import os
 
-from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu
 from qgis.PyQt.QtGui import QIcon
 
-from LDMP import __version__, __release_date__, __revision__, log
+from LDMP import __version__
 from LDMP.settings import DlgSettings
 from LDMP.download_data import DlgDownload
 from LDMP.calculate import DlgCalculate
@@ -35,6 +35,22 @@ from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
 import LDMP.resources
+
+
+def showHelp(file='index', section=None):
+    locale = QSettings().value('locale/userLocale')[0:2]
+    help_base_path = os.path.join(os.path.dirname(__file__), 'help', 'build', 'html')
+    locale_path = os.path.join(help_base_path, locale)
+    QgsMessageLog.logMessage(u'Checking for plugin help in {}'.format(locale_path), tag="trends.earth", level=Qgis.Info)
+    if os.path.exists(locale_path):
+        help_path = os.path.join(locale_path, file)
+    else:
+        help_path = os.path.join(help_base_path, 'en', file)
+    QgsMessageLog.logMessage(u'Showing plugin help from {}'.format(help_path), tag="trends.earth", level=Qgis.Info)
+    if section:
+        showPluginHelp(filename=help_path, section=section)
+    else:
+        showPluginHelp(filename=help_path)
 
 
 class LDMPPlugin(object):
@@ -55,9 +71,26 @@ class LDMPPlugin(object):
 
         self.provider = None
 
+        # initialize locale and translation
+        locale = QSettings().value('locale/userLocale')[0:2]
+        locale_path = os.path.join(
+            self.plugin_dir,
+            'i18n',
+            u'LDMP_{}.qm'.format(locale))
+        QgsMessageLog.logMessage(u'Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
+                                 tag="trends.earth", level=Qgis.Info)
+
+        if os.path.exists(locale_path):
+            self.translator = QTranslator()
+            self.translator.load(locale_path)
+            if qVersion() > '4.3.3':
+                QCoreApplication.installTranslator(self.translator)
+                QgsMessageLog.logMessage("Translator installed.", tag="trends.earth",
+                                         level=Qgis.Info)
+
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u'&trends.earth'))
+        self.menu = QMenu(QApplication.translate('LDMP', u'&trends.earth'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
@@ -72,13 +105,26 @@ class LDMPPlugin(object):
         self.dlg_data_io = DlgDataIO()
         self.dlg_about = DlgAbout()
 
+    # noinspection PyMethodMayBeStatic
+    def tr(self, message):
+        """Get the translation for a string using Qt translation API.
+
+        We implement this ourselves since we do not inherit QObject.
+
+        :param message: String for translation.
+        :type message: str, QString
+
+        :returns: Translated version of message.
+        :rtype: QString
+        """
+        # noinspection PyTypeChecker,PyArgumentList,PyCallByClass
+        return QCoreApplication.translate('LDMP', message)
+
     def initProcessing(self):
         self.provider = Provider()
         QgsApplication.processingRegistry().addProvider(self.provider)
-
-    def tr(self, message):
-        return QCoreApplication.translate("plugin", message)
         
+
     def add_action(
             self,
             icon_path,
@@ -155,66 +201,67 @@ class LDMPPlugin(object):
 
         """Create the menu entries and toolbar icons inside the QGIS GUI."""
         self.add_action(
-            ':/plugins/LDMP/icons/wrench.svg',
-            text=self.tr(u'Settings'),
+            ':/plugins/LDMP/icons/wrench2.svg',
+            text=QApplication.translate('LDMP', u'User Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth Settings'))
+            status_tip=QApplication.translate('LDMP', 'LDMT User Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/calculator.svg',
-            text=self.tr(u'Calculate indicators'),
+            ':/plugins/LDMP/icons/calculator1.svg',
+            text=QApplication.translate('LDMP', u'Calculate indicators'),
             callback=self.run_calculate,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Calculate indicators'))
+            status_tip=QApplication.translate('LDMP', 'Calculate indicators'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/graph.svg',
-            text=self.tr(u'Plot data'),
+            ':/plugins/LDMP/icons/graph1.svg',
+            text=QApplication.translate('LDMP', u'Plot data'),
             callback=self.run_plot,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Plot time series datasets'))
+            status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/cloud-download.svg',
-            text=self.tr(u'View Google Earth Engine tasks'),
+            ':/plugins/LDMP/icons/cloud-download1.svg',
+            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
             callback=self.get_jobs,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('View cloud processing tasks'))
+            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/document.svg',
-            text=self.tr(u'Visualization tool'),
+            ':/plugins/LDMP/icons/document1.svg',
+            text=QApplication.translate('LDMP', u'Visualization tool'),
             callback=self.run_visualization,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Visualize and summarize data'))
+            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/folder.svg',
-            text=self.tr(u'Load data'),
+            ':/plugins/LDMP/icons/folder1.svg',
+            text=QApplication.translate('LDMP', u'Load data'),
             callback=self.data_io,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Load local data'))
+            status_tip=QApplication.translate('LDMP', 'Load local data'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/globe.svg',
-            text=self.tr(u'Download raw data'),
+            ':/plugins/LDMP/icons/globe1.svg',
+            text=QApplication.translate('LDMP', u'Download raw data'),
             callback=self.run_download,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Download raw datasets'))
+            status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/info.svg',
-            text=self.tr(u'About'),
+            ':/plugins/LDMP/icons/info1.svg',
+            text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('About trends.earth'))
+            status_tip=QApplication.translate('LDMP', 'About trends.earth'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginRasterMenu(
-                self.tr(u'&trends.earth'), action)
+                QApplication.translate('LDMP', u'&trends.earth'),
+                action)
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())
@@ -254,5 +301,6 @@ class LDMPPlugin(object):
         result = self.dlg_data_io.exec_()
 
     def run_about(self):
+        #showHelp()
         self.dlg_about.show()
         result = self.dlg_about.exec_()

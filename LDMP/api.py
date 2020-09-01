@@ -23,28 +23,25 @@ import requests
 import json
 from urllib.parse import quote_plus
 
-from qgis.PyQt.QtCore import QCoreApplication, QSettings, QEventLoop
-from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt import QtWidgets, QtCore
 
 from qgis.utils import iface
 
 from LDMP.worker import AbstractWorker, start_worker
 
-from LDMP import log, debug_on
+from LDMP import log
 
-API_URL = 'https://api.trends.earth'
+API_URL = 'http://localhost:3000'
+# API_URL = 'https://api.trends.earth/'
 TIMEOUT = 20
 
 
-class tr_api(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_api", message)
-
-
 def get_user_email(warn=True):
-    email = QSettings().value("LDMP/email", None)
+    email = QtCore.QSettings().value("LDMP/email", None)
     if warn and email is None:
-        QMessageBox.critical(None, tr_api.tr("Error"), tr_api.tr( "Please register with Trends.Earth before using this function."))
+        QtWidgets.QMessageBox.critical(None,
+                                   QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", "Please register with Trends.Earth before using this function."))
         return None
     else:
         return email
@@ -98,25 +95,25 @@ class Request(object):
     def start(self):
         try:
             worker = RequestWorker(self.url, self.method, self.payload, self.headers)
-            pause = QEventLoop()
+            pause = QtCore.QEventLoop()
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, tr_api.tr(u'Contacting {} server...'.format(self.server_name)))
+            start_worker(worker, iface, QtWidgets.QApplication.translate("LDMP", u'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
-            QMessageBox.critical(None,
-                                       tr_api.tr("Error"),
-                                       tr_api.tr(u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(None,
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
-            QMessageBox.critical(None,
-                                       tr_api.tr("Error"),
-                                       tr_api.tr(u"Unable to connect to {} server.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(None,
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Unable to connect to {} server.".format(self.server_name)))
             resp = None
 
     def save_resp(self, resp):
@@ -160,7 +157,8 @@ def get_error_status(resp):
         # response
         resp = resp.json()
     except ValueError:
-        return ('Unknown error', None)
+        # return ('Unknown error', None)
+        return (resp)
     status = resp.get('status', None)
     if not status:
         status = resp.get('status_code', 'None')
@@ -174,19 +172,19 @@ def login(email=None, password=None):
     if (email == None):
         email = get_user_email()
     if (password == None):
-        password = QSettings().value("LDMP/password", None)
+        password = QtCore.QSettings().value("LDMP/password", None)
     if not email or not password:
         log('API unable to login - check username/password')
-        QMessageBox.critical(None,
-                                   tr_api.tr("Error"),
-                                   tr_api.tr("Unable to login to Trends.Earth. Check your username and password."))
+        QtWidgets.QMessageBox.critical(None,
+                                   QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to Trends.Earth. Check your username and password."))
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
     if resp != None:
-        QSettings().setValue("LDMP/email", email)
-        QSettings().setValue("LDMP/password", password)
+        QtCore.QSettings().setValue("LDMP/email", email)
+        QtCore.QSettings().setValue("LDMP/password", password)
 
     return resp
 
@@ -216,12 +214,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()
-        if resp is not None:
-            log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
-        else:
-            log(u'API response from "{}" request was None'.format(method))
-        if debug_on():
-            log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
+        log(u'API response from "{}" request: {}'.format(method, clean_api_response(resp)))
     else:
         resp = None
 
@@ -230,7 +223,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
-            QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         ret = None
@@ -249,7 +242,7 @@ def get_header(url):
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
-            QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         log('Header request failed')
@@ -316,7 +309,7 @@ def update_user(email, name, organization, country):
     return call_api('/api/v1/user/me', 'patch', payload, use_token=True)
 
 
-def update_password(password, repeatPassword):
+def update_password(email, name, organization, country,password, repeatPassword):
     payload = {"email": email,
                "name": name,
                "institution": organization,

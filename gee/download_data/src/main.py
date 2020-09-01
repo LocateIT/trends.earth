@@ -25,16 +25,21 @@ def run(params, logger):
     start_year = None
     end_year = None
     temporal_resolution = params.get('temporal_resolution')
-    geojsons = json.loads(params.get('geojsons'))
+    geojsons1 = json.dumps(params.get('geojsons'))
+    geojsons = json.loads(geojsons1)
+    
     crs = params.get('crs')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))
+        print(EXECUTION_ID)
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    print(params)
 
     logger.debug("Running main script.")
     out = download(asset, name, temporal_resolution, start_year, end_year, 
                    EXECUTION_ID, logger)
     return out.export(geojsons, 'download', crs, logger, EXECUTION_ID)
+

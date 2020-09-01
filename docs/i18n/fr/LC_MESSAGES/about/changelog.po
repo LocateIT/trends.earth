@@ -163,11 +163,11 @@ msgstr ""
 
 #: D:/Code/LandDegradation/trends.earth/docs/source/about/changelog.rst:45
 msgid ""
-"`0.98 (April 2, 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
+"`1.0.2 (April 2, 2020) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 msgstr ""
 "`0,98 (2 avril 2020) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>"
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>"
 " `_"
 
 #: D:/Code/LandDegradation/trends.earth/docs/source/about/changelog.rst:47

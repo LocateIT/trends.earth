@@ -46,9 +46,10 @@ from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 
-class tr_calculate_tc(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_calculate_tc", message)
+def remap(a, remap_list):
+    for value, replacement in zip(remap_list[0], remap_list[1]):
+        a[a == value] = replacement
+    return a
 
 
 # TODO: Still need to code below for local calculation of Total Carbon change
@@ -336,7 +337,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def calculate_on_GEE(self, method, biomass_data):
         self.close()
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_start': self.hansen_bl_year.date().year(),
                    'year_end': self.hansen_tg_year.date().year(),
                    'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
@@ -351,12 +352,12 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         resp = run_script(get_script_slug('total-carbon'), payload)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Total carbon submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Total carbon submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit total carbon task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit total carbon task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -473,6 +474,9 @@ def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water,
                        area_non_forest, area_site, area_forest, 
                        initial_carbon_total, year_start, year_end, out_file):
                           
+    def tr(s):
+        return QtWidgets.QApplication.translate("LDMP", s)
+
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
 
     ##########################################################################
@@ -627,11 +631,11 @@ class SummaryTask(QgsTask):
         if self.isCanceled():
             return
         elif result:
-            QtWidgets.QMessageBox.information(None, tr_calculate_tc.tr("Success"),
-                                          tr_calculate_tc.tr(u'Summary table saved to {}'.format(self.outout_file)))
+            QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                          QtWidgets.QApplication.translate("LDMP", u'Summary table saved to {}'.format(self.outout_file)))
         else:
-            QtWidgets.QMessageBox.critical(None, tr_calculate_tc.tr("Error"),
-                                       tr_calculate_tc.tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
+            QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
 
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
     def __init__(self, parent=None):
@@ -639,7 +643,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
 
         self.setupUi(self)
 
-        self.add_output_tab(['.xlsx'])
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)
@@ -647,7 +651,34 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.combo_layer_f_loss.populate()
         self.combo_layer_tc.populate()
 
+    def select_output_file_table(self):
+        filename = QSettings().value("LDMP/output_filename_{}".format(__name__), None)
+        folder = QSettings().value("LDMP/output_dir", None)
+        if filename:
+            initial_path = filename
+        else:
+            initial_path = folder
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                self.tr('Choose a filename for the summary table'),
+                initial_path,
+                self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QSettings().setValue("LDMP/output_filename_{}".format(__name__), f)
+                self.output_file_table.setText(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
     def btn_calculate(self):
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_table.text():
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."))
+            return
+
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -667,14 +698,14 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
             return
         #######################################################################
         # Check that the layers cover the full extent needed
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the forest loss layer."))
-            return
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the total carbon layer."))
-            return
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the forest loss layer."))
+                return
+            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Area of interest is not entirely within the total carbon layer."))
+                return
 
         #######################################################################
         # Check that all of the productivity layers have the same resolution 
@@ -698,7 +729,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
 
         summary_task = SummaryTask(self.aoi, year_start, year_end, 
-                f_loss_vrt, tc_vrt, self.output_tab.output_basename.text() + '.xlsx')
+                f_loss_vrt, tc_vrt, self.output_file_table.text())
         log("Adding task to task manager")
         QgsApplication.taskManager().addTask(summary_task)
         if summary_task.status() not in [QgsTask.Complete, QgsTask.Terminated]:
