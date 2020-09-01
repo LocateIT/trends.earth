@@ -212,8 +212,8 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
 
         else:
             QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Error downloading basemap data."))
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Error downloading basemap data."))
 
     def cancel_clicked(self):
         self.close()

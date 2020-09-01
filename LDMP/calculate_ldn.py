@@ -27,30 +27,28 @@ import openpyxl
 from openpyxl.drawing.image import Image
 
 from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
+from qgis.PyQt.QtCore import QSettings, QDate
 
 from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log, __version__
+from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
-    json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
-    ldn_total_deg, ldn_total_by_trans)
+from LDMP.calculate import DlgCalculateBase, get_script_slug, MaskWorker, \
+    json_geom_to_geojson
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
-    delete_layer_by_filename)
+from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos, \
+    delete_layer_by_filename
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
+from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
 
-
-class tr_calculate_ldn(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_calculate_ldn", message)
+from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
@@ -185,8 +183,8 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
             return
 
         if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Initial and final year must be at least 10 years apart."))
+            QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Initial and final year must be at least 10 years apart."))
             return
 
         self.close()
@@ -219,7 +217,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         else:
             prod_mode = 'JRC LPD'
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'prod_mode': prod_mode,
                    'prod_traj_year_initial': prod_traj_year_initial,
                    'prod_traj_year_final': prod_traj_year_final,
@@ -237,7 +235,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
+                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2016',
                    'climate_gee_dataset': None,
                    'fl': .80,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
@@ -248,12 +246,12 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         resp = run_script(get_script_slug('sdg-sub-indicators'), payload)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("SDG sub-indicator task submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "SDG sub-indicator task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit SDG sub-indicator task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit SDG sub-indicator task to Google Earth Engine."),
                            level=0, duration=5)
 
 
@@ -459,9 +457,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # log('water.dtype: {}'.format(str(water.dtype)))
                 # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
                 
-                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg(deg_sdg, water, cell_areas_array)
-                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg(prod3, water, cell_areas_array)
-                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg(lc_array,
+                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg_f(deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg_f(prod3, water, cell_areas_array)
+                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg_f(lc_array,
                                                           np.array((mask_array == -32767) | water).astype(bool),
                                                           cell_areas_array)
 
@@ -499,7 +497,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator
-                this_rh, this_ch, this_xt = xtab(prod5, a_trans_bl_tg, cell_areas_array)
+                this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
                 # Don't use this transition xtab if it is empty (could 
                 # happen if take a xtab where all of the values are nan's)
                 if this_rh.size != 0:
@@ -508,7 +506,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         ch = this_ch
                         xt = this_xt
                     else:
-                        rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
+                        rh, ch, xt = merge_xtabs_i16(this_rh, this_ch, this_xt, rh, ch, xt)
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -521,7 +519,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg == -32768] = -32768 # No data
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
-                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg(a_deg_soc,
+                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg_f(a_deg_soc,
                                                             water,
                                                             cell_areas_array)
 
@@ -561,10 +559,11 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         self.setupUi(self)
 
-        self.add_output_tab(['.json', '.tif', '.xlsx'])
-
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
+
+        self.browse_output_file_layer.clicked.connect(self.select_output_file_layer)
+        self.browse_output_file_table.clicked.connect(self.select_output_file_table)
 
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():
@@ -594,7 +593,45 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
 
+    def select_output_file_layer(self):
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the output file'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Filename (*.json)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_layer.setText(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def select_output_file_table(self):
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
+                                              self.tr('Choose a filename for the summary table'),
+                                              QSettings().value("LDMP/output_dir", None),
+                                              self.tr('Summary table file (*.xlsx)'))
+        if f:
+            if os.access(os.path.dirname(f), os.W_OK):
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                self.output_file_table.setText(f)
+            else:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
     def btn_calculate(self):
+        ######################################################################
+        # Check that all needed output files are selected
+        if not self.output_file_layer.text():
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the indicator layer."))
+            return
+
+        if not self.output_file_table.text():
+            QtWidgets.QMessageBox.information(None, self.tr("Error"),
+                                          self.tr("Choose an output file for the summary table."))
+            return
+
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
@@ -758,7 +795,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
 
         output_sdg_tifs = []
-        output_sdg_json = self.output_tab.output_basename.text() + '.json'
+        output_sdg_json = self.output_file_layer.text()
         for n in range(len(wkts)):
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
@@ -850,7 +887,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
+                        trans_prod_xtab = merge_xtabs_i16(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
                                                           this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
@@ -860,7 +897,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
                            sdg_tbl_lc, lc_years, soc_years,
-                           self.output_tab.output_basename.text() + '.xlsx')
+                           self.output_file_table.text())
 
 
         # Add the SDG layers to the map
@@ -971,6 +1008,8 @@ def get_soc_total(soc_table, transition):
 def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
                        sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
                        soc_years, out_file):
+    def tr(s):
+        return QtWidgets.QApplication.translate("LDMP", s)
 
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_ldn_sdg.xlsx'))
 
@@ -1023,17 +1062,16 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ws_unccd = wb['UNCCD Reporting']
 
     for i in range(len(lc_years)):
-        log('lc_years len: {}'.format(len(lc_years)))
         # Water bodies
         cell = ws_unccd.cell(5 + i, 4)
         cell.value = lc_totals[i][6]
         # Other classes
-        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 38 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 24 + i, 2)
 
-    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 82, 3)
+    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 54, 3)
 
     for i in range(len(soc_years)):
-        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 92 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 64 + i, 2)
 
     try:
         ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
@@ -1055,10 +1093,10 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     try:
         wb.save(out_file)
         log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
-                                      tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
+        QtWidgets.QMessageBox.information(None, QtWidgets.QApplication.translate("LDMP", "Success"),
+                                      QtWidgets.QApplication.translate("LDMP", u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr_calculate_ldn.tr("Error"),
-                                   tr_calculate_ldn.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        QtWidgets.QMessageBox.critical(None, QtWidgets.QApplication.translate("LDMP", "Error"),
+                                   QtWidgets.QApplication.translate("LDMP", u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))

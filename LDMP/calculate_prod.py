@@ -218,7 +218,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                          self.groupBox_perf.isChecked() or
                          self.groupBox_state.isChecked()):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose one or more productivity sub-indicator to calculate."))
+                                       self.tr("Choose one or more productivity sub-indicator to calculate."), None)
             return
 
         # Note that the super class has several tests in it - if they fail it
@@ -243,7 +243,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         else:
             prod_mode = 'JRC LPD'
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'prod_mode': prod_mode,
                    'calc_traj': self.groupBox_traj.isChecked(),
                    'calc_perf': self.groupBox_perf.isChecked(),
@@ -271,10 +271,10 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         resp = run_script(get_script_slug('productivity'), payload)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Productivity task submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Productivity task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit productivity task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit productivity task to Google Earth Engine."),
                            level=0, duration=5)

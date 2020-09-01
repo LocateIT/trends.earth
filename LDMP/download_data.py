@@ -20,46 +20,14 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from qgis.PyQt import QtWidgets, QtCore
-from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, QDate, 
-        QObject, QEvent, QSortFilterProxyModel)
-from qgis.PyQt.QtGui import QFontMetrics
+from qgis.PyQt.QtCore import QSettings, QAbstractTableModel, Qt, QDate, \
+    QSortFilterProxyModel
 
 from LDMP import log
 
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgDownload import Ui_DlgDownload
-
-
-class tool_tipper(QObject):
-    def __init__(self, parent=None):
-        super(QObject, self).__init__(parent)
-
-    def eventFilter(self, obj, event):
-        if (event.type() == QEvent.ToolTip):
-            view = obj.parent()
-            if not view:
-                return False
-
-            pos = event.pos()
-            index = view.indexAt(pos)
-            if not index.isValid():
-                return False
-
-            itemText = str(view.model().data(index))
-            itemTooltip = view.model().data(index, Qt.ToolTipRole)
-
-            fm = QFontMetrics(view.font())
-            itemTextWidth = fm.width(itemText)
-            rect = view.visualRect(index)
-            rectWidth = rect.width()
-
-            if (itemTextWidth > rectWidth) and itemTooltip:
-                QtWidgets.QToolTip.showText(event.globalPos(), itemTooltip, view, rect)
-            else:
-                QtWidgets.QToolTip.hideText()
-            return True
-        return False
 
 
 class DataTableModel(QAbstractTableModel):
@@ -70,15 +38,14 @@ class DataTableModel(QAbstractTableModel):
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('category', self.tr('Category')),
-                          ('title', self.tr('Title')),
-                          ('Units', self.tr('Units')),
-                          ('Spatial Resolution', self.tr('Resolution')),
-                          ('Start year', self.tr('Start year')),
-                          ('End year', self.tr('End year')),
-                          ('extent_lat', self.tr('Extent (lat)')),
-                          ('extent_lon', self.tr('Extent (lon)')),
-                          ('INVALID', self.tr('Details'))]
+        colname_tuples = [('category', QtWidgets.QApplication.translate('LDMPPlugin', 'Category')),
+                          ('title', QtWidgets.QApplication.translate('LDMPPlugin', 'Title')),
+                          ('Units/Description', QtWidgets.QApplication.translate('LDMPPlugin', 'Units')),
+                          ('Spatial Resolution', QtWidgets.QApplication.translate('LDMPPlugin', 'Resolution')),
+                          ('Start year', QtWidgets.QApplication.translate('LDMPPlugin', 'Start year')),
+                          ('End year', QtWidgets.QApplication.translate('LDMPPlugin', 'End year')),
+                          ('Extent', QtWidgets.QApplication.translate('LDMPPlugin', 'Extent')),
+                          ('INVALID', QtWidgets.QApplication.translate('LDMPPlugin', 'Details'))]
         self.colnames_pretty = [x[1] for x in colname_tuples]
         self.colnames_json = [x[0] for x in colname_tuples]
 
@@ -91,8 +58,6 @@ class DataTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5, 6, 7]:
-            return Qt.AlignCenter
         elif role != Qt.DisplayRole:
             return None
         return self.datasets[index.row()].get(self.colnames_json[index.column()], '')
@@ -108,10 +73,6 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
         """Constructor."""
         super(DlgDownload, self).__init__(parent)
 
-        # Allow the download tool to support data downloads of any size (in 
-        # terms of area)
-        self._max_area = 1e10
-
         self.settings = QSettings()
 
         self.setupUi(self)
@@ -125,22 +86,11 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             for title in list(data_dict[cat].keys()):
                 item = data_dict[cat][title]
                 item.update({'category': cat, 'title': title})
-                min_x = item.get('Min Longitude', None)
-                max_x = item.get('Max Longitude', None)
-                min_y = item.get('Min Latitude', None)
-                max_y = item.get('Max Latitude', None)
-                if not None in (min_x, max_x, min_y, max_y):
-                    extent_lat = '{} - {}'.format(min_y, max_y)
-                    extent_lon = '{} - {}'.format(min_x, max_x)
-                    item.update({'extent_lat': extent_lat,
-                                 'extent_lon': extent_lon})
                 self.datasets.append(item)
 
         self.update_data_table()
 
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
-
-        self.data_view.viewport().installEventFilter(tool_tipper(self.data_view))
 
     def selection_changed(self):
         if self.data_view.selectedIndexes():
@@ -181,25 +131,17 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
-        self.proxy_model = QSortFilterProxyModel()
-        self.proxy_model.setSourceModel(table_model)
-        self.data_view.setModel(self.proxy_model)
+        proxy_model = QSortFilterProxyModel()
+        proxy_model.setSourceModel(table_model)
+        self.data_view.setModel(proxy_model)
 
         # Add "Notes" buttons in cell
         for row in range(0, len(self.datasets)):
             btn = QtWidgets.QPushButton(self.tr("Details"))
             btn.clicked.connect(self.btn_details)
-            self.data_view.setIndexWidget(self.proxy_model.index(row, 8), btn)
+            self.data_view.setIndexWidget(proxy_model.index(row, 7), btn)
 
-        self.data_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
-        self.data_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
-        self.data_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.Stretch)
-        self.data_view.horizontalHeader().setSectionResizeMode(3, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(4, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(5, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(7, QtWidgets.QHeaderView.ResizeToContents)
-        self.data_view.horizontalHeader().setSectionResizeMode(8, QtWidgets.QHeaderView.ResizeToContents)
+        self.data_view.horizontalHeader().setResizeMode(QtWidgets.QHeaderView.ResizeToContents)
 
         self.data_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
@@ -217,33 +159,29 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             return
 
         rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
-        # Construct unique dataset names as the concatenation of the category 
-        # and the title
-        selected_names = [self.proxy_model.index(row, 0).data() + self.proxy_model.index(row, 1).data()for row in rows]
-        selected_datasets = [d for d in self.datasets if d['category'] + d['title'] in selected_names]
 
         self.close()
 
-        crosses_180th, geojsons = self.gee_bounding_box
-        for dataset in selected_datasets:
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        for row in rows:
             payload = {'geojsons': json.dumps(geojsons),
                        'crs': self.aoi.get_crs_dst_wkt(),
                        'year_start': self.first_year.date().year(),
                        'year_end': self.last_year.date().year(),
                        'crosses_180th': crosses_180th,
-                       'asset': dataset['GEE Dataset'],
-                       'name': dataset['title'],
-                       'temporal_resolution': dataset['Temporal resolution'],
+                       'asset': self.datasets[row]['GEE Dataset'],
+                       'name': self.datasets[row]['title'],
+                       'temporal_resolution': self.datasets[row]['Temporal resolution'],
                        'task_name': self.options_tab.task_name.text(),
                        'task_notes': self.options_tab.task_notes.toPlainText()}
 
             resp = run_script(get_script_slug('download-data'), payload)
 
             if resp:
-                mb.pushMessage(self.tr("Success"),
-                               self.tr("Download request submitted to Google Earth Engine."),
+                mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Success"),
+                               QtWidgets.QApplication.translate("LDMP", "Download request submitted to Google Earth Engine."),
                                level=0, duration=5)
             else:
-                mb.pushMessage(self.tr("Error"),
-                               self.tr("Unable to submit download request to Google Earth Engine."),
+                mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                               QtWidgets.QApplication.translate("LDMP", "Unable to submit download request to Google Earth Engine."),
                                level=0, duration=5)

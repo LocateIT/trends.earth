@@ -22,15 +22,10 @@ from qgis.utils import iface
 from qgis.core import Qgis
 
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QThread, Qt, QEventLoop, QCoreApplication
-from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.PyQt.QtCore import QThread, Qt, QEventLoop
+from qgis.PyQt.QtWidgets import QProgressBar, QPushButton, QApplication
 
 from LDMP import log
-
-
-class tr_worker(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_worker", message)
 
 
 class AbstractWorker(QtCore.QObject):
@@ -172,7 +167,7 @@ class StartWorker(object):
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
         start_worker(self.worker, iface,
-                     tr_worker.tr('Processing: {}'.format(process_name)))
+                     QApplication.translate("LDMP", u'Processing: {}'.format(process_name)))
         pause.exec_()
 
         if self.exception:

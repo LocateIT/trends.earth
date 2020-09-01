@@ -21,7 +21,7 @@ import requests
 import hashlib
 
 from qgis.PyQt import QtWidgets, uic, QtCore
-from qgis.PyQt.QtCore import QAbstractTableModel, Qt, QCoreApplication
+from qgis.PyQt.QtCore import QAbstractTableModel, Qt
 
 from qgis.utils import iface
 
@@ -29,10 +29,6 @@ from LDMP import log
 
 from LDMP.api import get_header
 from LDMP.worker import AbstractWorker, start_worker
-
-class tr_download(object):
-    def tr(message):
-        return QCoreApplication.translate("tr_download", message)
 
 
 def check_hash_against_etag(url, filename, expected=None):
@@ -55,27 +51,21 @@ def check_hash_against_etag(url, filename, expected=None):
         return False
 
 
-def extract_zipfile(f, verify=True):
-    filename = os.path.join(os.path.dirname(__file__), 'data', f)
-    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(f)
+def extract_zipfile(file, verify=True):
+    filename = os.path.join(os.path.dirname(__file__), 'data', file)
+    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log(u'Downloading {}'.format(f))
+        log(u'Downloading {}'.format(file))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
         worker = Download(url, filename)
-        try:
-            worker.start()
-        except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to write to {}.".format(filename)))
-            return None
+        worker.start()
         resp = worker.get_resp()
         if not resp:
             return None
@@ -90,27 +80,21 @@ def extract_zipfile(f, verify=True):
         os.remove(filename)
         return False
 
-def read_json(f, verify=True):
-    filename = os.path.join(os.path.dirname(__file__), 'data', f)
-    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(f)
+def read_json(file, verify=True):
+    filename = os.path.join(os.path.dirname(__file__), 'data', file)
+    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(file)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log(u'Downloading {}'.format(f))
+        log(u'Downloading {}'.format(file))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
         worker = Download(url, filename)
-        try:
-            worker.start()
-        except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to write to {}. Do you need administrator permissions?".format(filename)))
-            return None
+        worker.start()
         resp = worker.get_resp()
         if not resp:
             return None
@@ -122,54 +106,6 @@ def read_json(f, verify=True):
         json_str = json_bytes.decode('utf-8')
 
     return json.loads(json_str)
-
-def download_files(urls, out_folder):
-    if out_folder == '':
-        QtWidgets.QMessageBox.critical(None,
-                                   tr_download.tr("Folder does not exist"),
-                                   tr_download.tr("Folder {} does not exist.".format(out_folder)))
-        return
-
-    if not os.access(out_folder, os.W_OK):
-        QtWidgets.QMessageBox.critical(None,
-                                   tr_download.tr("Error"),
-                                   tr_download.tr("Unable to write to {}.".format(out_folder)))
-        return
-
-    downloads = []
-    for url in urls:
-        out_path = os.path.join(out_folder, os.path.basename(url))
-        if not os.path.exists(out_path) or not check_hash_against_etag(url, out_path):
-            log(u'Downloading {} to {}'.format(url, out_path))
-
-            worker = Download(url, out_path)
-            try:
-                worker.start()
-            except PermissionError:
-                log(u'Unable to write to {}.'.format(out_folder))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("Unable to write to {}.".format(out_folder)))
-                return None
-
-            resp = worker.get_resp()
-            if not resp:
-                log(u'Error accessing {}.'.format(url))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("Error accessing {}.".format(url)))
-                return None
-            if not check_hash_against_etag(url, out_path):
-                log(u'File verification failed for {}.'.format(out_path))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("File verification failed for {}.".format(out_path)))
-                return None
-
-            downloads.extend(out_path)
-
-    return downloads
-
 
 
 def get_admin_bounds():
@@ -251,33 +187,33 @@ class Download(object):
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
             start_worker(worker, iface,
-                         tr_download.tr(u'Downloading {}').format(self.outfile))
+                         QtWidgets.QApplication.translate("LDMP", u'Downloading {}').format(self.outfile))
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
             log("Download failed due to ChunkedEncodingError - likely a connection loss")
             QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download failed. Check your internet connection."))
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
             QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to access internet. Check your internet connection."))
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Unable to access internet. Check your internet connection."))
             return False
         except requests.exceptions.Timeout:
             log('Download timed out.')
             QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download timed out. Check your internet connection."))
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Download timed out. Check your internet connection."))
             return False
         except DownloadError:
             log("Download failed.")
             QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download failed. Check your internet connection."))
+                                       QtWidgets.QApplication.translate("LDMP", "Error"),
+                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
             return False
         return True
 

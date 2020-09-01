@@ -157,7 +157,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
     def calculate_on_GEE(self):
         self.close()
 
-        crosses_180th, geojsons = self.gee_bounding_box
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
                    'geojsons': json.dumps(geojsons),
@@ -171,12 +171,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         resp = run_script(get_script_slug('land-cover'), payload)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Land cover task submitted to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Land cover task submitted to Google Earth Engine."),
                            level=0, duration=5)
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr( "Unable to submit land cover task to Google Earth Engine."),
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit land cover task to Google Earth Engine."),
                            level=0, duration=5)
 
     def get_save_raster(self):
@@ -221,12 +221,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."))
+                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
             return
 
         if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."))
+                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
             return
 
         # Select the initial and final bands from initial and final datasets 
@@ -242,12 +242,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."))
+                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
             return
 
         out_f = self.get_save_raster()
@@ -271,7 +271,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        out_f, trans_matrix, persistence_remap)
         if not lc_change_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating land cover change."))
+                                       self.tr("Error calculating land cover change."), None)
             return
 
         band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),

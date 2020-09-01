@@ -39,16 +39,13 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
+      <item row="1" column="0">
     <widget class="QTableView" name="jobs_view">
      <property name="minimumSize">
       <size>
        <width>600</width>
        <height>200</height>
       </size>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::AnyKeyPressed|QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed|QAbstractItemView::SelectedClicked</set>
      </property>
      <property name="selectionMode">
       <enum>QAbstractItemView::ExtendedSelection</enum>
@@ -66,7 +63,7 @@
       <bool>true</bool>
      </attribute>
      <attribute name="horizontalHeaderStretchLastSection">
-      <bool>false</bool>
+      <bool>true</bool>
      </attribute>
      <attribute name="verticalHeaderVisible">
       <bool>false</bool>

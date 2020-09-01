@@ -12,31 +12,34 @@
  ***************************************************************************/
 """
 
+__version__ = "1.0.2"
+
 import sys
 import os
-import re
+import requests
 import site
-import json
 from tempfile import NamedTemporaryFile
 
-from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
-        QLocale, QCoreApplication)
+from qgis.PyQt import QtCore
 
-from qgis.core import QgsMessageLog, QgsApplication
+from qgis.core import QgsMessageLog
 from qgis.utils import iface
 
-plugin_dir = os.path.dirname(os.path.realpath(__file__))
+# Ensure that the ext-libs for the plugin are near the front of the path
+# (important on Linux)
+dirpath = os.path.abspath(os.path.join(os.path.dirname(__file__), 'ext-libs'))
+sys.path, remainder = sys.path[:1], sys.path[1:]
+site.addsitedir(dirpath)
+sys.path.extend(remainder)
 
-with open(os.path.join(plugin_dir, 'version.json')) as f:
-    version_info = json.load(f)
-__version__ = version_info['version']
-__version_major__ = re.sub(r'([0-9]+)(\.[0-9]+)+$', r'\g<1>', __version__)
-__revision__ = version_info['revision']
-__release_date__ = version_info['release_date']
+debug = QtCore.QSettings().value('LDMP/debug', True)
 
 
 def log(message, level=0):
-    QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
+    if debug:
+        QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
+
+# noinspection PyPep8Naming
 
 
 def classFactory(iface):  # pylint: disable=invalid-name
@@ -56,53 +59,3 @@ def GetTempFilename(suffix):
     f = NamedTemporaryFile(suffix=suffix, delete=False)
     f.close()
     return f.name
-
-# initialize translation
-i18n_dir = os.path.join(plugin_dir, 'i18n')
-log(u'Starting trends.earth version {} (rev: {}, released {}).'.format(__version__, __revision__, __release_date__))
-
-translator = QTranslator()
-locale = QLocale(QgsApplication.locale())
-log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
-translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
-ret = QCoreApplication.installTranslator(translator)
-if ret:
-    log("Translator installed for {}.".format(locale.name()))
-else:
-    log("FAILED while trying to install translator for {}.".format(locale.name()))
-
-# Ensure that the ext-libs, and binaries folder (if available) are near the 
-# front of the path (important on Linux)
-ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
-binaries_folder = QSettings().value("LDMP/binaries_folder", None)
-sys.path, remainder = sys.path[:1], sys.path[1:]
-site.addsitedir(ext_libs_path)
-if binaries_folder:
-    log('Adding {} to path for binaries.'.format(binaries_folder))
-    site.addsitedir(os.path.join(binaries_folder,
-        'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
-sys.path.extend(remainder)
-
-
-def binaries_available():
-    ret = True
-    try:
-        from trends_earth_binaries import summary_numba
-        if QSettings().value("LDMP/debug", False):
-            log("Numba-compiled version of summary_numba available.")
-    except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False):
-            log("Numba-compiled version of summary_numba not available.")
-        ret = False
-    try:
-        from trends_earth_binaries import calculate_numba
-        if QSettings().value("LDMP/debug", False):
-            log("Numba-compiled version of calculate_numba available.")
-    except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False):
-            log("Numba-compiled version of calculate_numba not available.")
-        ret = False
-    return ret
-
-def debug_on():
-    QSettings().value("LDMP/debug", False) == 'True'

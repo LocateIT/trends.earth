@@ -16,10 +16,10 @@ class Provider(QgsProcessingProvider):
         return 'trendsearth'
 
     def name(self, *args, **kwargs):
-        return self.tr('Trends.Earth')
+        return self.tr('Landeg')
 
     def icon(self):
         """Should return a QIcon which is used for your provider inside
         the Processing toolbox.
         """
-        return QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png')
+        return QIcon(':/plugins/LDMP/trend_plugin_logo.png')
