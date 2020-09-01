@@ -1,1 +1,7 @@
 
+[submodule "LDMP/schemas"]
+	path = LDMP/schemas
+	url = https://github.com/ConservationInternational/trends.earth-schemas.git
+[submodule "trends.earth-CLI"]
+	path = trends.earth-CLI
+	url = https://github.com/LocateIT/trends.earth-CLI.git
