@@ -32,10 +32,10 @@ def run(params, logger):
     
     crs = 'GEOGCS["WGS 84",DATUM["WGS_1984",SPHEROID["WGS 84",6378137,298.257223563,AUTHORITY["EPSG","7030"]],AUTHORITY["EPSG","6326"]],PRIMEM["Greenwich",0,AUTHORITY["EPSG","8901"]],UNIT["degree",0.0174532925199433,AUTHORITY["EPSG","9122"]],AUTHORITY["EPSG","4326"]]'
     # Check the ENV. Are we running this locally or in prod?
-    # if params.get('ENV') == 'dev':
-    EXECUTION_ID = str(random.randint(1000000, 99999999))
-    # else:
-    #     EXECUTION_ID = params.get('EXECUTION_ID', None)
+    if params.get('ENV') == 'dev':
+        EXECUTION_ID = str(random.randint(1000000, 99999999))
+    else:
+        EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
     out = download(asset, name, temporal_resolution, start_year, end_year, 
