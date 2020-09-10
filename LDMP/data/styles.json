@@ -669,6 +669,19 @@
             }
         }
     },
+    "Landsat (LE07, annual)": {
+        "title": "le07_annual",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#ce7e45"},
+            "zero": {"color": "#fcd163"},
+            "max": {"color": "#056201"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
     "Soil Grids 250": {
         "title": "soil_grids_250_wrb",
         "ramp": {

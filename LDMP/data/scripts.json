@@ -56,5 +56,9 @@
     "restoration-biomass": {
         "script version": "1.0.2",
         "description": "Calculate potential change in biomass with restoration."
+    },
+    "forest-change":{
+        "script version":"1.0.2",
+        "description":"Calculate forest loss, gain and cover with Hansen Data"
     }
 }
