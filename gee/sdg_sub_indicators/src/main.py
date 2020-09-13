@@ -60,7 +60,7 @@ def run(params, logger):
     proj = ee.Image(ndvi_gee_dataset).projection()
 
     logger.debug("Running productivity indicators.")
-    if prod_mode == 'Trends.Earth productivity':
+    if prod_mode == 'LDMS productivity':
         outs = []
         for geojson in geojsons:
             # Need to loop over the geojsons, since performance takes in a 

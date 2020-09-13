@@ -23,12 +23,12 @@ from qgis.PyQt import QtWidgets, uic
 # resources_rc problem you get with QGIS plugins when loading resources. See:
 # https://gis.stackexchange.com/a/202162/25916
 sys.path.append(os.path.dirname(__file__))
-FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'gui', 'DlgCalculateISD.ui'),
+FORM_CLASS, _ = uic.loadUiType(os.path.join(os.path.dirname(__file__), 'gui', 'DlgCalculateAQI.ui'),
                                resource_suffix='')
 
-class DlgCalculateISD(QtWidgets.QDialog, FORM_CLASS):
+class DlgCalculateAQI(QtWidgets.QDialog, FORM_CLASS):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgCalculateISD, self).__init__(parent)
+        super(DlgCalculateAQI, self).__init__(parent)
 
         self.setupUi(self)

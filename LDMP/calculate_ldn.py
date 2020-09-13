@@ -213,7 +213,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         soc_year_final = self.year_final.date().year()
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = 'LDMS productivity'
         else:
             prod_mode = 'JRC LPD'
 
@@ -300,7 +300,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         mask_ds = gdal.Open(self.mask_file)
         band_mask = mask_ds.GetRasterBand(1)
 
-        if self.prod_mode == 'Trends.Earth productivity':
+        if self.prod_mode == 'LDMS productivity':
             traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
             perf_band = src_ds.GetRasterBand(self.prod_band_nums[1])
             state_band = src_ds.GetRasterBand(self.prod_band_nums[2])
@@ -386,7 +386,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1).astype(np.float32)
 
-                if self.prod_mode == 'Trends.Earth productivity':
+                if self.prod_mode == 'LDMS productivity':
                     traj_recode = ldn_recode_traj(traj_band.ReadAsArray(x, y, cols, rows))
 
                     state_recode = ldn_recode_state(state_band.ReadAsArray(x, y, cols, rows))
@@ -640,14 +640,14 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             return
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = 'LDMS productivity'
         else:
             prod_mode = 'JRC LPD'
 
 
         ######################################################################
         # Check that all needed input layers are selected
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             if len(self.combo_layer_traj.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool."))
@@ -679,7 +679,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         #######################################################################
         # Check that the layers cover the full extent needed
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_traj.get_layer().extent())) < .99:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the trajectory layer."))
@@ -713,7 +713,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         def res(layer):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
 
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and state layer do not match."))
@@ -736,7 +736,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             traj_vrt = self.combo_layer_traj.get_vrt()
             perf_vrt = self.combo_layer_perf.get_vrt()
             state_vrt = self.combo_layer_state.get_vrt()
@@ -789,7 +789,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         # Compute the pixel-aligned bounding box (slightly larger than aoi). 
         # Use this instead of croptocutline in gdal.Warp in order to keep the 
         # pixels aligned with the chosen productivity layer.
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             bbs = self.aoi.get_aligned_output_bounds(traj_vrt)
         else:
             bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
@@ -801,7 +801,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
-            if prod_mode == 'Trends.Earth productivity':
+            if prod_mode == 'LDMS productivity':
                 gdal.BuildVRT(indic_vrt,
                               in_files + [traj_vrt, perf_vrt, state_vrt],
                               outputBounds=bbs[n],
@@ -902,7 +902,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         # Add the SDG layers to the map
         output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             output_sdg_bandinfos.append(BandInfo("SDG 15.3.1 Productivity Indicator"))
         
         if len(output_sdg_tifs) == 1:
@@ -915,7 +915,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                                                 'task_notes': self.options_tab.task_notes.toPlainText()})
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == 'LDMS productivity':
             add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
 
         return True

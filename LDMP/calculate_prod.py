@@ -239,7 +239,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
             climate_gee_dataset = None
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = 'LDMS productivity'
         else:
             prod_mode = 'JRC LPD'
 

@@ -177,7 +177,7 @@ def login(email=None, password=None):
         log('API unable to login - check username/password')
         QtWidgets.QMessageBox.critical(None,
                                    QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to LDMP. Check your username and password."))
+                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to LDMS. Check your username and password."))
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})

@@ -141,7 +141,7 @@
         </property>
         <property name="text">
          <string>MEDALUS Indicators for vulnerability to desertification
-(ISD, CQI, SQI and VQI)</string>
+(AQI, CQI, SQI and VQI)</string>
         </property>
        </widget>
       </item>

@@ -175,7 +175,7 @@
           <item row="0" column="0">
            <widget class="QRadioButton" name="mode_te_prod">
             <property name="text">
-             <string>Trends.Earth land productivity</string>
+             <string>LDMS land productivity</string>
             </property>
             <property name="checked">
              <bool>true</bool>

@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Login to Trends.Earth</string>
+   <string>Login to Land Degradation Monitoring System</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

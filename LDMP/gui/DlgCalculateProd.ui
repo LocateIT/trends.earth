@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>510</width>
+    <width>608</width>
     <height>641</height>
    </rect>
   </property>
@@ -41,7 +41,7 @@
       </size>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="IndicatorsTab">
       <attribute name="title">
@@ -101,7 +101,7 @@
              </sizepolicy>
             </property>
             <property name="text">
-             <string>Trends.Earth land productivity</string>
+             <string>LDMS land productivity</string>
             </property>
             <property name="checked">
              <bool>true</bool>
@@ -196,8 +196,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>492</width>
-            <height>638</height>
+            <width>554</width>
+            <height>702</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_9">
