@@ -130,7 +130,7 @@
     <message>
         <location filename="../calculate.py" line="181"/>
         <source>Failed to add geojson to temporary layer.</source>
-        <translation>Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
+        <translation type="obsolete">Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="89"/>
@@ -195,17 +195,17 @@
     <message>
         <location filename="../calculate.py" line="70"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
+        <translation type="obsolete">Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>Warning</source>
-        <translation>Onyo</translation>
+        <translation type="obsolete">Onyo</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation>Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
+        <translation type="obsolete">Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
@@ -300,12 +300,12 @@
     <message>
         <location filename="../calculate.py" line="147"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation>Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
+        <translation type="obsolete">Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="368"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation>Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
+        <translation type="obsolete">Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
     </message>
     <message>
         <location filename="../layers.py" line="138"/>
@@ -370,7 +370,7 @@
     <message>
         <location filename="../calculate.py" line="967"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation>Umechagua kuendesha mahesabu kwa jiji. Lazima ukitenge umbali wa umbali ili ueleze eneo la hesabu unapokuwa usindikaji mji.</translation>
+        <translation type="obsolete">Umechagua kuendesha mahesabu kwa jiji. Lazima ukitenge umbali wa umbali ili ueleze eneo la hesabu unapokuwa usindikaji mji.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="154"/>
@@ -451,7 +451,7 @@
     <message>
         <location filename="../calculate.py" line="391"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation>Kosa la kubadilisha kuratibu. Angalia kwamba jiometri ya kuingiza ni sawa.</translation>
+        <translation type="obsolete">Kosa la kubadilisha kuratibu. Angalia kwamba jiometri ya kuingiza ni sawa.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="132"/>
@@ -542,32 +542,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Point chooser</source>
         <translation>Weka chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Click the map to choose a point.</source>
         <translation>Bonyeza ramani ili kuchagua uhakika.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Select a file defining the area of interest</source>
         <translation>Chagua faili inayofafanua eneo la riba</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Faili ya Vector (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
@@ -575,27 +575,70 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="685"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
+    </message>
+</context>
+<context>
+    <name>CalculationOutputWidget</name>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Information</source>
+        <translation type="unfinished">Taarifa</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
-        <source>About trends.earth</source>
-        <translation>Kuhusu trends.earth</translation>
+        <source>About LDMP</source>
+        <translation type="unfinished">Kuhusu trends.earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="23"/>
@@ -636,7 +679,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;Toleo la VERSION_NUMBER&lt;/span&gt; &lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;Pata mwongozo wa watumiaji hapa:&lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (zamani Zana ya Ufuatiliaji wa Degradation ya Ardhi) ni zana ya kuangalia mabadiliko ya ardhi. trends.earth ni programu ya&lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;ambayo inasaidia ufuatiliaji wa mabadiliko ya ardhi, pamoja na mabadiliko katika uzalishaji, kifuniko cha ardhi, na kaboni hai ya kaboni. Chombo hicho kinaweza kusaidia kuangalia uharibifu wa ardhi kwa kuripoti kwa Kituo cha Mazingira ya Ulimwenguni (GEF) na Mkataba wa Umoja wa Mataifa wa Kupambana na Jangwa la Janga (UNCCD), na pia kufuatilia maendeleo kuelekea kufanikisha Malengo ya Maendeleo Endelevu (SDG). ).&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;mwenendo.earth ilitolewa kama pato la mradi unaofadhiliwa na GEF&lt;/span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&amp;quot;Kuwezesha utumiaji wa vyanzo vya data vya ulimwengu kutathmini na kuangalia uharibifu wa ardhi katika mizani nyingi&amp;quot;&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. Mradi unakusudia kutoa mwongozo juu ya njia zenye nguvu na zana ya kutathmini, kuangalia hali, na kukadiria mwenendo wa uharibifu wa ardhi kwa kutumia teknolojia ya kuhisi mbali.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;mwenendo.sira ni bure na wazi-chanzo.&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Kanuni hupatikana bila malipo online&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. Nambari hiyo ina leseni chini ya Leseni ya Umma ya Umma ya GNU, toleo la 2.0 au baadaye.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Bidhaa hizi za trends.earth zinapatikana chini ya masharti ya Leseni ya Kimataifa ya ubunifu ya Commons Attribution 4.0 (&lt;/span&gt; &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;). Mipaka na majina yaliyotumiwa, na maelezo yaliyotumiwa, katika mwenendo. Hayanaanishi kudhibitishwa rasmi au kukubalika na Shirika la Kimataifa la Uhifadhi, au mashirika ya washirika wake na wachangiaji.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Ikiwa unakutana na mende yoyote au una maswala yoyote kwa kutumia programu-jalizi, tafadhali wasiliana nasi kwa&lt;/span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;, au&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;uripoti suala kwenye github&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Onyo:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Mwenendo.Earth. Kimataifa ya Uhifadhi. Inapatikana mtandaoni kwa: http://trends.earth. 2018.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -650,11 +693,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="41"/>
-        <source>Trends.Earth tools</source>
-        <translation>Mwelekeo wa zana</translation>
+        <source>LDMS tools</source>
+        <translation type="unfinished">Mwelekeo wa zana</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="131"/>
+        <location filename="../gui/DlgCalculate.ui" line="157"/>
         <source>Total carbon (above and belowground, emissions from deforestation)</source>
         <translation>Jumla ya kaboni (juu na chini ya ardhi, uzalishaji kutoka kwa ukataji miti)</translation>
     </message>
@@ -666,77 +709,121 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="91"/>
-        <source>Urban change and land consumption indicators
-(SDG indicator 11.3.1)</source>
-        <translation>Mabadiliko ya mijini na viashiria vya matumizi ya ardhi (kiashiria cha SDG 11.3.1)</translation>
+        <source>Forest Degradation Hotspots
+(Forest Loss, Gain and Cover)</source>
+        <translation type="unfinished">Mabadiliko ya mijini na viashiria vya matumizi ya ardhi (kiashiria cha SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="113"/>
+        <location filename="../gui/DlgCalculate.ui" line="139"/>
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
         <translation>Vifaa vya majaribio (matoleo ya BETA - zana hizi bado ziko chini ya maendeleo, na hutolewa kwa ajili ya kupima tu)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="150"/>
+        <location filename="../gui/DlgCalculate.ui" line="176"/>
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>Mabadiliko ya uwezekano wa majani kutokana na marejesho (hapo juu na chini ya ardhi)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="117"/>
+        <source>MEDALUS Indicators for vulnerability to desertification
+(ISD, CQI, SQI and VQI)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1199"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="1124"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Chagua mipaka ya utawala wa kwanza.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="1131"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Haiwezi kupakia mipaka ya utawala.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="990"/>
+        <location filename="../calculate.py" line="1138"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Chagua faili ili kufafanua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="1034"/>
         <source>Area</source>
         <translation>Eneo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="895"/>
+        <location filename="../calculate.py" line="1043"/>
         <source>Options</source>
         <translation>Chaguo</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="998"/>
+        <location filename="../calculate.py" line="1151"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Chagua hatua kuelezea eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1009"/>
+        <location filename="../calculate.py" line="1162"/>
         <source>Choose an area of interest.</source>
         <translation>Chagua eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1014"/>
+        <location filename="../calculate.py" line="1167"/>
         <source>Unable to read area of interest.</source>
         <translation>Haiwezi kusoma eneo la riba.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1193"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>Sanduku linalowekwa kwa eneo lililoombwa (takriban {: .6n}) sq km ni kubwa mno. Chagua sehemu ndogo ya mchakato.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1021"/>
+        <location filename="../calculate.py" line="1174"/>
         <source>Error buffering polygon</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1039"/>
+        <source>Output</source>
+        <translation type="unfinished">Pato</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1142"/>
+        <source>Unable to read {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1181"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1199"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateForest</name>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="23"/>
+        <source>Calculate Forest Degradation Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="41"/>
+        <source>Step 1: Calculate Forest Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="87"/>
+        <source>Step 2: Calculate urban change summary table</source>
+        <translation type="unfinished">Hatua ya 2: Kuhesabu meza ya muhtasari wa mabadiliko ya mijini</translation>
     </message>
 </context>
 <context>
@@ -973,12 +1060,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Coming soon!</source>
         <translation>Inakuja hivi karibuni!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Hesabu ya hesabu ya meza ya polygoni nyingi ijayo hivi karibuni!</translation>
     </message>
@@ -1342,6 +1429,74 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTablePolygons.ui" line="371"/>
         <source>Previous</source>
         <translation>Kabla</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateMedalus</name>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="23"/>
+        <source>Calculate Indicators</source>
+        <translation type="unfinished">Viashiria vya Hesabu</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="35"/>
+        <source>Step 1: Prepare sub-indicators</source>
+        <translation type="unfinished">Hatua ya 1: Panga viashiria vidogo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="110"/>
+        <source>SQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="135"/>
+        <source>vqi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="160"/>
+        <source>CQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="185"/>
+        <source>ISD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="47"/>
+        <source>Option 1: Use default data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="85"/>
+        <source>Option 2: Use customized data</source>
+        <translation type="unfinished">Chaguo 2: Tumia data iliyoboreshwa</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="201"/>
+        <source>Step 2: Calculate final MEDALUS layer</source>
+        <translation type="unfinished">Hatua ya 2: Fanya kiashiria cha mwisho cha SDG 15.3.1</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="72"/>
+        <source>Calculate all three sub-indicators in one step</source>
+        <translation type="unfinished">Tumia maelekezo yote ya tatu katika hatua moja</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="213"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation type="unfinished">Chaguo 1: Tumia kitengo kimoja cha uchambuzi (kwa mfano mipaka ya nchi)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="238"/>
+        <source>Calculate final MEDALUS for vulnerability to desertification spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="251"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation type="unfinished">Chaguo 2: Tumia vitengo vidogo vya uchambuzi (kwa mfano mkoa, hali au mipaka ya wilaya)</translation>
     </message>
 </context>
 <context>
@@ -2473,13 +2628,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="35"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation>Weka dasaset iliyozalishwa na TRENDS.EARTH</translation>
+        <source>Load a dataset produced by LDMS</source>
+        <translation type="unfinished">Weka dasaset iliyozalishwa na TRENDS.EARTH</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="65"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation>Weka faili iliyopo ya TRENDS.EARTH ya pato</translation>
+        <source>Load an existing LDMS output file</source>
+        <translation type="unfinished">Weka faili iliyopo ya TRENDS.EARTH ya pato</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
@@ -2585,17 +2740,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="994"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation>Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
+        <translation type="obsolete">Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="115"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation>Kumbuka: Ikiwa kusoma faili kubwa inashauriwa kuwa chaguzi hapo juu ichunguliwe, kwani itaharakisha mchakato wa kusoma madarasa ya pembejeo kutoka kwa daftari. Walakini, ikiwa utaona kuwa Trends.Earth haigunduzi madarasa yote kwenye faili ya uingizaji, inaweza kuwa muhimu kuzima chaguo hili. (Inatumika tu ikiwa pembejeo mbaya imechaguliwa)</translation>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that LDMS is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
+        <translation type="unfinished">Kumbuka: Ikiwa kusoma faili kubwa inashauriwa kuwa chaguzi hapo juu ichunguliwe, kwani itaharakisha mchakato wa kusoma madarasa ya pembejeo kutoka kwa daftari. Walakini, ikiwa utaona kuwa Trends.Earth haigunduzi madarasa yote kwenye faili ya uingizaji, inaweza kuwa muhimu kuzima chaguo hili. (Inatumika tu ikiwa pembejeo mbaya imechaguliwa)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="939"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="994"/>
+        <source>Error reading data. LDMS supports a maximum of 60 different land cover classes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2650,8 +2810,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="1141"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji. Trends.Earth itapakia faili wakati wowote, lakini kagua ramani mara moja imefakia ili kuhakikisha maadili yanafanya akili. Maadili pekee yanayoruhusiwa katika faili ya uingizaji wa uzalishaji ni -32768, 1, 2, 3, 4 na 5. Kuna {} thamani (s) katika faili ya uingizaji ambayo haijatambuliwa.</translation>
+        <source>The input file ({}) does not appear to be a valid productivity input file. LDMS will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished">Faili ya pembejeo ({}) haionekani kuwa faili sahihi ya uingizaji wa uzalishaji. Trends.Earth itapakia faili wakati wowote, lakini kagua ramani mara moja imefakia ili kuhakikisha maadili yanafanya akili. Maadili pekee yanayoruhusiwa katika faili ya uingizaji wa uzalishaji ni -32768, 1, 2, 3, 4 na 5. Kuna {} thamani (s) katika faili ya uingizaji ambayo haijatambuliwa.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1132"/>
@@ -2706,8 +2866,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTE</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>Fungua Mwelekeo wa Wavuti</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">Fungua Mwelekeo wa Wavuti</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
@@ -2737,12 +2897,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="491"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>Chagua Mwenendo wa faili ya pato</translation>
+        <translation type="obsolete">Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="491"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="550"/>
@@ -2756,8 +2916,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="525"/>
-        <source>{} does not appear to be a Trends.Earth output file</source>
-        <translation>{} haionekani kuwa Trends.Faili ya pato la msingi</translation>
+        <source>{} does not appear to be a LDMS output file</source>
+        <translation type="unfinished">{} haionekani kuwa Trends.Faili ya pato la msingi</translation>
     </message>
 </context>
 <context>
@@ -2782,8 +2942,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTESingleLayer</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>Fungua Mwelekeo wa Wavuti</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">Fungua Mwelekeo wa Wavuti</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="36"/>
@@ -2955,8 +3115,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="35"/>
-        <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation>Kazi huisha siku 30 baada ya kuwasilishwa. Baada ya kazi imekamilika, haitaonekana tena katika orodha hii. {14?}</translation>
+        <source>Jobs expire 7 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
+        <translation type="unfinished">Kazi huisha siku 30 baada ya kuwasilishwa. Baada ya kazi imekamilika, haitaonekana tena katika orodha hii. {14?}</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="296"/>
@@ -3118,8 +3278,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="191"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation>Una uhakika unataka kufuta mtumiaji {}? Kazi zako zote zitapotea na hutaweza tena kusindika data mtandaoni kwa kutumia Trends.Earth.</translation>
+        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using LDMS.</source>
+        <translation type="unfinished">Una uhakika unataka kufuta mtumiaji {}? Kazi zako zote zitapotea na hutaweza tena kusindika data mtandaoni kwa kutumia Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="197"/>
@@ -3277,9 +3437,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="148"/>
-        <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
+        <source>Logged in to the LDMS server as {}.&lt;html&gt;&lt;p&gt;Welcome to LDMS!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
-        <translation>Kuingia kwenye seva ya Trends.Earth kama {}. &lt;html&gt;&lt;p&gt; Karibu kwenye Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Jiunge na Vikundi vya Trends.Earth Goers&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Hakikisha kuungana na vikundi vya google kwa watumiaji wa Trends.Ear ili kuendelea na sasisho na Q&amp;amp;A kuhusu zana, njia, na hifadhidata kuunga mkono ufuatiliaji wa Malengo ya Maendeleo Endelevu. &lt;/p&gt;</translation>
+        <translation type="unfinished">Kuingia kwenye seva ya Trends.Earth kama {}. &lt;html&gt;&lt;p&gt; Karibu kwenye Trends.Earth! &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Jiunge na Vikundi vya Trends.Earth Goers&lt;/a&gt; &lt;/p&gt;&lt;p&gt; Hakikisha kuungana na vikundi vya google kwa watumiaji wa Trends.Ear ili kuendelea na sasisho na Q&amp;amp;A kuhusu zana, njia, na hifadhidata kuunga mkono ufuatiliaji wa Malengo ya Maendeleo Endelevu. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3678,12 +3838,12 @@ maeneo</translation>
     <message>
         <location filename="../api.py" line="41"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation>Tafadhali jiandikisha na trends.earth kabla ya kutumia kazi hii.</translation>
+        <translation type="obsolete">Tafadhali jiandikisha na trends.earth kabla ya kutumia kazi hii.</translation>
     </message>
     <message>
         <location filename="../api.py" line="176"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation>Haiwezi kuingia kwenye seva ya LDMP. Angalia jina lako la mtumiaji na nenosiri.</translation>
+        <translation type="obsolete">Haiwezi kuingia kwenye seva ya LDMP. Angalia jina lako la mtumiaji na nenosiri.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="194"/>
@@ -3721,19 +3881,14 @@ maeneo</translation>
         <translation>Pakua nje wakati. Angalia uhusiano wako wa intaneti.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="262"/>
+        <location filename="../plugin.py" line="263"/>
         <source>&amp;trends.earth</source>
         <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
-        <source>Settings</source>
-        <translation>Mipangilio</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="203"/>
-        <source>LDMT Settings</source>
-        <translation>Mipangilio ya LDMT</translation>
+        <source>LDMT User Settings</source>
+        <translation type="unfinished">Mipangilio ya LDMT</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="210"/>
@@ -3746,22 +3901,22 @@ maeneo</translation>
         <translation>Dondoli data</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View Google Earth Engine tasks</source>
         <translation>Angalia kazi za Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View cloud processing tasks</source>
         <translation>Angalia kazi za usindikaji wa wingu</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualization tool</source>
         <translation>Chombo cha visualization</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="252"/>
+        <location filename="../plugin.py" line="253"/>
         <source>About</source>
         <translation>Kuhusu</translation>
     </message>
@@ -3773,7 +3928,7 @@ maeneo</translation>
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About trends.earth</source>
-        <translation>Kuhusu trends.earth</translation>
+        <translation type="obsolete">Kuhusu trends.earth</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="181"/>
@@ -3791,22 +3946,22 @@ maeneo</translation>
         <translation>Pata muda wa datasets mfululizo</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw data</source>
         <translation>Pakua data ghafi</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw datasets</source>
         <translation>Pakua data za mbichi</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load data</source>
         <translation>Weka data</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load local data</source>
         <translation>Weka data ya ndani</translation>
     </message>
@@ -3851,7 +4006,7 @@ maeneo</translation>
         <translation>Hitilafu ya kupakua data za basemap.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualize and summarize data</source>
         <translation>Tazama na muhtasari data</translation>
     </message>
@@ -3884,6 +4039,26 @@ maeneo</translation>
         <location filename="../calculate_urban.py" line="198"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>Imeshindwa kuwasilisha kazi ya eneo la mijini kwa Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="42"/>
+        <source>Please register with LDMS before using this function.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="178"/>
+        <source>Unable to login to LDMP. Check your username and password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="93"/>
+        <source>&amp;LDMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="253"/>
+        <source>About LDMS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4103,12 +4278,12 @@ maeneo</translation>
     <message>
         <location filename="../data_io.py" line="1269"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>Chagua Mwenendo wa faili ya pato</translation>
+        <translation type="obsolete">Chagua Mwenendo wa faili ya pato</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1269"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Mwelekeo wa faili ya metadata ya kwanza (* .json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1289"/>
@@ -4359,6 +4534,59 @@ maeneo</translation>
         <location filename="../gui/WidgetSelectArea.ui" line="444"/>
         <source>Buffer size (kilometers):</source>
         <translation>Ukubwa wa buffer (kilomita):</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>Error</source>
+        <translation type="unfinished">Hitilafu</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="89"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">Hitilafu - safu sio mfumo wa kuratibu wa kijiografia. Haiwezi kuunganisha safu kwenye meridian ya 180.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="144"/>
+        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
+        <translation type="unfinished">Haiwezi kupakia eneo la riba kutoka kwa {}. Kunaweza kuwa na tatizo na faili au kuratibu mfumo. Jaribu kupakia faili hii kwenye QGIS kwa kibinadamu ili kuthibitisha kwamba inaonyesha vizuri. Ikiwa unaendelea kuwa na matatizo na faili hii, tutumie ujumbe kwenye trends.earth@conservation.org.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="363"/>
+        <source>Failed to process area of interest - unknown geometry type: {}</source>
+        <translation type="unfinished">Imeshindwa kusindika eneo la riba - aina ya jiometri isiyojulikana: {}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="187"/>
+        <source>Failed to add geojson to temporary layer.</source>
+        <translation type="unfinished">Imeshindwa kuongeza geojson kwa safu ya muda mfupi.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="216"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>Warning</source>
+        <translation type="unfinished">Onyo</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
+        <translation type="unfinished">Eneo lililochaguliwa linavuka meridian ya 180. Inashauriwa kuweka mfumo wa kuratibu mradi kwenye mfumo wa kuratibu wa eneo (tazama kichupo cha &quot;CRS&quot; cha dirisha la &quot;Programu ya Programu&quot; kutoka kwenye &quot;Mradi&quot; wa menyu.)</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="386"/>
+        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
+        <translation type="unfinished">Kosa la kubadilisha kuratibu. Angalia kwamba jiometri ya kuingiza ni sawa.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished">Umechagua kuendesha mahesabu kwa jiji. Lazima ukitenge umbali wa umbali ili ueleze eneo la hesabu unapokuwa usindikaji mji.</translation>
     </message>
 </context>
 </TS>

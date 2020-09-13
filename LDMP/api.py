@@ -41,7 +41,7 @@ def get_user_email(warn=True):
     if warn and email is None:
         QtWidgets.QMessageBox.critical(None,
                                    QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", "Please register with Trends.Earth before using this function."))
+                                   QtWidgets.QApplication.translate("LDMP", "Please register with LDMS before using this function."))
         return None
     else:
         return email
@@ -82,7 +82,7 @@ class RequestWorker(AbstractWorker):
 
 
 class Request(object):
-    def __init__(self, url, method='get', payload=None, headers={}, server_name='Trends.Earth'):
+    def __init__(self, url, method='get', payload=None, headers={}, server_name='Land Degradation Monitoring Service'):
         self.resp = None
         self.exception = None
 
@@ -177,7 +177,7 @@ def login(email=None, password=None):
         log('API unable to login - check username/password')
         QtWidgets.QMessageBox.critical(None,
                                    QtWidgets.QApplication.translate("LDMP", "Error"),
-                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to Trends.Earth. Check your username and password."))
+                                   QtWidgets.QApplication.translate("LDMP", "Unable to login to LDMP. Check your username and password."))
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})

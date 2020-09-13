@@ -77,7 +77,7 @@ class LDMPPlugin(object):
             self.plugin_dir,
             'i18n',
             u'LDMP_{}.qm'.format(locale))
-        QgsMessageLog.logMessage(u'Starting trends.earth version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
+        QgsMessageLog.logMessage(u'Starting LDMS version {} using locale "{}" in path {}.'.format(__version__, locale, locale_path),
                                  tag="trends.earth", level=Qgis.Info)
 
         if os.path.exists(locale_path):
@@ -90,11 +90,11 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(QApplication.translate('LDMP', u'&trends.earth'))
+        self.menu = QMenu(QApplication.translate('LDMP', u'&LDMS'))
         self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
-        self.toolbar = self.iface.addToolBar(u'trends.earth')
+        self.toolbar = self.iface.addToolBar(u'LDMS')
 
         self.dlg_settings = DlgSettings()
         self.dlg_calculate = DlgCalculate()
@@ -214,26 +214,12 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Calculate indicators'))
 
-        self.add_action(
-            ':/plugins/LDMP/icons/graph1.svg',
-            text=QApplication.translate('LDMP', u'Plot data'),
-            callback=self.run_plot,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/cloud-download1.svg',
-            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
-            callback=self.get_jobs,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/document1.svg',
-            text=QApplication.translate('LDMP', u'Visualization tool'),
-            callback=self.run_visualization,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
+        # self.add_action(
+        #     ':/plugins/LDMP/icons/graph1.svg',
+        #     text=QApplication.translate('LDMP', u'Plot data'),
+        #     callback=self.run_plot,
+        #     parent=self.iface.mainWindow(),
+        #     status_tip=QApplication.translate('LDMP', 'Plot time series datasets'))
 
         self.add_action(
             ':/plugins/LDMP/icons/folder1.svg',
@@ -249,12 +235,27 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
+        
+        self.add_action(
+            ':/plugins/LDMP/icons/cloud-download1.svg',
+            text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
+            callback=self.get_jobs,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/document1.svg',
+            text=QApplication.translate('LDMP', u'Visualization tool'),
+            callback=self.run_visualization,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
+
         self.add_action(
             ':/plugins/LDMP/icons/info1.svg',
             text=QApplication.translate('LDMP', u'About'),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'About trends.earth'))
+            status_tip=QApplication.translate('LDMP', 'About LDMS'))
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""

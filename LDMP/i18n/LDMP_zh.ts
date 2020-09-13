@@ -130,7 +130,7 @@
     <message>
         <location filename="../calculate.py" line="181"/>
         <source>Failed to add geojson to temporary layer.</source>
-        <translation>无法将geojson添加到临时图层。</translation>
+        <translation type="obsolete">无法将geojson添加到临时图层。</translation>
     </message>
     <message>
         <location filename="../layers.py" line="89"/>
@@ -195,17 +195,17 @@
     <message>
         <location filename="../calculate.py" line="70"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>错误 - 图层不在地理坐标系中。不能在180度子午线上包裹层。</translation>
+        <translation type="obsolete">错误 - 图层不在地理坐标系中。不能在180度子午线上包裹层。</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>Warning</source>
-        <translation>警告</translation>
+        <translation type="obsolete">警告</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation>所选区域穿越第180个子午线。建议您将项目坐标系设置为本地坐标系（请参阅“项目”菜单中的“项目属性”窗口的“CRS”选项卡）。</translation>
+        <translation type="obsolete">所选区域穿越第180个子午线。建议您将项目坐标系设置为本地坐标系（请参阅“项目”菜单中的“项目属性”窗口的“CRS”选项卡）。</translation>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
@@ -300,12 +300,12 @@
     <message>
         <location filename="../calculate.py" line="147"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation>无法从{}加载感兴趣的区域。文件或坐标系可能存在问题。尝试手动将此文件加载到QGIS中以验证它是否正确显示。如果您仍然遇到此文件的问题，请发送电子邮件至trends.earth@conservation.org。</translation>
+        <translation type="obsolete">无法从{}加载感兴趣的区域。文件或坐标系可能存在问题。尝试手动将此文件加载到QGIS中以验证它是否正确显示。如果您仍然遇到此文件的问题，请发送电子邮件至trends.earth@conservation.org。</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="368"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation>无法处理感兴趣的区域 - 未知几何类型：{}</translation>
+        <translation type="obsolete">无法处理感兴趣的区域 - 未知几何类型：{}</translation>
     </message>
     <message>
         <location filename="../layers.py" line="138"/>
@@ -370,7 +370,7 @@
     <message>
         <location filename="../calculate.py" line="967"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation>您已选择为城市运行计算。处理城市时，必须选择缓冲距离来定义计算区域。</translation>
+        <translation type="obsolete">您已选择为城市运行计算。处理城市时，必须选择缓冲距离来定义计算区域。</translation>
     </message>
     <message>
         <location filename="../layers.py" line="154"/>
@@ -451,7 +451,7 @@
     <message>
         <location filename="../calculate.py" line="391"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation>转换坐标时出错。检查输入几何形状是否有效。</translation>
+        <translation type="obsolete">转换坐标时出错。检查输入几何形状是否有效。</translation>
     </message>
     <message>
         <location filename="../layers.py" line="132"/>
@@ -542,32 +542,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Point chooser</source>
         <translation>点选择器</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Click the map to choose a point.</source>
         <translation>点击地图选择一个点。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Select a file defining the area of interest</source>
         <translation>选择一个定义感兴趣区域的文件</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>矢量文件（* .shp * .kml * .kmz * .geojson）</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
@@ -575,27 +575,70 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="685"/>
         <source>Select folder containing data</source>
         <translation>选择包含数据的文件夹</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>无法阅读 {}。选择其他文件夹。</translation>
+    </message>
+</context>
+<context>
+    <name>CalculationOutputWidget</name>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">无法写入{}。选择一个不同的文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Information</source>
+        <translation type="unfinished">信息</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
-        <source>About trends.earth</source>
-        <translation>关于trends.earth</translation>
+        <source>About LDMP</source>
+        <translation type="unfinished">关于trends.earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="23"/>
@@ -636,7 +679,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;版本VERSION_NUMBER&lt;/span&gt; &lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;在此处访问用户指南：&lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;:&lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;//trends.earth/docs/en&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.earth（以前是土地退化监测工具箱）是用于监测土地变化的工具。 Trends.earth是一个&lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;插件，支持监视土地变化，包括生产力，土地覆盖率和土壤有机碳的变化。该工具可支持监测土地退化情况，以便向全球环境基金（GEF）和《联合国防治荒漠化公约》（UNCCD）报告，以及跟踪实现可持续发展目标（SDG）指标15.3，土地退化中立性（LDN）的进度）。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.earth是全球环境基金资助的项目&lt;/span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;“使全球数据源可用于评估和监测多尺度土地退化”的结果&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;。该项目旨在为使用遥感技术的可靠方法和评估，监测状况以及评估土地退化趋势的工具提供指导。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.earth是免费的开放源代码。该&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;代码可在线免费获得&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;。该代码已获得GNU通用公共许可证2.0版或更高版本的许可。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;根据知识共享署名4.0国际许可（&lt;/span&gt; &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;）&lt;/span&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;的条款，提供了Trends.earth的产品&lt;/span&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;。 Trends.earth中使用的边界和名称以及使用的名称并不表示国际自然保护基金会或其合作伙伴组织和贡献者具有官方认可或接受。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;如果您在使用插件时遇到任何错误或有任何问题，请通过&lt;/span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;与我们联系&lt;/span&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;，或&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;在github上报告问题&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;引文：&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;趋势地球。保护国际。可在线获得：http：//trends.earth。 2018。&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -650,11 +693,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="41"/>
-        <source>Trends.Earth tools</source>
-        <translation>Trends.Earth工具</translation>
+        <source>LDMS tools</source>
+        <translation type="unfinished">Trends.Earth工具</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="131"/>
+        <location filename="../gui/DlgCalculate.ui" line="157"/>
         <source>Total carbon (above and belowground, emissions from deforestation)</source>
         <translation>总碳（地上和地下，森林砍伐造成的排放）</translation>
     </message>
@@ -666,77 +709,121 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="91"/>
-        <source>Urban change and land consumption indicators
-(SDG indicator 11.3.1)</source>
-        <translation>城市变化和土地消费指标（可持续发展目标指标11.3.1）</translation>
+        <source>Forest Degradation Hotspots
+(Forest Loss, Gain and Cover)</source>
+        <translation type="unfinished">城市变化和土地消费指标（可持续发展目标指标11.3.1）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="113"/>
+        <location filename="../gui/DlgCalculate.ui" line="139"/>
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
         <translation>实验工具（BETA版本 - 这些工具仍在开发中，仅供测试）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="150"/>
+        <location filename="../gui/DlgCalculate.ui" line="176"/>
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>恢复过程中生物量的潜在变化（地上和地下木质）</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="117"/>
+        <source>MEDALUS Indicators for vulnerability to desertification
+(ISD, CQI, SQI and VQI)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1199"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="1124"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>选择一级管理边界。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="1131"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>无法加载管理界限。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="990"/>
+        <location filename="../calculate.py" line="1138"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>选择一个文件来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="1034"/>
         <source>Area</source>
         <translation>区</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="895"/>
+        <location filename="../calculate.py" line="1043"/>
         <source>Options</source>
         <translation>选项</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="998"/>
+        <location filename="../calculate.py" line="1151"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>选择一个点来定义感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1009"/>
+        <location filename="../calculate.py" line="1162"/>
         <source>Choose an area of interest.</source>
         <translation>选择一个感兴趣的领域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1014"/>
+        <location filename="../calculate.py" line="1167"/>
         <source>Unable to read area of interest.</source>
         <translation>无法读取感兴趣的区域。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1193"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>请求区域（大约{：.6n}）平方公里的边界框太大。选择较小的区域进行处理。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1021"/>
+        <location filename="../calculate.py" line="1174"/>
         <source>Error buffering polygon</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1039"/>
+        <source>Output</source>
+        <translation type="unfinished">产量</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1142"/>
+        <source>Unable to read {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1181"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1199"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateForest</name>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="23"/>
+        <source>Calculate Forest Degradation Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="41"/>
+        <source>Step 1: Calculate Forest Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="87"/>
+        <source>Step 2: Calculate urban change summary table</source>
+        <translation type="unfinished">第2步：计算城市变化汇总表</translation>
     </message>
 </context>
 <context>
@@ -973,12 +1060,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Coming soon!</source>
         <translation>快来了！</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>多边形汇总表计算即将推出！</translation>
     </message>
@@ -1342,6 +1429,74 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTablePolygons.ui" line="371"/>
         <source>Previous</source>
         <translation>以前</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateMedalus</name>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="23"/>
+        <source>Calculate Indicators</source>
+        <translation type="unfinished">计算指标</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="35"/>
+        <source>Step 1: Prepare sub-indicators</source>
+        <translation type="unfinished">第1步：准备子指标</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="110"/>
+        <source>SQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="135"/>
+        <source>vqi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="160"/>
+        <source>CQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="185"/>
+        <source>ISD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="47"/>
+        <source>Option 1: Use default data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="85"/>
+        <source>Option 2: Use customized data</source>
+        <translation type="unfinished">选项2：使用自定义数据</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="201"/>
+        <source>Step 2: Calculate final MEDALUS layer</source>
+        <translation type="unfinished">第2步：计算最终的SDG 15.3.1指标</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="72"/>
+        <source>Calculate all three sub-indicators in one step</source>
+        <translation type="unfinished">一步计算所有三个子指标</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="213"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation type="unfinished">选项1：使用单个单元进行分析（例如国家边界）</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="238"/>
+        <source>Calculate final MEDALUS for vulnerability to desertification spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="251"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation type="unfinished">选项2：使用子单元进行分析（例如省，州或地区边界）</translation>
     </message>
 </context>
 <context>
@@ -2473,13 +2628,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="35"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation>加载由TRENDS.EARTH生成的数据集</translation>
+        <source>Load a dataset produced by LDMS</source>
+        <translation type="unfinished">加载由TRENDS.EARTH生成的数据集</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="65"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation>加载现有的TRENDS.EARTH输出文件</translation>
+        <source>Load an existing LDMS output file</source>
+        <translation type="unfinished">加载现有的TRENDS.EARTH输出文件</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
@@ -2585,17 +2740,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="994"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation>读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别</translation>
+        <translation type="obsolete">读数据时出错。 Trends.Earth最多支持60种不同的土地覆盖类别</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="115"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation>注意：如果读取大文件，建议选中以上选项，因为这将显着加快从数据集中读取输入类的过程。但是，如果您发现Trends.Earth不能识别输入文件中的所有类，则可能有必要关闭此选项。 （仅在选择栅格输入时适用）</translation>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that LDMS is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
+        <translation type="unfinished">注意：如果读取大文件，建议选中以上选项，因为这将显着加快从数据集中读取输入类的过程。但是，如果您发现Trends.Earth不能识别输入文件中的所有类，则可能有必要关闭此选项。 （仅在选择栅格输入时适用）</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="939"/>
         <source>Enter the year of the input data.</source>
         <translation>输入输入数据的年份。</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="994"/>
+        <source>Error reading data. LDMS supports a maximum of 60 different land cover classes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2650,8 +2810,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="1141"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>输入文件（{}）似乎不是有效的生产力输入文件。 Trends.Earth无论如何都会加载文件，但是一旦加载了它就会查看地图，以确保这些值有意义。生产力输入文件中允许的唯一值是-32768,1,2,3,4和5.输入文件中有{}值无法识别。</translation>
+        <source>The input file ({}) does not appear to be a valid productivity input file. LDMS will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished">输入文件（{}）似乎不是有效的生产力输入文件。 Trends.Earth无论如何都会加载文件，但是一旦加载了它就会查看地图，以确保这些值有意义。生产力输入文件中允许的唯一值是-32768,1,2,3,4和5.输入文件中有{}值无法识别。</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1132"/>
@@ -2706,8 +2866,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTE</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>打开Trends.Earth文件</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">打开Trends.Earth文件</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
@@ -2737,12 +2897,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="491"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>选择Trends.Earth输出文件</translation>
+        <translation type="obsolete">选择Trends.Earth输出文件</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="491"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Trends.Earth元数据文件（* .json）</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="550"/>
@@ -2756,8 +2916,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="525"/>
-        <source>{} does not appear to be a Trends.Earth output file</source>
-        <translation>{}似乎不是Trends.Earth输出文件</translation>
+        <source>{} does not appear to be a LDMS output file</source>
+        <translation type="unfinished">{}似乎不是Trends.Earth输出文件</translation>
     </message>
 </context>
 <context>
@@ -2782,8 +2942,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTESingleLayer</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>打开Trends.Earth文件</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">打开Trends.Earth文件</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="36"/>
@@ -2955,8 +3115,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="35"/>
-        <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation>他们提交后30天到期。工作到期后，将不再出现在此列表中。 {14？}</translation>
+        <source>Jobs expire 7 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
+        <translation type="unfinished">他们提交后30天到期。工作到期后，将不再出现在此列表中。 {14？}</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="296"/>
@@ -3118,8 +3278,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="191"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation>您确定要删除该用户吗？您的所有任务都将丢失，您将无法再使用Trends.Earth在线处理数据。</translation>
+        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using LDMS.</source>
+        <translation type="unfinished">您确定要删除该用户吗？您的所有任务都将丢失，您将无法再使用Trends.Earth在线处理数据。</translation>
     </message>
     <message>
         <location filename="../settings.py" line="197"/>
@@ -3277,9 +3437,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="148"/>
-        <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
+        <source>Logged in to the LDMS server as {}.&lt;html&gt;&lt;p&gt;Welcome to LDMS!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
-        <translation>以{}登录到Trends.Earth服务器。 &lt;html&gt;&lt;p&gt;欢迎来到趋势地球！ &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;加入Trends.Earth Users Google组&lt;/a&gt; &lt;/p&gt;&lt;p&gt;确保加入Google Trends.Earth的Google组，以了解有关工具，方法和数据集的更新和问答，以支持可持续发展目标的监控。 &lt;/p&gt;</translation>
+        <translation type="unfinished">以{}登录到Trends.Earth服务器。 &lt;html&gt;&lt;p&gt;欢迎来到趋势地球！ &lt;p/&gt;&lt;p&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;加入Trends.Earth Users Google组&lt;/a&gt; &lt;/p&gt;&lt;p&gt;确保加入Google Trends.Earth的Google组，以了解有关工具，方法和数据集的更新和问答，以支持可持续发展目标的监控。 &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3676,12 +3836,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../api.py" line="41"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation>使用此功能之前，请先使用trends.earth注册。</translation>
+        <translation type="obsolete">使用此功能之前，请先使用trends.earth注册。</translation>
     </message>
     <message>
         <location filename="../api.py" line="176"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation>无法登录到LDMP服务器。检查您的用户名和密码。</translation>
+        <translation type="obsolete">无法登录到LDMP服务器。检查您的用户名和密码。</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="194"/>
@@ -3719,19 +3879,14 @@ p, li { white-space: pre-wrap; }
         <translation>下载超时。检查您的互联网连接。</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="262"/>
+        <location filename="../plugin.py" line="263"/>
         <source>&amp;trends.earth</source>
         <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
-        <source>Settings</source>
-        <translation>设置</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="203"/>
-        <source>LDMT Settings</source>
-        <translation>LDMT设置</translation>
+        <source>LDMT User Settings</source>
+        <translation type="unfinished">LDMT设置</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="210"/>
@@ -3744,22 +3899,22 @@ p, li { white-space: pre-wrap; }
         <translation>绘制数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View Google Earth Engine tasks</source>
         <translation>查看Google地球引擎任务</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View cloud processing tasks</source>
         <translation>查看云处理任务</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualization tool</source>
         <translation>可视化工具</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="252"/>
+        <location filename="../plugin.py" line="253"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -3771,7 +3926,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About trends.earth</source>
-        <translation>关于trends.earth</translation>
+        <translation type="obsolete">关于trends.earth</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="181"/>
@@ -3789,22 +3944,22 @@ p, li { white-space: pre-wrap; }
         <translation>绘制时间序列数据集</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw data</source>
         <translation>下载原始数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw datasets</source>
         <translation>下载原始数据集</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load data</source>
         <translation>加载数据</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load local data</source>
         <translation>加载本地数据</translation>
     </message>
@@ -3849,7 +4004,7 @@ p, li { white-space: pre-wrap; }
         <translation>下载底图数据时出错。</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualize and summarize data</source>
         <translation>可视化和汇总数据</translation>
     </message>
@@ -3882,6 +4037,26 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_urban.py" line="198"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>无法将城市区域任务提交给Google地球引擎。</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="42"/>
+        <source>Please register with LDMS before using this function.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="178"/>
+        <source>Unable to login to LDMP. Check your username and password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="93"/>
+        <source>&amp;LDMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="253"/>
+        <source>About LDMS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4101,12 +4276,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="1269"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>选择Trends.Earth输出文件</translation>
+        <translation type="obsolete">选择Trends.Earth输出文件</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1269"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Trends.Earth元数据文件（* .json）</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1289"/>
@@ -4357,6 +4532,59 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/WidgetSelectArea.ui" line="444"/>
         <source>Buffer size (kilometers):</source>
         <translation>缓冲区大小（公里）：</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="89"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">错误 - 图层不在地理坐标系中。不能在180度子午线上包裹层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="144"/>
+        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
+        <translation type="unfinished">无法从{}加载感兴趣的区域。文件或坐标系可能存在问题。尝试手动将此文件加载到QGIS中以验证它是否正确显示。如果您仍然遇到此文件的问题，请发送电子邮件至trends.earth@conservation.org。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="363"/>
+        <source>Failed to process area of interest - unknown geometry type: {}</source>
+        <translation type="unfinished">无法处理感兴趣的区域 - 未知几何类型：{}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="187"/>
+        <source>Failed to add geojson to temporary layer.</source>
+        <translation type="unfinished">无法将geojson添加到临时图层。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="216"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>Warning</source>
+        <translation type="unfinished">警告</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
+        <translation type="unfinished">所选区域穿越第180个子午线。建议您将项目坐标系设置为本地坐标系（请参阅“项目”菜单中的“项目属性”窗口的“CRS”选项卡）。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="386"/>
+        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
+        <translation type="unfinished">转换坐标时出错。检查输入几何形状是否有效。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished">您已选择为城市运行计算。处理城市时，必须选择缓冲距离来定义计算区域。</translation>
     </message>
 </context>
 </TS>

@@ -129,10 +129,10 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def showEvent(self, event):
         super(DlgCalculateTCData, self).showEvent(event)
 
-        self.use_custom_initial.populate()
-        self.use_custom_final.populate()
+        # self.use_custom_initial.populate()
+        # self.use_custom_final.populate()
 
-        self.radioButton_carbon_custom.setEnabled(False)
+        # self.radioButton_carbon_custom.setEnabled(False)
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
@@ -145,7 +145,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
 
         self.use_hansen.toggled.connect(self.lc_source_changed)
-        self.use_custom.toggled.connect(self.lc_source_changed)
+        # self.use_custom.toggled.connect(self.lc_source_changed)
         # Ensure that dialogs are enabled/disabled as appropriate
         self.lc_source_changed()
 
@@ -161,12 +161,12 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         if self.use_hansen.isChecked():
             self.groupBox_hansen_period.setEnabled(True)
             self.groupBox_hansen_threshold.setEnabled(True)
-            self.groupBox_custom_bl.setEnabled(False)
-            self.groupBox_custom_tg.setEnabled(False)
-        elif self.use_custom.isChecked():
-            QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                       self.tr("Custom forest cover data support is coming soon!"))
-            self.use_hansen.setChecked(True)
+            # self.groupBox_custom_bl.setEnabled(False)
+            # self.groupBox_custom_tg.setEnabled(False)
+        # elif self.use_custom.isChecked():
+        #     QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+        #                                self.tr("Custom forest cover data support is coming soon!"))
+        #     self.use_hansen.setChecked(True)
             # self.groupBox_hansen_period.setEnabled(False)
             # self.groupBox_hansen_threshold.setEnabled(False)
             # self.groupBox_custom_bl.setEnabled(True)
@@ -178,8 +178,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             return 'woodshole'
         elif self.radioButton_carbon_geocarbon.isChecked():
             return 'geocarbon'
-        elif self.radioButton_carbon_custom.isChecked():
-            return 'custom'
+        # elif self.radioButton_carbon_custom.isChecked():
+        #     return 'custom'
         else:
             return None
 
@@ -214,10 +214,10 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             return
 
 
-        if self.use_custom.isChecked():
-            self.calculate_locally(method, biomass_data)
-        else:
-            self.calculate_on_GEE(method, biomass_data)
+        # if self.use_custom.isChecked():
+        #     self.calculate_locally(method, biomass_data)
+        # else:
+        self.calculate_on_GEE(method, biomass_data)
 
     def get_save_raster(self):
         raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
@@ -234,10 +234,10 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                 return False
 
     def calculate_locally(self, method, biomass_data):
-        if not self.use_custom.isChecked():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."))
-            return
+        # if not self.use_custom.isChecked():
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+        #                                self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."))
+        #     return
 
 
         year_baseline = self.lc_setup_tab.get_initial_year()
@@ -246,15 +246,15 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             QtWidgets.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
-            return
+        # if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+        #                                self.tr("Area of interest is not entirely within the initial land cover layer."))
+        #     return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."))
-            return
+        # if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+        #                                self.tr("Area of interest is not entirely within the final land cover layer."))
+        #     return
 
         out_f = self.get_save_raster()
         if not out_f:
@@ -264,22 +264,22 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
-        lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
-        lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
-        lc_files = [lc_initial_vrt, lc_final_vrt]
+        # lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
+        # lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
+        # lc_files = [lc_initial_vrt, lc_final_vrt]
         lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
         lc_vrts = []
-        for i in range(len(lc_files)):
-            f = GetTempFilename('.vrt')
-            # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f,
-                          lc_files[i],
-                          bandList=[i + 1],
-                          outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
-                          resolution='highest', 
-                          resampleAlg=gdal.GRA_NearestNeighbour,
-                          separate=True)
-            lc_vrts.append(f)
+        # for i in range(len(lc_files)):
+        #     f = GetTempFilename('.vrt')
+        #     # Add once since band numbers don't start at zero
+        #     gdal.BuildVRT(f,
+        #                   lc_files[i],
+        #                   bandList=[i + 1],
+        #                   outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
+        #                   resolution='highest', 
+        #                   resampleAlg=gdal.GRA_NearestNeighbour,
+        #                   separate=True)
+        #     lc_vrts.append(f)
 
         climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'IPCC_Climate_Zones.tif')
         in_files = [climate_zones]

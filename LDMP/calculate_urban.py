@@ -423,7 +423,7 @@ def make_summary_table(areas, populations, out_file):
         # add_image will fail on computers without PIL installed (this will be 
         # an issue on some Macs, likely others). it is only used here to add 
         # our logo, so no big deal.
-        log('Adding Trends.Earth logo to worksheet FAILED')
+        log('Adding LDMS logo to worksheet FAILED')
         pass
 
     try:

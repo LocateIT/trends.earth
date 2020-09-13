@@ -29,7 +29,11 @@ from qgis.utils import iface
 
 mb = iface.messageBar()
 
-
+indices_set = {
+    "ndvi":"NDVI",
+    "msavi2":"MSAVI2",
+    "savi":"SAVI"
+}
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):
         """Constructor."""
@@ -40,18 +44,25 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
         self.dataset_ndvi.addItems(ndvi_datasets)
 
+        
+        indices_items = [x for x in list(indices_set.values())]
+        self.indices.addItems(indices_items)
+        
+
         self.start_year_climate = 0
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
         self.end_year_ndvi = 9999
 
         self.dataset_ndvi_changed()
+        # self.indices_changed()
         self.traj_climate_changed()
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
         self.dataset_climate_update()
 
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
+        # self.indices.currentIndexChanged.connect(self.indices_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
         # TODO:Temporary until fixed:
@@ -79,6 +90,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             self.start_year_climate = self.climate_datasets[self.traj_climate.currentText()]['Start year']
             self.end_year_climate = self.climate_datasets[self.traj_climate.currentText()]['End year']
         self.update_time_bounds()
+
+    # def indices_changed(self):
+    #     this_indices = indices_set[self.indices.currentText()]
 
     def dataset_ndvi_changed(self):
         this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]

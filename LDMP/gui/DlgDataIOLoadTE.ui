@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Open a Trends.Earth file</string>
+   <string>Open a LDMS file</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="4" column="0">

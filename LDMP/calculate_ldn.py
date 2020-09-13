@@ -45,10 +45,10 @@ from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
-from LDMP.summary_numba import merge_xtabs_i16, xtab_i16
+from LDMP.summary_numba import merge_xtabs, xtab
 
 from LDMP.calculate_numba import ldn_make_prod5, ldn_recode_state, \
-    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg_f
+    ldn_recode_traj, ldn_total_by_trans, ldn_total_deg
 
 
 class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
