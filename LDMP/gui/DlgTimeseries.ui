@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>337</width>
-    <height>404</height>
+    <width>339</width>
+    <height>473</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,6 +30,31 @@
        <string>Dataset</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="minimumSize">
+          <size>
+           <width>299</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Vegetation Indices</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <item>
+           <widget class="QComboBox" name="indices">
+            <property name="minimumSize">
+             <size>
+              <width>275</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">

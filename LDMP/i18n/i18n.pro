@@ -15,6 +15,8 @@ FORMS = ../gui/DlgAbout.ui \
 ../gui/DlgCalculateTCData.ui \
 ../gui/DlgCalculateTCSummaryTable.ui \
 ../gui/DlgCalculateUrban.ui \
+../gui/DlgCalculateMedalus.ui \
+../gui/DlgCalculateForest.ui \
 ../gui/DlgCalculateUrbanData.ui \
 ../gui/DlgCalculateUrbanSummaryTable.ui \
 ../gui/DlgDataIO.ui \
@@ -60,6 +62,11 @@ SOURCES = ../about.py \
 ../calculate_soc.py \
 ../calculate_tc.py \
 ../calculate_urban.py \
+../calculate_cqi.py \
+../calculate_sqi.py \
+../calculate_isd.py \
+../calculate_vqi.py \
+../calculate_medalus.py \
 ../data_io.py \
 ../download.py \
 ../download_data.py \

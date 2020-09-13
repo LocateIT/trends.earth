@@ -147,7 +147,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         if resp:
             QtWidgets.QMessageBox.information(None,
                     self.tr("Success"),
-                    self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
+                    self.tr(u"""Logged in to the LDMS server as {}.<html><p>Welcome to LDMS!<p/><p>
                     <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.</p>""").format(self.email.text()))
             settings.setValue("LDMP/jobs_cache", None)
             self.done(QtWidgets.QDialog.Accepted)
@@ -189,7 +189,7 @@ class DlgSettingsEdit(QtWidgets.QDialog, Ui_DlgSettingsEdit):
             return
 
         reply = QtWidgets.QMessageBox.question(None, self.tr("Delete user?"),
-                                           self.tr(u"Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.".format(email)),
+                                           self.tr(u"Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using LDMS.".format(email)),
                                            QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
         if reply == QtWidgets.QMessageBox.Yes:
             resp = delete_user(email)

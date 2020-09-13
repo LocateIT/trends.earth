@@ -18,7 +18,7 @@ import hashlib
 import boto3
 from invoke import Collection, task
 
-
+s3_prefix = 'Contents/'
 # Below is from:
 # https://stackoverflow.com/questions/3041986/apt-command-line-interface-like-yes-no-input
 def query_yes_no(question, default="yes"):
@@ -734,6 +734,7 @@ def zipfile_deploy(c, clean=False, pip='pip'):
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
+            print(keys)
         client = boto3.client('s3',
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
@@ -762,14 +763,16 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     try:
         with open(os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r') as fin:
             keys = json.load(fin)
+            
         client = boto3.client('s3',
                               aws_access_key_id=keys['access_key_id'],
                               aws_secret_access_key=keys['secret_access_key'])
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
-    
-    objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
+    print(client.list_objects(Bucket=bucket, Prefix='Contents/')['Contents'])
+
+    objects = client.list_objects(Bucket=bucket, Prefix='Contents/')['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
 
@@ -808,7 +811,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     # Now copy back to S3 any files that aren't yet there
     files = [glob.glob(pattern) for pattern in patterns]
     files = [item for sublist in files for item in sublist]
-    s3_objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
+    s3_objects = client.list_objects(Bucket=bucket, Prefix='Contents/')['Contents']
     s3_object_names = [os.path.basename(obj['Key']) for obj in s3_objects]
     for f in files:
         if os.path.isdir(f):
@@ -844,6 +847,7 @@ def binaries_sync(c, extensions=None):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
     patterns = [os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions]
+    print(c.sphinx.deploy_s3_bucket)
     _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_binaries', c.plugin.numba.binary_folder, patterns)
 
 
@@ -990,9 +994,9 @@ ns.configure({
         'sourcedir': 'docs/source',
         'builddir': 'docs/build',
         'resourcedir': 'docs/resources',
-        'deploy_s3_bucket': 'trends.earth',
+        'deploy_s3_bucket': 'promiseeventsbucket',
         'docs_s3_prefix': 'docs/',
-        'transifex_name': 'trendsearth',
+        'transifex_name': 'Trends Earth',
         'base_language': 'en',
         'latex_documents': ['Trends.Earth.tex',
                            'Trends.Earth_Tutorial01_Installation.tex',

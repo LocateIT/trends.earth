@@ -489,9 +489,9 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
 
     def browse_file(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a Trends.Earth output file'),
+                                              self.tr('Select a LDMS output file'),
                                               QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Trends.Earth metadata file (*.json)'))
+                                              self.tr('LDMS metadata file (*.json)'))
         log(u"Chose path: {}.".format(f))
         if f:
             if os.access(f, os.R_OK):
@@ -523,7 +523,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
             else:
                 self.layers_model.setStringList([])
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"{} does not appear to be a Trends.Earth output file".format(f)))
+                                           self.tr(u"{} does not appear to be a LDMS output file".format(f)))
                 self.layers_model.setStringList([])
                 self.btn_view_metadata.setEnabled(False)
                 return None
@@ -978,7 +978,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                     (self.last_raster != f or self.last_band_number != band_number):
                 values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. LDMS supports a maximum of 60 different land cover classes"))
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
@@ -991,7 +991,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
                     (self.last_vector != f or self.last_idx != idx):
                 values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. LDMS supports a maximum of 60 different land cover classes"))
                     return
                 self.last_vector = f
                 self.last_idx = idx
@@ -1138,7 +1138,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
         if len(invalid_values) > 0:
-            QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
+            QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. LDMS will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
         super(DlgDataIOImportProd, self).done(value)
 
@@ -1267,9 +1267,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def load_file(self):
         while True:
             f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                                  self.tr('Select a Trends.Earth output file'),
+                                                  self.tr('Select a LDMS output file'),
                                                   QSettings().value("LDMP/output_dir", None),
-                                                  self.tr('Trends.Earth metadata file (*.json)'))
+                                                  self.tr('LDMS metadata file (*.json)'))
             if f:
                 if os.access(f, os.R_OK):
                     QSettings().setValue("LDMP/output_dir", os.path.dirname(f))

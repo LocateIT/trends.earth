@@ -130,7 +130,7 @@
     <message>
         <location filename="../calculate.py" line="181"/>
         <source>Failed to add geojson to temporary layer.</source>
-        <translation>Failed to add geojson to temporary layer.</translation>
+        <translation type="obsolete">Failed to add geojson to temporary layer.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="89"/>
@@ -195,17 +195,17 @@
     <message>
         <location filename="../calculate.py" line="70"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</translation>
+        <translation type="obsolete">Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>Warning</source>
-        <translation>Warning</translation>
+        <translation type="obsolete">Warning</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</translation>
+        <translation type="obsolete">The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
@@ -300,12 +300,12 @@
     <message>
         <location filename="../calculate.py" line="147"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</translation>
+        <translation type="obsolete">Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="368"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation>Failed to process area of interest - unknown geometry type: {}</translation>
+        <translation type="obsolete">Failed to process area of interest - unknown geometry type: {}</translation>
     </message>
     <message>
         <location filename="../layers.py" line="138"/>
@@ -370,7 +370,7 @@
     <message>
         <location filename="../calculate.py" line="967"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</translation>
+        <translation type="obsolete">You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="154"/>
@@ -452,7 +452,7 @@
     <message>
         <location filename="../calculate.py" line="391"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation>Error transforming coordinates. Check that the input geometry is valid.</translation>
+        <translation type="obsolete">Error transforming coordinates. Check that the input geometry is valid.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="132"/>
@@ -543,32 +543,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Point chooser</source>
         <translation>Point chooser</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Click the map to choose a point.</source>
         <translation>Click the map to choose a point.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Select a file defining the area of interest</source>
         <translation>Select a file defining the area of interest</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Vector file (*.shp *.kml *.kmz *.geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Cannot read {}. Choose a different file.</translation>
     </message>
@@ -576,27 +576,70 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="685"/>
         <source>Select folder containing data</source>
         <translation>Select folder containing data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Cannot read {}. Choose a different folder.</translation>
+    </message>
+</context>
+<context>
+    <name>CalculationOutputWidget</name>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">Cannot write to {}. Choose a different file.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Information</source>
+        <translation type="unfinished">Information</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
-        <source>About trends.earth</source>
-        <translation>About trends.earth</translation>
+        <source>About LDMP</source>
+        <translation type="unfinished">About trends.earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="23"/>
@@ -637,7 +680,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
@@ -684,11 +727,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="41"/>
-        <source>Trends.Earth tools</source>
-        <translation>Trends.Earth tools</translation>
+        <source>LDMS tools</source>
+        <translation type="unfinished">Trends.Earth tools</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="131"/>
+        <location filename="../gui/DlgCalculate.ui" line="157"/>
         <source>Total carbon (above and belowground, emissions from deforestation)</source>
         <translation>Total carbon (above and belowground, emissions from deforestation)</translation>
     </message>
@@ -701,78 +744,122 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="91"/>
-        <source>Urban change and land consumption indicators
-(SDG indicator 11.3.1)</source>
-        <translation>Urban change and land consumption indicators
+        <source>Forest Degradation Hotspots
+(Forest Loss, Gain and Cover)</source>
+        <translation type="unfinished">Urban change and land consumption indicators
 (SDG indicator 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="113"/>
+        <location filename="../gui/DlgCalculate.ui" line="139"/>
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
         <translation>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="150"/>
+        <location filename="../gui/DlgCalculate.ui" line="176"/>
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>Potential change in biomass due to restoration (above and belowground woody)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="117"/>
+        <source>MEDALUS Indicators for vulnerability to desertification
+(ISD, CQI, SQI and VQI)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1199"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="1124"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Choose a first level administrative boundary.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="1131"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>Unable to load administrative boundaries.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="990"/>
+        <location filename="../calculate.py" line="1138"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Choose a file to define the area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="1034"/>
         <source>Area</source>
         <translation>Area</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="895"/>
+        <location filename="../calculate.py" line="1043"/>
         <source>Options</source>
         <translation>Options</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="998"/>
+        <location filename="../calculate.py" line="1151"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Choose a point to define the area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1009"/>
+        <location filename="../calculate.py" line="1162"/>
         <source>Choose an area of interest.</source>
         <translation>Choose an area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1014"/>
+        <location filename="../calculate.py" line="1167"/>
         <source>Unable to read area of interest.</source>
         <translation>Unable to read area of interest.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1193"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1021"/>
+        <location filename="../calculate.py" line="1174"/>
         <source>Error buffering polygon</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1039"/>
+        <source>Output</source>
+        <translation type="unfinished">Output</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1142"/>
+        <source>Unable to read {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1181"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1199"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateForest</name>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="23"/>
+        <source>Calculate Forest Degradation Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="41"/>
+        <source>Step 1: Calculate Forest Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="87"/>
+        <source>Step 2: Calculate urban change summary table</source>
+        <translation type="unfinished">Step 2: Calculate urban change summary table</translation>
     </message>
 </context>
 <context>
@@ -1009,12 +1096,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Coming soon!</source>
         <translation>Coming soon!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Multiple polygon summary table calculation coming soon!</translation>
     </message>
@@ -1378,6 +1465,74 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTablePolygons.ui" line="371"/>
         <source>Previous</source>
         <translation>Previous</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateMedalus</name>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="23"/>
+        <source>Calculate Indicators</source>
+        <translation type="unfinished">Calculate Indicators</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="35"/>
+        <source>Step 1: Prepare sub-indicators</source>
+        <translation type="unfinished">Step 1: Prepare sub-indicators</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="110"/>
+        <source>SQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="135"/>
+        <source>vqi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="160"/>
+        <source>CQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="185"/>
+        <source>ISD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="47"/>
+        <source>Option 1: Use default data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="85"/>
+        <source>Option 2: Use customized data</source>
+        <translation type="unfinished">Option 2: Use customized data</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="201"/>
+        <source>Step 2: Calculate final MEDALUS layer</source>
+        <translation type="unfinished">Step 2: Calculate final SDG 15.3.1 indicator</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="72"/>
+        <source>Calculate all three sub-indicators in one step</source>
+        <translation type="unfinished">Calculate all three sub-indicators in one step</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="213"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation type="unfinished">Option 1: Use single unit for analysis (e.g. country boundary)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="238"/>
+        <source>Calculate final MEDALUS for vulnerability to desertification spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="251"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation type="unfinished">Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</translation>
     </message>
 </context>
 <context>
@@ -2513,13 +2668,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="35"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation>Load a dataset produced by TRENDS.EARTH</translation>
+        <source>Load a dataset produced by LDMS</source>
+        <translation type="unfinished">Load a dataset produced by TRENDS.EARTH</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="65"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation>Load an existing TRENDS.EARTH output file</translation>
+        <source>Load an existing LDMS output file</source>
+        <translation type="unfinished">Load an existing TRENDS.EARTH output file</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
@@ -2625,17 +2780,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="994"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</translation>
+        <translation type="obsolete">Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="115"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation>Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</translation>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that LDMS is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
+        <translation type="unfinished">Note: If reading a large file it is recommended that the above option be checked, as it will singificantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="939"/>
         <source>Enter the year of the input data.</source>
         <translation>Enter the year of the input data.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="994"/>
+        <source>Error reading data. LDMS supports a maximum of 60 different land cover classes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2699,8 +2859,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="1141"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</translation>
+        <source>The input file ({}) does not appear to be a valid productivity input file. LDMS will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished">The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1132"/>
@@ -2755,8 +2915,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTE</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>Open a Trends.Earth file</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">Open a Trends.Earth file</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
@@ -2786,12 +2946,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="491"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>Select a Trends.Earth output file</translation>
+        <translation type="obsolete">Select a Trends.Earth output file</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="491"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Trends.Earth metadata file (*.json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="550"/>
@@ -2805,8 +2965,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="525"/>
-        <source>{} does not appear to be a Trends.Earth output file</source>
-        <translation>{} does not appear to be a Trends.Earth output file</translation>
+        <source>{} does not appear to be a LDMS output file</source>
+        <translation type="unfinished">{} does not appear to be a Trends.Earth output file</translation>
     </message>
 </context>
 <context>
@@ -2831,8 +2991,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTESingleLayer</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>Open a Trends.Earth file</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">Open a Trends.Earth file</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="36"/>
@@ -3013,8 +3173,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="35"/>
-        <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation>Jobs expire 30 days after they are submitted. After a job has expired, it will no longer appear in this list. {14 ?}</translation>
+        <source>Jobs expire 7 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
+        <translation type="unfinished">Jobs expire 30 days after they are submitted. After a job has expired, it will no longer appear in this list. {14 ?}</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="296"/>
@@ -3176,8 +3336,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="191"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</translation>
+        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using LDMS.</source>
+        <translation type="unfinished">Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="197"/>
@@ -3335,9 +3495,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="148"/>
-        <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
+        <source>Logged in to the LDMS server as {}.&lt;html&gt;&lt;p&gt;Welcome to LDMS!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
-        <translation>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
+        <translation type="unfinished">Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</translation>
     </message>
 </context>
@@ -3737,12 +3897,12 @@ areas</translation>
     <message>
         <location filename="../api.py" line="41"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation>Please register with trends.earth before using this function.</translation>
+        <translation type="obsolete">Please register with trends.earth before using this function.</translation>
     </message>
     <message>
         <location filename="../api.py" line="176"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation>Unable to login to LDMP server. Check your username and password.</translation>
+        <translation type="obsolete">Unable to login to LDMP server. Check your username and password.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="194"/>
@@ -3780,19 +3940,14 @@ areas</translation>
         <translation>Download timed out. Check your internet connection.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="262"/>
+        <location filename="../plugin.py" line="263"/>
         <source>&amp;trends.earth</source>
         <translation>&amp;trends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
-        <source>Settings</source>
-        <translation>Settings</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="203"/>
-        <source>LDMT Settings</source>
-        <translation>LDMT Settings</translation>
+        <source>LDMT User Settings</source>
+        <translation type="unfinished">LDMT Settings</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="210"/>
@@ -3805,22 +3960,22 @@ areas</translation>
         <translation>Plot data</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View Google Earth Engine tasks</source>
         <translation>View Google Earth Engine tasks</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View cloud processing tasks</source>
         <translation>View cloud processing tasks</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualization tool</source>
         <translation>Visualization tool</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="252"/>
+        <location filename="../plugin.py" line="253"/>
         <source>About</source>
         <translation>About</translation>
     </message>
@@ -3832,7 +3987,7 @@ areas</translation>
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About trends.earth</source>
-        <translation>About trends.earth</translation>
+        <translation type="obsolete">About trends.earth</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="181"/>
@@ -3850,22 +4005,22 @@ areas</translation>
         <translation>Plot time series datasets</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw data</source>
         <translation>Download raw data</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw datasets</source>
         <translation>Download raw datasets</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load data</source>
         <translation>Load data</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load local data</source>
         <translation>Load local data</translation>
     </message>
@@ -3910,7 +4065,7 @@ areas</translation>
         <translation>Error downloading basemap data.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualize and summarize data</source>
         <translation>Visualize and summarize data</translation>
     </message>
@@ -3943,6 +4098,26 @@ areas</translation>
         <location filename="../calculate_urban.py" line="198"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>Unable to submit urban area task to Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="42"/>
+        <source>Please register with LDMS before using this function.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="178"/>
+        <source>Unable to login to LDMP. Check your username and password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="93"/>
+        <source>&amp;LDMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="253"/>
+        <source>About LDMS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4162,12 +4337,12 @@ areas</translation>
     <message>
         <location filename="../data_io.py" line="1269"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>Select a Trends.Earth output file</translation>
+        <translation type="obsolete">Select a Trends.Earth output file</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1269"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>Trends.Earth metadata file (*.json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1289"/>
@@ -4418,6 +4593,59 @@ areas</translation>
         <location filename="../gui/WidgetSelectArea.ui" line="444"/>
         <source>Buffer size (kilometers):</source>
         <translation>Buffer size (kilometers):</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>Error</source>
+        <translation type="unfinished">Error</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="89"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="144"/>
+        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
+        <translation type="unfinished">Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="363"/>
+        <source>Failed to process area of interest - unknown geometry type: {}</source>
+        <translation type="unfinished">Failed to process area of interest - unknown geometry type: {}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="187"/>
+        <source>Failed to add geojson to temporary layer.</source>
+        <translation type="unfinished">Failed to add geojson to temporary layer.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="216"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>Warning</source>
+        <translation type="unfinished">Warning</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
+        <translation type="unfinished">The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="386"/>
+        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
+        <translation type="unfinished">Error transforming coordinates. Check that the input geometry is valid.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished">You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</translation>
     </message>
 </context>
 </TS>

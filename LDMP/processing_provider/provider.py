@@ -16,7 +16,7 @@ class Provider(QgsProcessingProvider):
         return 'trendsearth'
 
     def name(self, *args, **kwargs):
-        return self.tr('Landeg')
+        return self.tr('LDMS')
 
     def icon(self):
         """Should return a QIcon which is used for your provider inside

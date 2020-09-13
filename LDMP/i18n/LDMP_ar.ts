@@ -130,7 +130,7 @@
     <message>
         <location filename="../calculate.py" line="181"/>
         <source>Failed to add geojson to temporary layer.</source>
-        <translation>فشل في إضافة geojson إلى طبقة مؤقتة.</translation>
+        <translation type="obsolete">فشل في إضافة geojson إلى طبقة مؤقتة.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="89"/>
@@ -195,17 +195,17 @@
     <message>
         <location filename="../calculate.py" line="70"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
+        <translation type="obsolete">خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>Warning</source>
-        <translation>تحذير</translation>
+        <translation type="obsolete">تحذير</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="260"/>
         <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation>المنطقة المختارة تعبر خط الطول 180. يوصى بتعيين نظام إحداثيات المشروع على نظام إحداثيات محلي (انظر علامة التبويب &amp;quot;CRS&amp;quot; في نافذة &amp;quot;خصائص المشروع&amp;quot; من قائمة &amp;quot;المشروع&amp;quot;.)</translation>
+        <translation type="obsolete">المنطقة المختارة تعبر خط الطول 180. يوصى بتعيين نظام إحداثيات المشروع على نظام إحداثيات محلي (انظر علامة التبويب &amp;quot;CRS&amp;quot; في نافذة &amp;quot;خصائص المشروع&amp;quot; من قائمة &amp;quot;المشروع&amp;quot;.)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="55"/>
@@ -300,12 +300,12 @@
     <message>
         <location filename="../calculate.py" line="147"/>
         <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation>غير قادر على تحميل مجال الاهتمام من {}. قد تكون هناك مشكلة في نظام الملفات أو الإحداثيات. جرِّب تحميل هذا الملف يدويًا في QGIS للتحقق من عرضه بشكل صحيح. إذا كنت لا تزال تواجه مشكلات مع هذا الملف ، فأرسل لنا رسالة على trends.earth@conservation.org.</translation>
+        <translation type="obsolete">غير قادر على تحميل مجال الاهتمام من {}. قد تكون هناك مشكلة في نظام الملفات أو الإحداثيات. جرِّب تحميل هذا الملف يدويًا في QGIS للتحقق من عرضه بشكل صحيح. إذا كنت لا تزال تواجه مشكلات مع هذا الملف ، فأرسل لنا رسالة على trends.earth@conservation.org.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="368"/>
         <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation>فشل في معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
+        <translation type="obsolete">فشل في معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
     </message>
     <message>
         <location filename="../layers.py" line="138"/>
@@ -370,7 +370,7 @@
     <message>
         <location filename="../calculate.py" line="967"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation>لقد اخترت تشغيل الحسابات للمدينة. يجب عليك تحديد مسافة عازلة لتحديد منطقة الحساب عندما تقوم بمعالجة مدينة.</translation>
+        <translation type="obsolete">لقد اخترت تشغيل الحسابات للمدينة. يجب عليك تحديد مسافة عازلة لتحديد منطقة الحساب عندما تقوم بمعالجة مدينة.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="154"/>
@@ -451,7 +451,7 @@
     <message>
         <location filename="../calculate.py" line="391"/>
         <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation>خطأ في تحويل الإحداثيات. تحقق من صحة هندسة الإدخال.</translation>
+        <translation type="obsolete">خطأ في تحويل الإحداثيات. تحقق من صحة هندسة الإدخال.</translation>
     </message>
     <message>
         <location filename="../layers.py" line="132"/>
@@ -542,32 +542,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Point chooser</source>
         <translation>نقطة منتقي</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="820"/>
+        <location filename="../calculate.py" line="939"/>
         <source>Click the map to choose a point.</source>
         <translation>انقر على الخريطة لاختيار نقطة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Select a file defining the area of interest</source>
         <translation>حدد ملفًا يحدد مجال الاهتمام</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="841"/>
+        <location filename="../calculate.py" line="964"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>ملف المتجه (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="851"/>
+        <location filename="../calculate.py" line="975"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>لا يمكن القراءة {}. اختيار ملف مختلف.</translation>
     </message>
@@ -575,27 +575,70 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="625"/>
+        <location filename="../calculate.py" line="685"/>
         <source>Select folder containing data</source>
         <translation>حدد مجلد يحتوي على البيانات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="634"/>
+        <location filename="../calculate.py" line="694"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
+    </message>
+</context>
+<context>
+    <name>CalculationOutputWidget</name>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="727"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="739"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation type="unfinished">لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="753"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Information</source>
+        <translation type="unfinished">معلومات</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="760"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgAbout</name>
     <message>
         <location filename="../gui/DlgAbout.ui" line="14"/>
-        <source>About trends.earth</source>
-        <translation>حول الاتجاهات</translation>
+        <source>About LDMP</source>
+        <translation type="unfinished">حول الاتجاهات</translation>
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="23"/>
@@ -636,7 +679,7 @@ p, li { white-space: pre-wrap; }
 &lt;td style=&quot; vertical-align:middle;&quot;&gt;
 &lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;الإصدار VERSION_NUMBER&lt;/span&gt; &lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;قم بالوصول إلى دليل المستخدم هنا:&lt;/span&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trend.earth (سابقًا مجموعة أدوات مراقبة تدهور الأراضي) هي أداة لرصد تغير الأراضي. trend.earth هو&lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;مكوّن&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;إضافي&lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;لنظام QGIS&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;يدعم مراقبة تغير الأرض ، بما في ذلك التغيرات في الإنتاجية والغطاء الأرضي والكربون العضوي في التربة. يمكن للأداة دعم رصد تدهور الأراضي من أجل تقديم التقارير إلى مرفق البيئة العالمية (GEF) واتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) ، بالإضافة إلى تتبع التقدم المحرز نحو تحقيق هدف التنمية المستدامة (SDG) الهدف 15.3 ، حياد تدهور الأراضي (LDN) ).&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;تم الحصول على الاتجاهات .earth كنتاج للمشروع الممول من مرفق البيئة العالمية&lt;/span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;&amp;quot;التمكين من استخدام مصادر البيانات العالمية لتقييم ورصد تدهور الأراضي على مستويات متعددة&amp;quot;&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. يهدف المشروع إلى تقديم إرشادات حول الأساليب القوية وأداة لتقييم ورصد الحالة وتقدير الاتجاهات في تدهور الأراضي باستخدام تكنولوجيا الاستشعار عن بعد.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trend.earth مجاني ومفتوح المصدر. و&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;هو كود متوفرة مجانا على الانترنت&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. الرمز مرخص بموجب رخصة جنو العمومية العامة ، الإصدار 2.0 أو أحدث.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;هذه المنتجات التي تم الحصول عليها من trend.earth متوفرة بموجب شروط ترخيص Creative Commons Attribution 4.0 International Licence (&lt;/span&gt; &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;). الحدود والأسماء المستخدمة ، والتعيينات المستخدمة في Trend.earth لا تعني المصادقة أو القبول الرسمي من قبل Conservation International Foundation أو المنظمات الشريكة والمساهمين.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;إذا واجهت أي أخطاء أو لديك أي مشاكل في استخدام البرنامج المساعد ، يرجى الاتصال بنا على&lt;/span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;، أو&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;الإبلاغ عن مشكلة على github&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;الاقتباس:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;الاتجاهات. منظمة الحفظ الدولية. متاح على الإنترنت في: http://trends.earth. 2018.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;;text-align:right;direction:rtl&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
@@ -650,11 +693,11 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="41"/>
-        <source>Trends.Earth tools</source>
-        <translation>الاتجاهات. أدوات الأرض</translation>
+        <source>LDMS tools</source>
+        <translation type="unfinished">الاتجاهات. أدوات الأرض</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="131"/>
+        <location filename="../gui/DlgCalculate.ui" line="157"/>
         <source>Total carbon (above and belowground, emissions from deforestation)</source>
         <translation>إجمالي الكربون (فوق وتحت الأرض ، الانبعاثات الناتجة عن إزالة الغابات)</translation>
     </message>
@@ -666,77 +709,121 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgCalculate.ui" line="91"/>
-        <source>Urban change and land consumption indicators
-(SDG indicator 11.3.1)</source>
-        <translation>مؤشرات التغير الحضري واستهلاك الأراضي (مؤشر SDG 11.3.1)</translation>
+        <source>Forest Degradation Hotspots
+(Forest Loss, Gain and Cover)</source>
+        <translation type="unfinished">مؤشرات التغير الحضري واستهلاك الأراضي (مؤشر SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="113"/>
+        <location filename="../gui/DlgCalculate.ui" line="139"/>
         <source>Experimental tools (BETA versions - these tools are still under development, and are supplied for testing only)</source>
         <translation>الأدوات التجريبية (إصدارات BETA - لا تزال هذه الأدوات قيد التطوير ، ويتم توفيرها للاختبار فقط)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculate.ui" line="150"/>
+        <location filename="../gui/DlgCalculate.ui" line="176"/>
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>التغير المحتمل في الكتلة الحيوية بسبب الترميم (فوق وتحت الأرض الخشبية)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculate.ui" line="117"/>
+        <source>MEDALUS Indicators for vulnerability to desertification
+(ISD, CQI, SQI and VQI)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1199"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="1124"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>اختر حدود إدارية من المستوى الأول.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="983"/>
+        <location filename="../calculate.py" line="1131"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>غير قادر على تحميل الحدود الإدارية.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="990"/>
+        <location filename="../calculate.py" line="1138"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>اختر ملفًا لتعريف مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="891"/>
+        <location filename="../calculate.py" line="1034"/>
         <source>Area</source>
         <translation>منطقة</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="895"/>
+        <location filename="../calculate.py" line="1043"/>
         <source>Options</source>
         <translation>خيارات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="998"/>
+        <location filename="../calculate.py" line="1151"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>اختر نقطة لتحديد مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1009"/>
+        <location filename="../calculate.py" line="1162"/>
         <source>Choose an area of interest.</source>
         <translation>اختيار مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1014"/>
+        <location filename="../calculate.py" line="1167"/>
         <source>Unable to read area of interest.</source>
         <translation>غير قادر على قراءة مجال الاهتمام.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1030"/>
+        <location filename="../calculate.py" line="1193"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>المربع المحيط للمنطقة المطلوبة (حوالي {: .6n}) كيلومتر مربع كبير جدًا. اختر منطقة أصغر للمعالجة.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1021"/>
+        <location filename="../calculate.py" line="1174"/>
         <source>Error buffering polygon</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1039"/>
+        <source>Output</source>
+        <translation type="unfinished">انتاج |</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1142"/>
+        <source>Unable to read {}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1181"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1199"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateForest</name>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="23"/>
+        <source>Calculate Forest Degradation Indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="41"/>
+        <source>Step 1: Calculate Forest Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateForest.ui" line="87"/>
+        <source>Step 2: Calculate urban change summary table</source>
+        <translation type="unfinished">الخطوة 2: حساب جدول ملخص التغير الحضري</translation>
     </message>
 </context>
 <context>
@@ -973,12 +1060,12 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateLD</name>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Coming soon!</source>
         <translation>قريبا!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="509"/>
+        <location filename="../calculate.py" line="525"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>مضلع متعددة جدول ملخص حساب قريبا!</translation>
     </message>
@@ -1342,6 +1429,74 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTablePolygons.ui" line="371"/>
         <source>Previous</source>
         <translation>سابق</translation>
+    </message>
+</context>
+<context>
+    <name>DlgCalculateMedalus</name>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="23"/>
+        <source>Calculate Indicators</source>
+        <translation type="unfinished">حساب المؤشرات</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="35"/>
+        <source>Step 1: Prepare sub-indicators</source>
+        <translation type="unfinished">الخطوة 1: إعداد المؤشرات الفرعية</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="110"/>
+        <source>SQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="135"/>
+        <source>vqi</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="160"/>
+        <source>CQI</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="185"/>
+        <source>ISD</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="47"/>
+        <source>Option 1: Use default data</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="85"/>
+        <source>Option 2: Use customized data</source>
+        <translation type="unfinished">الخيار 2: استخدام البيانات المخصصة</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="201"/>
+        <source>Step 2: Calculate final MEDALUS layer</source>
+        <translation type="unfinished">الخطوة 2: حساب مؤشر SDG 15.3.1 النهائي</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="72"/>
+        <source>Calculate all three sub-indicators in one step</source>
+        <translation type="unfinished">احسب جميع المؤشرات الفرعية الثلاثة في خطوة واحدة</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="213"/>
+        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
+        <translation type="unfinished">الخيار 1: استخدام وحدة واحدة للتحليل (مثل الحدود القطرية)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="238"/>
+        <source>Calculate final MEDALUS for vulnerability to desertification spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateMedalus.ui" line="251"/>
+        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
+        <translation type="unfinished">الخيار 2: استخدام الوحدات الفرعية للتحليل (مثل حدود المقاطعة أو الولاية أو المقاطعة)</translation>
     </message>
 </context>
 <context>
@@ -2473,13 +2628,13 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="35"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation>تحميل مجموعة البيانات التي تنتجها TRENDS.EARTH</translation>
+        <source>Load a dataset produced by LDMS</source>
+        <translation type="unfinished">تحميل مجموعة البيانات التي تنتجها TRENDS.EARTH</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="65"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation>قم بتنزيل ملف إخراج TRENDS.EARTH موجود</translation>
+        <source>Load an existing LDMS output file</source>
+        <translation type="unfinished">قم بتنزيل ملف إخراج TRENDS.EARTH موجود</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIO.ui" line="81"/>
@@ -2585,17 +2740,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="994"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
-        <translation>خطأ في قراءة البيانات. يدعم Trends.Earth 60 فصلًا مختلفًا للغطاء الأرضي</translation>
+        <translation type="obsolete">خطأ في قراءة البيانات. يدعم Trends.Earth 60 فصلًا مختلفًا للغطاء الأرضي</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="115"/>
-        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that Trends.Earth is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
-        <translation>ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن التحقق من الخيار أعلاه ، لأنه سيسرع عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا يحدد جميع الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار. (ينطبق فقط إذا تم اختيار إدخال البيانات النقطية)</translation>
+        <source>Note: If reading a large file it is recommended that the above option be checked, as it will significantly speed the process of reading the input classes from the dataset. However, if you find that LDMS is not identifying all of the classes in the input file, it may be necessary to turn off this option. (Applies only if raster input is chosen)</source>
+        <translation type="unfinished">ملاحظة: إذا كنت تقرأ ملفًا كبيرًا ، فمن المستحسن التحقق من الخيار أعلاه ، لأنه سيسرع عملية قراءة فئات الإدخال من مجموعة البيانات. ومع ذلك ، إذا وجدت أن Trends.Earth لا يحدد جميع الفئات في ملف الإدخال ، فقد يكون من الضروري إيقاف تشغيل هذا الخيار. (ينطبق فقط إذا تم اختيار إدخال البيانات النقطية)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="939"/>
         <source>Enter the year of the input data.</source>
         <translation>أدخل سنة إدخال البيانات.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="994"/>
+        <source>Error reading data. LDMS supports a maximum of 60 different land cover classes</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2650,8 +2810,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="1141"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالحًا. سوف Trends.Earth تحميل الملف على أي حال ، ولكن مراجعة الخريطة بمجرد تحميله لضمان القيم منطقية. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5. هناك {} قيمة (قيم) في ملف الإدخال الذي لم يتم التعرف عليه.</translation>
+        <source>The input file ({}) does not appear to be a valid productivity input file. LDMS will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished">لا يبدو ملف الإدخال ({}) ملف إدخال إنتاجية صالحًا. سوف Trends.Earth تحميل الملف على أي حال ، ولكن مراجعة الخريطة بمجرد تحميله لضمان القيم منطقية. القيم الوحيدة المسموح بها في ملف إدخال الإنتاجية هي -32768 و 1 و 2 و 3 و 4 و 5. هناك {} قيمة (قيم) في ملف الإدخال الذي لم يتم التعرف عليه.</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1132"/>
@@ -2706,8 +2866,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTE</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>افتح ملف Trends.Earth</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">افتح ملف Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
@@ -2737,12 +2897,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="491"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>حدد ملف إخراج Trends.Earth</translation>
+        <translation type="obsolete">حدد ملف إخراج Trends.Earth</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="491"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>ملف تعريف بيانات Trends.Earth (* .json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="550"/>
@@ -2756,8 +2916,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../data_io.py" line="525"/>
-        <source>{} does not appear to be a Trends.Earth output file</source>
-        <translation>{} لا يبدو أنه ملف إخراج Trends.Earth</translation>
+        <source>{} does not appear to be a LDMS output file</source>
+        <translation type="unfinished">{} لا يبدو أنه ملف إخراج Trends.Earth</translation>
     </message>
 </context>
 <context>
@@ -2782,8 +2942,8 @@ p, li { white-space: pre-wrap; }
     <name>DlgDataIOLoadTESingleLayer</name>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation>افتح ملف Trends.Earth</translation>
+        <source>Open a LDMS file</source>
+        <translation type="unfinished">افتح ملف Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="36"/>
@@ -2955,8 +3115,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../gui/DlgJobs.ui" line="35"/>
-        <source>Jobs expire 14 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
-        <translation>تنتهي الوظائف بعد 30 يومًا من تقديمها. بعد انتهاء المهمة ، لن تظهر في هذه القائمة. {14؟}</translation>
+        <source>Jobs expire 7 days after they are submitted. After a job has expired, it will no longer appear in this list.</source>
+        <translation type="unfinished">تنتهي الوظائف بعد 30 يومًا من تقديمها. بعد انتهاء المهمة ، لن تظهر في هذه القائمة. {14؟}</translation>
     </message>
     <message>
         <location filename="../jobs.py" line="296"/>
@@ -3118,8 +3278,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="191"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation>هل أنت متأكد من أنك تريد حذف المستخدم {}؟ سيتم فقد جميع مهامك ولن تتمكن بعد ذلك من معالجة البيانات عبر الإنترنت باستخدام Trends.Earth.</translation>
+        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using LDMS.</source>
+        <translation type="unfinished">هل أنت متأكد من أنك تريد حذف المستخدم {}؟ سيتم فقد جميع مهامك ولن تتمكن بعد ذلك من معالجة البيانات عبر الإنترنت باستخدام Trends.Earth.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="197"/>
@@ -3277,9 +3437,9 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../settings.py" line="148"/>
-        <source>Logged in to the Trends.Earth server as {}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;
+        <source>Logged in to the LDMS server as {}.&lt;html&gt;&lt;p&gt;Welcome to LDMS!&lt;p/&gt;&lt;p&gt;
                     &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;Join the Trends.Earth Users google groups&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sutainable Development Goals monitoring.&lt;/p&gt;</source>
-        <translation>تم تسجيل الدخول إلى خادم Trends.Earth كـ {}. &lt;html&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; مرحبًا بك في Trends.Earth! &lt;p/ style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;انضم إلى مجموعات Google لمستخدمي Trends.Earth&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تأكد من الانضمام إلى مجموعات google لمستخدمي Trends.Earth لمواكبة التحديثات والأسئلة والأجوبة حول الأداة والأساليب ومجموعات البيانات لدعم مراقبة أهداف التنمية المستدامة. &lt;/p&gt;</translation>
+        <translation type="unfinished">تم تسجيل الدخول إلى خادم Trends.Earth كـ {}. &lt;html&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; مرحبًا بك في Trends.Earth! &lt;p/ style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; &lt;a href= &apos;https://groups.google.com/forum/#!forum/trends_earth_users/join&apos;&gt;انضم إلى مجموعات Google لمستخدمي Trends.Earth&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تأكد من الانضمام إلى مجموعات google لمستخدمي Trends.Earth لمواكبة التحديثات والأسئلة والأجوبة حول الأداة والأساليب ومجموعات البيانات لدعم مراقبة أهداف التنمية المستدامة. &lt;/p&gt;</translation>
     </message>
 </context>
 <context>
@@ -3676,12 +3836,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../api.py" line="41"/>
         <source>Please register with Trends.Earth before using this function.</source>
-        <translation>يرجى التسجيل مع trend.earth قبل استخدام هذه الوظيفة.</translation>
+        <translation type="obsolete">يرجى التسجيل مع trend.earth قبل استخدام هذه الوظيفة.</translation>
     </message>
     <message>
         <location filename="../api.py" line="176"/>
         <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation>غير قادر على تسجيل الدخول إلى خادم LDMP. تحقق اسم المستخدم وكلمة المرور الخاصة بك.</translation>
+        <translation type="obsolete">غير قادر على تسجيل الدخول إلى خادم LDMP. تحقق اسم المستخدم وكلمة المرور الخاصة بك.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="194"/>
@@ -3719,19 +3879,14 @@ p, li { white-space: pre-wrap; }
         <translation>تنزيل انتهت مهلة. تحقق من اتصالك بالإنترنت.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="262"/>
+        <location filename="../plugin.py" line="263"/>
         <source>&amp;trends.earth</source>
         <translation>وtrends.earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="203"/>
-        <source>Settings</source>
-        <translation>الإعدادات</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="203"/>
-        <source>LDMT Settings</source>
-        <translation>إعدادات LDMT</translation>
+        <source>LDMT User Settings</source>
+        <translation type="unfinished">إعدادات LDMT</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="210"/>
@@ -3744,22 +3899,22 @@ p, li { white-space: pre-wrap; }
         <translation>مؤامرة البيانات</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View Google Earth Engine tasks</source>
         <translation>عرض مهام Google Earth Engine</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="224"/>
+        <location filename="../plugin.py" line="239"/>
         <source>View cloud processing tasks</source>
         <translation>عرض مهام المعالجة السحابية</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualization tool</source>
         <translation>أداة التصور</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="252"/>
+        <location filename="../plugin.py" line="253"/>
         <source>About</source>
         <translation>حول</translation>
     </message>
@@ -3771,7 +3926,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../plugin.py" line="252"/>
         <source>About trends.earth</source>
-        <translation>حول الاتجاهات</translation>
+        <translation type="obsolete">حول الاتجاهات</translation>
     </message>
     <message>
         <location filename="../download_data.py" line="181"/>
@@ -3789,22 +3944,22 @@ p, li { white-space: pre-wrap; }
         <translation>مؤامرة مجموعات البيانات سلسلة الوقت</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw data</source>
         <translation>تحميل البيانات الخام</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="245"/>
+        <location filename="../plugin.py" line="231"/>
         <source>Download raw datasets</source>
         <translation>قم بتنزيل مجموعات البيانات الأولية</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load data</source>
         <translation>تحميل البيانات</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="238"/>
+        <location filename="../plugin.py" line="224"/>
         <source>Load local data</source>
         <translation>تحميل البيانات المحلية</translation>
     </message>
@@ -3849,7 +4004,7 @@ p, li { white-space: pre-wrap; }
         <translation>خطأ في تنزيل بيانات خريطة الأساس.</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="231"/>
+        <location filename="../plugin.py" line="246"/>
         <source>Visualize and summarize data</source>
         <translation>تصور وتلخيص البيانات</translation>
     </message>
@@ -3882,6 +4037,26 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_urban.py" line="198"/>
         <source>Unable to submit urban area task to Google Earth Engine.</source>
         <translation>غير قادر على إرسال مهمة المناطق الحضرية إلى Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="42"/>
+        <source>Please register with LDMS before using this function.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="178"/>
+        <source>Unable to login to LDMP. Check your username and password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="93"/>
+        <source>&amp;LDMS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="253"/>
+        <source>About LDMS</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4101,12 +4276,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../data_io.py" line="1269"/>
         <source>Select a Trends.Earth output file</source>
-        <translation>حدد ملف إخراج Trends.Earth</translation>
+        <translation type="obsolete">حدد ملف إخراج Trends.Earth</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1269"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation>ملف تعريف بيانات Trends.Earth (* .json)</translation>
+        <source>LDMS metadata file (*.json)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1289"/>
@@ -4357,6 +4532,59 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/WidgetSelectArea.ui" line="444"/>
         <source>Buffer size (kilometers):</source>
         <translation>حجم العازلة (كيلومترات):</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="89"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="144"/>
+        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
+        <translation type="unfinished">غير قادر على تحميل مجال الاهتمام من {}. قد تكون هناك مشكلة في نظام الملفات أو الإحداثيات. جرِّب تحميل هذا الملف يدويًا في QGIS للتحقق من عرضه بشكل صحيح. إذا كنت لا تزال تواجه مشكلات مع هذا الملف ، فأرسل لنا رسالة على trends.earth@conservation.org.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="363"/>
+        <source>Failed to process area of interest - unknown geometry type: {}</source>
+        <translation type="unfinished">فشل في معالجة مجال الاهتمام - نوع هندسي غير معروف: {}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="187"/>
+        <source>Failed to add geojson to temporary layer.</source>
+        <translation type="unfinished">فشل في إضافة geojson إلى طبقة مؤقتة.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="216"/>
+        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>Warning</source>
+        <translation type="unfinished">تحذير</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="253"/>
+        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
+        <translation type="unfinished">المنطقة المختارة تعبر خط الطول 180. يوصى بتعيين نظام إحداثيات المشروع على نظام إحداثيات محلي (انظر علامة التبويب &amp;quot;CRS&amp;quot; في نافذة &amp;quot;خصائص المشروع&amp;quot; من قائمة &amp;quot;المشروع&amp;quot;.)</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="386"/>
+        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
+        <translation type="unfinished">خطأ في تحويل الإحداثيات. تحقق من صحة هندسة الإدخال.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="1115"/>
+        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
+        <translation type="unfinished">لقد اخترت تشغيل الحسابات للمدينة. يجب عليك تحديد مسافة عازلة لتحديد منطقة الحساب عندما تقوم بمعالجة مدينة.</translation>
     </message>
 </context>
 </TS>
