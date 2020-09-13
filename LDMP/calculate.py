@@ -611,50 +611,57 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
 
         # TODO: Bad style - fix when refactoring
         # from LDMP.calculate_cqi import DlgCalculateCQI
-        # from LDMP.calculate_isd import DlgCalculateISD
+        # from LDMP.calculate_aqi import DlgCalculateAQI
         # from LDMP.calculate_sqi import DlgCalculateSQI
         # from LDMP.calculate_vqi import DlgCalculateVQI
 
         # self.dlg_calculate_cqi = DlgCalculateCQI() 
-        # self.dlg_calculate_isd = DlgCalculateISD()
+        # self.dlg_calculate_aqi = DlgCalculateAQI()
         # self.dlg_calculate_sqi = DlgCalculateSQI()
         # self.dlg_calculate_vqi = DlgCalculateVQI()
 
         self.btn_calculate_all.clicked.connect(self.btn_calculate_all_clicked)   
         self.btn_calculate_cqi.clicked.connect(self.btn_calculate_cqi_clicked)
-        self.btn_calculate_isd.clicked.connect(self.btn_calculate_isd_clicked)
+        self.btn_calculate_aqi.clicked.connect(self.btn_calculate_aqi_clicked)
         self.btn_calculate_sqi.clicked.connect(self.btn_calculate_sqi_clicked)
         self.btn_calculate_vqi.clicked.connect(self.btn_calculate_vqi_clicked)
+        self.btn_calculate_medalus.clicked.connect(self.btn_calculate_medalus_clicked)
 
     def btn_calculate_cqi_clicked(self):
         # self.close()
         # result = self.dlg_calculate_cqi.exec_()
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("MEDALUS coming soon!"))
+                                self.tr("Climate Quality Index coming soon!"))
 
-    def btn_calculate_isd_clicked(self):
+    def btn_calculate_aqi_clicked(self):
         # self.close()
-        # result = self.dlg_calculate_isd.exec_()
+        # result = self.dlg_calculate_aqi.exec_()
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("MEDALUS coming soon!"))
+                                self.tr("Anthropic Quality Index coming soon!"))
 
     def btn_calculate_sqi_clicked(self):
         # self.close()
         # result = self.dlg_calculate_sqi.exec_()
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("MEDALUS coming soon!"))
+                                self.tr("Soil Quality Index coming soon!"))
 
     def btn_calculate_vqi_clicked(self):
         # self.close()
         # result = self.dlg_calculate_vqi.exec_()
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("MEDALUS coming soon!"))
+                                self.tr("Vegetation Quality Index coming soon!"))
 
     def btn_calculate_all_clicked(self):
         # self.close()
         # result = self.dlg_calculate_vqi.exec_()
         QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("MEDALUS coming soon!"))
+                                self.tr("One Time Calculation coming soon!"))
+
+    def btn_calculate_medalus_clicked(self):
+        # self.close()
+        # result = self.dlg_calculate_vqi.exec_()
+        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+                                self.tr("Final Medalus Calculation coming soon!"))
 
 
 # class DlgCalculateUrban(QtWidgets.QDialog, Ui_DlgCalculateUrban):

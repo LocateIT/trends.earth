@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
-    <height>150</height>
+    <width>425</width>
+    <height>166</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -22,7 +22,7 @@
   <property name="windowTitle">
    <string>Load data</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <widget class="QGroupBox" name="groupBox_2">
      <property name="sizePolicy">
@@ -31,10 +31,16 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="title">
       <string>Load a dataset produced by LDMS</string>
      </property>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QPushButton" name="btn_te">
         <property name="sizePolicy">
@@ -77,6 +83,15 @@
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="cursor">
+      <cursorShape>ArrowCursor</cursorShape>
+     </property>
      <property name="title">
       <string>Import a custom input dataset</string>
      </property>
@@ -94,6 +109,12 @@
           <width>0</width>
           <height>30</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="text">
          <string>Productivity</string>
@@ -114,6 +135,12 @@
           <height>30</height>
          </size>
         </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
+        </property>
         <property name="text">
          <string>Land cover</string>
         </property>
@@ -132,6 +159,12 @@
           <width>0</width>
           <height>30</height>
          </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>50</weight>
+          <bold>false</bold>
+         </font>
         </property>
         <property name="text">
          <string>Soil organic carbon</string>
