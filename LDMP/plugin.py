@@ -235,7 +235,14 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'Download raw datasets'))
 
-        
+        self.add_action(
+            ':/plugins/LDMP/icons/document1.svg',
+            text=QApplication.translate('LDMP', u'Visualization tool'),
+            callback=self.run_visualization,
+            parent=self.iface.mainWindow(),
+            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
+            
+                    
         self.add_action(
             ':/plugins/LDMP/icons/cloud-download1.svg',
             text=QApplication.translate('LDMP', u'View Google Earth Engine tasks'),
@@ -243,12 +250,6 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=QApplication.translate('LDMP', 'View cloud processing tasks'))
 
-        self.add_action(
-            ':/plugins/LDMP/icons/document1.svg',
-            text=QApplication.translate('LDMP', u'Visualization tool'),
-            callback=self.run_visualization,
-            parent=self.iface.mainWindow(),
-            status_tip=QApplication.translate('LDMP', 'Visualize and summarize data'))
 
         self.add_action(
             ':/plugins/LDMP/icons/info1.svg',

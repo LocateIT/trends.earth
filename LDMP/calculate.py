@@ -43,6 +43,7 @@ from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.DlgCalculateMedalus import Ui_DlgCalculateMedalus
 from LDMP.gui.DlgCalculateForest import Ui_DlgCalculateForest
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
+from LDMP.gui.DlgCalculateForestFire import Ui_DlgCalculateForestFire
 
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
@@ -594,14 +595,21 @@ class DlgCalculateForest(QtWidgets.QDialog, Ui_DlgCalculateForest):
         super(DlgCalculateForest, self).__init__(parent)
 
         self.setupUi(self)
-
+        from LDMP.calculate_ff import DlgCalculateForestFire
+                                  
         self.dlg_calculate_tc = DlgCalculateTC()
+        self.dlg_calculate_ff = DlgCalculateForestFire()
 
         self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
+        self.pushButton_ff.clicked.connect(self.btn_ff_clicked)
 
     def btn_tc_clicked(self):
         self.close()
         result = self.dlg_calculate_tc.exec_()
+
+    def btn_ff_clicked(self):
+        self.close()
+        result = self.dlg_calculate_ff.exec_()
 
 class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
     def __init__(self, parent=None):

@@ -30,9 +30,9 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 indices_set = {
-    "ndvi":"NDVI",
-    "msavi2":"MSAVI2",
-    "savi":"SAVI"
+    "ndvi":"NDVI (Humid zones)",
+    "msavi2":"MSAVI2 (Arid and Stepic zones)",
+    "savi":"SAVI (Desert Areas)"
 }
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):
