@@ -59,7 +59,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.mode_te_prod_toggled()
 
-        self.resize(self.width(), 711)
+        # self.resize(self.width(), 711)
 
 
     def showEvent(self, event):
@@ -184,13 +184,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         start_year = QDate(self.start_year_ndvi, 1, 1)
         end_year = QDate(self.end_year_ndvi, 12, 31)
 
-        # State
+        # Performance
         self.perf_year_start.setMinimumDate(start_year)
         self.perf_year_start.setMaximumDate(end_year)
         self.perf_year_end.setMinimumDate(start_year)
         self.perf_year_end.setMaximumDate(end_year)
 
-        # Performance
+        # State
         self.state_year_bl_start.setMinimumDate(start_year)
         self.state_year_bl_start.setMaximumDate(end_year)
         self.state_year_bl_end.setMinimumDate(start_year)
