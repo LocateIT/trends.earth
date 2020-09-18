@@ -345,6 +345,7 @@ class AOI(object):
         second is the list of bounding box geojsons.
         '''
         if self.datatype == 'polygon':
+            log(self.l.getFeatures())
             return self.meridian_split()
         elif self.datatype == 'point':
             # If there is only on point, don't calculate an extent (extent of 
@@ -1056,7 +1057,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
-        self._max_area = 5e7 # maximum size task the tool supports
+        self._max_area = 5e3 # maximum size task the tool supports
 
         self.firstShowEvent.connect(self.firstShow)
 

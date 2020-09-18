@@ -70,7 +70,7 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
 
     def update_time_bounds(self):
         # default dates
-        start_year = QDate(2012, 1, 1)
+        start_year = QDate(2015, 2, 12)
         end_year = QDate(2030, 1, 1)    
         # study period 
         self.prefire_start_btn.setMinimumDate(start_year)
@@ -100,6 +100,8 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
 
+        area = self.aoi.get_area()
+        
         prefire_start ='{0}-{1}-{2}'.format(self.prefire_start_btn.date().year(), self.prefire_start_btn.date().month(), self.prefire_start_btn.date().day())
         prefire_end = '{0}-{1}-{2}'.format(self.prefire_end_btn.date().year(), self.prefire_end_btn.date().month(), self.prefire_end_btn.date().day())
         postfire_start = '{0}-{1}-{2}'.format(self.postfire_start_btn.date().year(), self.postfire_start_btn.date().month(), self.postfire_start_btn.date().day())
@@ -112,6 +114,7 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
+                   'area':area,
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
