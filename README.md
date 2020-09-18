@@ -1,4 +1,4 @@
-# oss-ldms-qgis
+# OSS Land Degradation Monitoring Service (LDMS) QGIS Plugin
 
 QGIS plugin for OSS Land Degradation Monitoring Service (LDMS)
 
@@ -29,3 +29,33 @@ Below is an illustration of flow of information from one resource to another wit
 An end-user executes a module/script within the plugin eg. forest fires. The plugin sends this request to the backend API which creates an execution and execution logs for this instance as well as requests the script ID from the Postgresql database. The database returns metadata of the script back to the backend API which then sends the the request to [google earth engine](https://earthengine.google.com) python library on which script to run. Execution logs are then recorded in the database as the script runs from start to finish. 
 
 On successful completion of the execution, the final result(tiff file) is exported by google earth engine to [Google Cloud Storage](https://earthengine.google.com) bucket as an object. The end-user is then able to thereafter download and visualize the result via the plugin onto QGIS. This data remains available for download by the end-user for upto 7 days. 
+
+### Installation of stable version of plugin
+
+Coming soon ...
+
+---
+
+### Installing plugin from a zipfile
+
+Coming soon ...
+
+---
+
+
+
+### Documentation
+
+Coming soon ...
+
+---
+
+### Getting help
+
+Coming soon ...
+
+---
+
+### License
+
+Coming soon ...
