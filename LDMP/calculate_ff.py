@@ -21,6 +21,15 @@ from LDMP import __version__
 
 from qgis.PyQt import QtWidgets, uic
 from qgis.PyQt.QtCore import QDate
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
+
+from osgeo import ogr
+# import ogr
+
+# from qgis.core import QgsMapToPixelSimplifier
 
 from qgis.utils import iface
 from LDMP import log
@@ -28,6 +37,7 @@ from LDMP import log
 mb = iface.messageBar()
 from LDMP.calculate import DlgCalculateBase, get_script_slug
 from LDMP.gui.DlgCalculateForestFire import Ui_DlgCalculateForestFire as UiDialog
+
 from LDMP.api import run_script
 
 # Need to use this below approach to load the dialog to about the import
@@ -99,9 +109,42 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
             prod_mode = 'S2'
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
 
-        area = self.aoi.get_area()
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+            # final = str(json.loads(val[0].asJson()))
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{"coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0]}])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
+        # area = self.aoi.get_area()
+        # log('{0}'.format(poly))
+
         prefire_start ='{0}-{1}-{2}'.format(self.prefire_start_btn.date().year(), self.prefire_start_btn.date().month(), self.prefire_start_btn.date().day())
         prefire_end = '{0}-{1}-{2}'.format(self.prefire_end_btn.date().year(), self.prefire_end_btn.date().month(), self.prefire_end_btn.date().day())
         postfire_start = '{0}-{1}-{2}'.format(self.postfire_start_btn.date().year(), self.postfire_start_btn.date().month(), self.postfire_start_btn.date().day())
@@ -111,10 +154,10 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
                    'prefire_end_btn': prefire_end,
                    'postfire_start_btn': postfire_start,
                    'postfire_end_btn': postfire_end,
-                   'geojsons': json.dumps(geojsons),
+                   'geojsons': geometries,
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
-                   'area':area,
+                #    'og_simple':'{}'.format(og_simple),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 

@@ -345,7 +345,6 @@ class AOI(object):
         second is the list of bounding box geojsons.
         '''
         if self.datatype == 'polygon':
-            log(self.l.getFeatures())
             return self.meridian_split()
         elif self.datatype == 'point':
             # If there is only on point, don't calculate an extent (extent of 
