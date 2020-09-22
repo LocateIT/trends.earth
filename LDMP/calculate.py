@@ -1056,7 +1056,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
-        self._max_area = 5e3 # maximum size task the tool supports
+        self._max_area = 1.26e6 # maximum size task the tool supports
 
         self.firstShowEvent.connect(self.firstShow)
 
@@ -1245,7 +1245,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > self._max_area:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
+                        self.tr("The bounding box for the requested area (approximately {0}) sq km is too large. Choose a smaller area to process. Maximum area {1} sq km".format(aoi_area, self._max_area)))
                 return False
 
         if self._has_output:
