@@ -488,7 +488,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def calculate_on_GEE(self):
         self.close()
 
-                crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         val = []
         n = 1
 
