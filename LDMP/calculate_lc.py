@@ -21,7 +21,13 @@ import tempfile
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings
 
-from osgeo import gdal, osr
+from osgeo import gdal, osr,ogr
+from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt.QtCore import QDate
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
 
 from qgis.core import QgsGeometry
 from qgis.utils import iface
@@ -156,11 +162,49 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
     def calculate_on_GEE(self):
         self.close()
-
+        
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords,
+                "type":"Polygon"
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
         payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
                    'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'geojsons': json.dumps(geojsons),
+                   'geojsons': geometries,
+                #    'geojsons':json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),

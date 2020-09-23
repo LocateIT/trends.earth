@@ -213,11 +213,48 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         soc_year_final = self.year_final.date().year()
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'LDMS productivity'
+            prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords,
+                "type":"Polygon"
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
         payload = {'prod_mode': prod_mode,
                    'prod_traj_year_initial': prod_traj_year_initial,
                    'prod_traj_year_final': prod_traj_year_final,
@@ -231,7 +268,8 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'lc_year_final': lc_year_final,
                    'soc_year_initial': soc_year_initial,
                    'soc_year_final': soc_year_final,
-                   'geojsons': json.dumps(geojsons),
+                   'geojsons':geometries,
+                #    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
@@ -300,7 +338,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
         mask_ds = gdal.Open(self.mask_file)
         band_mask = mask_ds.GetRasterBand(1)
 
-        if self.prod_mode == 'LDMS productivity':
+        if self.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
             perf_band = src_ds.GetRasterBand(self.prod_band_nums[1])
             state_band = src_ds.GetRasterBand(self.prod_band_nums[2])
@@ -386,7 +424,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1).astype(np.float32)
 
-                if self.prod_mode == 'LDMS productivity':
+                if self.prod_mode == 'Trends.Earth productivity':
                     traj_recode = ldn_recode_traj(traj_band.ReadAsArray(x, y, cols, rows))
 
                     state_recode = ldn_recode_state(state_band.ReadAsArray(x, y, cols, rows))
@@ -457,9 +495,9 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 # log('water.dtype: {}'.format(str(water.dtype)))
                 # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
                 
-                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg_f(deg_sdg, water, cell_areas_array)
-                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg_f(prod3, water, cell_areas_array)
-                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg_f(lc_array,
+                sdg_tbl_overall = sdg_tbl_overall + ldn_total_deg(deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod = sdg_tbl_prod + ldn_total_deg(prod3, water, cell_areas_array)
+                sdg_tbl_lc = sdg_tbl_lc + ldn_total_deg(lc_array,
                                                           np.array((mask_array == -32767) | water).astype(bool),
                                                           cell_areas_array)
 
@@ -497,7 +535,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
 
                 ###########################################################
                 # Calculate transition crosstabs for productivity indicator
-                this_rh, this_ch, this_xt = xtab_i16(prod5, a_trans_bl_tg, cell_areas_array)
+                this_rh, this_ch, this_xt = xtab(prod5, a_trans_bl_tg, cell_areas_array)
                 # Don't use this transition xtab if it is empty (could 
                 # happen if take a xtab where all of the values are nan's)
                 if this_rh.size != 0:
@@ -506,7 +544,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                         ch = this_ch
                         xt = this_xt
                     else:
-                        rh, ch, xt = merge_xtabs_i16(this_rh, this_ch, this_xt, rh, ch, xt)
+                        rh, ch, xt = merge_xtabs(this_rh, this_ch, this_xt, rh, ch, xt)
 
                 a_soc_frac_chg = a_soc_tg / a_soc_bl
                 # Degradation in terms of SOC is defined as a decline of more 
@@ -519,7 +557,7 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                 a_deg_soc[a_soc_tg == -32768] = -32768 # No data
                 # Carry over areas that were 1) originally masked, or 2) are 
                 # outside the AOI, or 3) are water
-                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg_f(a_deg_soc,
+                sdg_tbl_soc = sdg_tbl_soc + ldn_total_deg(a_deg_soc,
                                                             water,
                                                             cell_areas_array)
 
@@ -640,14 +678,14 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             return
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'LDMS productivity'
+            prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
 
 
         ######################################################################
         # Check that all needed input layers are selected
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             if len(self.combo_layer_traj.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool."))
@@ -679,7 +717,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         #######################################################################
         # Check that the layers cover the full extent needed
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_traj.get_layer().extent())) < .99:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Area of interest is not entirely within the trajectory layer."))
@@ -713,7 +751,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         def res(layer):
             return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
 
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and state layer do not match."))
@@ -736,7 +774,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             traj_vrt = self.combo_layer_traj.get_vrt()
             perf_vrt = self.combo_layer_perf.get_vrt()
             state_vrt = self.combo_layer_state.get_vrt()
@@ -789,7 +827,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         # Compute the pixel-aligned bounding box (slightly larger than aoi). 
         # Use this instead of croptocutline in gdal.Warp in order to keep the 
         # pixels aligned with the chosen productivity layer.
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             bbs = self.aoi.get_aligned_output_bounds(traj_vrt)
         else:
             bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
@@ -801,7 +839,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
             log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
-            if prod_mode == 'LDMS productivity':
+            if prod_mode == 'Trends.Earth productivity':
                 gdal.BuildVRT(indic_vrt,
                               in_files + [traj_vrt, perf_vrt, state_vrt],
                               outputBounds=bbs[n],
@@ -887,7 +925,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                         soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
                     lc_totals = lc_totals + this_lc_totals
                     if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs_i16(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
+                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
                                                           this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
                     sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
                     sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
@@ -902,7 +940,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         # Add the SDG layers to the map
         output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             output_sdg_bandinfos.append(BandInfo("SDG 15.3.1 Productivity Indicator"))
         
         if len(output_sdg_tifs) == 1:
@@ -915,7 +953,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                                                 'task_notes': self.options_tab.task_notes.toPlainText()})
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
-        if prod_mode == 'LDMS productivity':
+        if prod_mode == 'Trends.Earth productivity':
             add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
 
         return True

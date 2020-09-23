@@ -115,7 +115,7 @@
         </property>
         <property name="text">
          <string>Forest Degradation Hotspots
-(Forest Loss, Gain and Cover)</string>
+(Forest Loss, Gain, Cover and Fires)</string>
         </property>
        </widget>
       </item>

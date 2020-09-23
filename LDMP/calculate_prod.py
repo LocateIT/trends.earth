@@ -17,9 +17,14 @@ standard_library.install_aliases()
 import os
 import json
 
-from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QDate
+from qgis.PyQt import QtWidgets, uic
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
 
+from osgeo import ogr
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -59,7 +64,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.mode_te_prod_toggled()
 
-        self.resize(self.width(), 711)
+        # self.resize(self.width(), 711)
 
 
     def showEvent(self, event):
@@ -184,13 +189,13 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         start_year = QDate(self.start_year_ndvi, 1, 1)
         end_year = QDate(self.end_year_ndvi, 12, 31)
 
-        # State
+        # Performance
         self.perf_year_start.setMinimumDate(start_year)
         self.perf_year_start.setMaximumDate(end_year)
         self.perf_year_end.setMinimumDate(start_year)
         self.perf_year_end.setMaximumDate(end_year)
 
-        # Performance
+        # State
         self.state_year_bl_start.setMinimumDate(start_year)
         self.state_year_bl_start.setMaximumDate(end_year)
         self.state_year_bl_end.setMinimumDate(start_year)
@@ -239,11 +244,48 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
             climate_gee_dataset = None
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'LDMS productivity'
+            prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords,
+                "type":"Polygon"
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
         payload = {'prod_mode': prod_mode,
                    'calc_traj': self.groupBox_traj.isChecked(),
                    'calc_perf': self.groupBox_perf.isChecked(),
@@ -256,7 +298,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
                    'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
                    'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
                    'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
-                   'geojsons': json.dumps(geojsons),
+                   'geojsons': geometries,
+                #    'geojsons':json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'ndvi_gee_dataset': ndvi_dataset,

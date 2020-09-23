@@ -43,6 +43,7 @@ from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
 from LDMP.gui.DlgCalculateMedalus import Ui_DlgCalculateMedalus
 from LDMP.gui.DlgCalculateForest import Ui_DlgCalculateForest
 from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
+from LDMP.gui.DlgCalculateForestFire import Ui_DlgCalculateForestFire
 
 from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
 from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
@@ -594,14 +595,21 @@ class DlgCalculateForest(QtWidgets.QDialog, Ui_DlgCalculateForest):
         super(DlgCalculateForest, self).__init__(parent)
 
         self.setupUi(self)
-
+        from LDMP.calculate_ff import DlgCalculateForestFire
+                                  
         self.dlg_calculate_tc = DlgCalculateTC()
+        self.dlg_calculate_ff = DlgCalculateForestFire()
 
         self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
+        self.pushButton_ff.clicked.connect(self.btn_ff_clicked)
 
     def btn_tc_clicked(self):
         self.close()
         result = self.dlg_calculate_tc.exec_()
+
+    def btn_ff_clicked(self):
+        self.close()
+        result = self.dlg_calculate_ff.exec_()
 
 class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
     def __init__(self, parent=None):
@@ -1048,7 +1056,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
-        self._max_area = 5e7 # maximum size task the tool supports
+        self._max_area = 0.63e6 # maximum size task the tool supports
 
         self.firstShowEvent.connect(self.firstShow)
 
@@ -1237,7 +1245,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             aoi_area = self.aoi.get_area() / (1000 * 1000)
             if aoi_area > self._max_area:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.".format(aoi_area)))
+                        self.tr("The bounding box for the requested area (approximately {0}) sq km is too large. Choose a smaller area to process. Maximum area {1} sq km".format(aoi_area, self._max_area)))
                 return False
 
         if self._has_output:

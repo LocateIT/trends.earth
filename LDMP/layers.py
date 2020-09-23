@@ -74,6 +74,23 @@ style_text_dict = {
 
     'prod_state_classes_title': tr(u'Productivity state classes ({year_start}-{year_end})'),
 
+    # dNBR 
+    'forest_fire': tr(u'Delta Normalized Burnt Ratio'),
+    'fire_nodata': tr(u'-500 - No data'),
+    'fire_high_severity': tr(u'1 - High Severity'),
+    'fire_moderate_high_severity': tr(u'2 - Moderate High Severity'),
+    'fire_moderate_low_severity': tr(u'3 - Moderate Low Severity'),
+    'fire_low_severity': tr(u'4 - Low Severity'),
+    'fire_unburned': tr(u'5 - Unburned'),
+    'fire_enhanced_growth_low': tr(u'6 - Enhanced Regrowth, Low'),
+    'fire_enhanced_growth_high': tr(u'7 - Enhanced Regrowth High'),
+
+    #pre_fire_nbr
+    'pre_fire_nbr': tr(u'Prefire Normalized Burn Ratio'),
+
+    #post_fire_nbr
+    'post_fire_nbr':tr(u'Postfire Normalized Burn Ratio'),
+
     # Land cover
     'lc_deg_title': tr(u'Land cover degradation ({year_baseline} to {year_target})'),
     'lc_deg_deg': tr(u'Degradation'),

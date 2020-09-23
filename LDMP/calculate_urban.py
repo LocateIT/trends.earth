@@ -27,9 +27,14 @@ from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
 
-from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.PyQt import QtWidgets, uic
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
 
+from osgeo import ogr
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
@@ -175,6 +180,39 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        # val = []
+        # n = 1
+
+        # if self.area_tab.area_fromfile.isChecked():
+        #     for f in self.aoi.get_layer_wgs84().getFeatures():
+        #         # Get an OGR geometry from the QGIS geometry
+        #         geom = f.geometry()
+        #         val.append(geom)
+        #         n += 1
+
+        #     # stringify json object 
+        #     val_string = '{}'.format(json.loads(val[0].asJson()))
+
+        #     # create ogr geometry
+        #     val_geom = ogr.CreateGeometryFromJson(val_string)
+        #     # simplify polygon to tolerance of 0.003
+        #     val_geom_simplified = val_geom.Simplify(0.003)
+
+        #     # fetch coordinates from json  
+        #     coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+        #     geometries = json.dumps([{
+        #         "coordinates":coords
+        #     }])
+
+
+        # elif self.area_tab.area_fromadmin.isChecked():
+        #     geometries =json.dumps([{"coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0]}])
+        # elif self.area_tab.area_frompoint.isChecked():
+        #     point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+        #     crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+        #     point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+        #     geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
         payload = {'un_adju': self.get_pop_def_is_un(),
                    'isi_thr': self.spinBox_isi_thr.value(),
                    'ntl_thr': self.spinBox_ntl_thr.value(),
@@ -182,7 +220,8 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
                    'cap_ope': self.spinBox_cap_ope.value(),
                    'pct_suburban': self.spinBox_pct_suburban.value()/100.,
                    'pct_urban': self.spinBox_pct_urban.value()/100.,
-                   'geojsons': json.dumps(geojsons),
+                #    'geojsons': geometries,
+                    'geojsons':json.dumps(geosjsons)
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'task_name': self.options_tab.task_name.text(),
