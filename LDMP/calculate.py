@@ -1056,7 +1056,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
-        self._max_area = 1.26e6 # maximum size task the tool supports
+        self._max_area = 0.63e6 # maximum size task the tool supports
 
         self.firstShowEvent.connect(self.firstShow)
 

@@ -68,22 +68,27 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
 
         self.update_time_bounds()
 
+
     def radio_landsat8_toggled(self):
+        """
+        Set start date input based on dataset selected
+        """
         if self.radio_sentinel2.isChecked():
             start_year = QDate(2015, 6, 24)
+            self.prefire_start_btn.setMinimumDate(start_year)
             self.prefire_start_btn.setDate(start_year)
         else:
-            start_year = QDate(2015, 2, 12)
+            start_year = QDate(2013, 2, 12)
+            self.prefire_start_btn.setMinimumDate(start_year)
             self.prefire_start_btn.setDate(start_year)
 
         self.update_time_bounds()
 
     def update_time_bounds(self):
         # default dates
-        start_year = QDate(2015, 2, 12)
         end_year = QDate(2030, 1, 1)    
         # study period 
-        self.prefire_start_btn.setMinimumDate(start_year)
+        # self.prefire_start_btn.setMinimumDate(start_year)
         self.prefire_start_btn.setMaximumDate(end_year)
         self.prefire_end_btn.setMinimumDate(self.prefire_start_btn.date())
         self.prefire_end_btn.setMaximumDate(end_year)
@@ -108,55 +113,55 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
         else:
             prod_mode = 'S2'
 
+        val = []
+        n = 1
+
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        # val = []
-        # n = 1
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
 
-        # if self.area_tab.area_fromfile.isChecked():
-        #     for f in self.aoi.get_layer_wgs84().getFeatures():
-        #         # Get an OGR geometry from the QGIS geometry
-        #         geom = f.geometry()
-        #         val.append(geom)
-        #         n += 1
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+            # final = str(json.loads(val[0].asJson()))
 
-        #     # stringify json object 
-        #     val_string = '{}'.format(json.loads(val[0].asJson()))
-        #     # final = str(json.loads(val[0].asJson()))
-        #     # create ogr geometry
-        #     val_geom = ogr.CreateGeometryFromJson(val_string)
-        #     # simplify polygon to tolerance of 0.003
-        #     val_geom_simplified = val_geom.Simplify(0.003)
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.005
+            val_geom_simplified = val_geom.Simplify(0.005)
 
-        #     # fetch coordinates from json  
-        #     coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
-        #     geometries = json.dumps([{
-        #         "coordinates":coords
-        #     }])
-
-
-        # elif self.area_tab.area_fromadmin.isChecked():
-        #     geometries =json.dumps([{"coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0]}])
-        # elif self.area_tab.area_frompoint.isChecked():
-        #     point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
-        #     crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
-        #     point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
-        #     geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords
+            }])
         
-        area = self.aoi.get_area()/(1000 * 1000)
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{"coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0]}])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
+        # area = self.aoi.get_area()/(1000 * 1000)
         # log('{0}'.format(poly))
-
-        prefire_start ='{0}-{1}-{2}'.format(self.prefire_start_btn.date().year(), self.prefire_start_btn.date().month(), self.prefire_start_btn.date().day())
-        prefire_end = '{0}-{1}-{2}'.format(self.prefire_end_btn.date().year(), self.prefire_end_btn.date().month(), self.prefire_end_btn.date().day())
-        postfire_start = '{0}-{1}-{2}'.format(self.postfire_start_btn.date().year(), self.postfire_start_btn.date().month(), self.postfire_start_btn.date().day())
-        postfire_end = '{0}-{1}-{2}'.format(self.postfire_end_btn.date().year(), self.postfire_end_btn.date().month(), self.postfire_end_btn.date().day())
+        date_format = '{0}-{1}-{2}'
+        prefire_start =date_format.format(self.prefire_start_btn.date().year(), self.prefire_start_btn.date().month(), self.prefire_start_btn.date().day())
+        prefire_end = date_format.format(self.prefire_end_btn.date().year(), self.prefire_end_btn.date().month(), self.prefire_end_btn.date().day())
+        postfire_start = date_format.format(self.postfire_start_btn.date().year(), self.postfire_start_btn.date().month(), self.postfire_start_btn.date().day())
+        postfire_end = date_format.format(self.postfire_end_btn.date().year(), self.postfire_end_btn.date().month(), self.postfire_end_btn.date().day())
         payload = {'prod_mode': prod_mode,
-                   'area':area,       
+                #    'area':area,       
                    'prefire_start_btn':prefire_start,
                    'prefire_end_btn': prefire_end,
                    'postfire_start_btn': postfire_start,
                    'postfire_end_btn': postfire_end,
-                #    'geojsons': geometries,
-                    'geojsons':json.dumps(geojsons),
+                   'geojsons': geometries,
+                    # 'geojsons':json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                 #    'og_simple':'{}'.format(og_simple),
