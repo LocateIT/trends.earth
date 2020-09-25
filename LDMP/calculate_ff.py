@@ -153,6 +153,7 @@ class DlgCalculateForestFire(DlgCalculateBase, UiDialog):
         
         # area = self.aoi.get_area()/(1000 * 1000)
         # log('{0}'.format(poly))
+        
         date_format = '{0}-{1}-{2}'
         prefire_start =date_format.format(self.prefire_start_btn.date().year(), self.prefire_start_btn.date().month(), self.prefire_start_btn.date().day())
         prefire_end = date_format.format(self.prefire_end_btn.date().year(), self.prefire_end_btn.date().month(), self.prefire_end_btn.date().day())

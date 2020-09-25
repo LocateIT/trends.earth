@@ -25,13 +25,38 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.calculate import DlgCalculateBase, get_script_slug
-from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
+from LDMP.gui.DlgCalculateCQI import Ui_DlgCalculateCQI
 from LDMP.api import run_script
+from LDMP.cqi_setup import cqi_setup_widget
 
 
-class DlgCalculateCQI(DlgCalculateBase, UiDialog):
+class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateCQI, self).__init__(parent)
 
         self.setupUi(self)
+
+    def showEvent(self, event):
+        super(DlgCalculateCQI, self).showEvent(event)
+
+        self.cqi_setup_tab = cqi_setup_widget
+        self.TabBox.insertTab(0, self.cqi_setup_tab, self.tr('Climate Quality Index Setup'))
+
+        # These boxes may have been hidden if this widget was last shown on the 
+        # SDG one step dialog
+        self.cqi_setup_tab.groupBox_terra_period.show()
+        self.cqi_setup_tab.use_custom.show()
+        self.cqi_setup_tab.groupBox_custom_prec.show()
+        self.cqi_setup_tab.groupBox_custom_pet.show()
+
+        # This box may have been hidden if this widget was last shown on the 
+        # SDG one step dialog
+        self.cqi_setup_tab.groupBox_terra_period.show()
+
+        if self.reset_tab_on_showEvent:
+            self.TabBox.setCurrentIndex(0)
+
+        # precipitation and potential evapotranspiration custom input layers
+        self.cqi_setup_tab.use_custom_prec.populate()
+        self.cqi_setup_tab.use_custom_pet.populate()
