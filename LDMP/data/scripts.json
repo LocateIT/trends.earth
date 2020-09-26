@@ -11,6 +11,10 @@
         "script version": "1.0.2",
         "description": "Calculate Forest Burnt Severity."
     },
+    "climate-quality":{
+        "script version": "1.0.2",
+        "description": "Calculate Climate Quality Index based on Aridity Index"
+    },
     "productivity": {
         "script version": "1.0.2",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",

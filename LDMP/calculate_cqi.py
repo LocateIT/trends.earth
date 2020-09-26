@@ -18,8 +18,17 @@ import os
 import json
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QDate
+from qgis.PyQt.QtCore import QSettings
 
+from osgeo import gdal, osr,ogr
+from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt.QtCore import QDate
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
+
+from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -60,3 +69,92 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # precipitation and potential evapotranspiration custom input layers
         self.cqi_setup_tab.use_custom_prec.populate()
         self.cqi_setup_tab.use_custom_pet.populate()
+
+    def btn_calculate(self):
+
+        ret = super(DlgCalculateCQI, self).btn_calculate()
+        if not ret:
+            return
+
+        if self.cqi_setup_tab.use_terra.isChecked():
+            self.calculate_on_GEE()
+        else:
+            self.calculate_locally()
+
+    def calculate_on_GEE(self):
+        self.close()
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords,
+                "type":"Polygon"
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
+        payload = {
+                    'year': self.cqi_setup_tab.use_terra_year.date().year(),
+                    'geojsons': geometries,
+                    'crosses_180th': crosses_180th,
+                    'crs': self.aoi.get_crs_dst_wkt(),
+                    'task_name': self.options_tab.task_name.text(),
+                    'task_notes': self.options_tab.task_notes.toPlainText()}
+
+        resp = run_script(get_script_slug('climate-quality'), payload)
+
+        if resp:
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
+                           QtWidgets.QApplication.translate("LDMP", "Climate quality task submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
+                           QtWidgets.QApplication.translate("LDMP", "Unable to submit climate quality task to Google Earth Engine."),
+                           level=0, duration=5)
+
+    def calculate_locally(self):
+        if not self.cqi_setup_tab.use_custom.isChecked():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom precipitation or evapotranspiration layer dataset."))
+            return
+        if len(self.cqi_setup_tab.use_custom_prec.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a yearly mean precipitation layer to your map before you can run the calculation."), None)
+            return
+
+        if len(self.cqi_setup_tab.use_custom_pet.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add mean potential evapotranspiration layer to your map before you can run the calculation."), None)
+            return
+
+        
+

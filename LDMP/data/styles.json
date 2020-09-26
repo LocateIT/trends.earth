@@ -344,18 +344,18 @@
             ]
         }
     },
-    "SDG 15.3.1 Productivity Indicator": {
-        "title": "sdg_prod_combined_title",
+    "Aridity Index": {
+        "title": "climate_quality_index",
         "ramp": {
             "type": "categorical",
-            "shader": "exact",
+            "shader": "interpolated",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
-                {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
-                {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
-                {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
-                {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+                {"value": 0.05, "color": "#AB2727", "label": "hyper_arid"},
+                {"value": 0.20, "color": "#ED7428", "label": "arid"},
+                {"value": 0.50, "color": "#FED652", "label": "semi_arid"},
+                {"value": 0.65, "color": "#B8D779", "label": "dry_sub_humid"},
+                {"value": 1, "color": "#45A146", "label": "humid"}
             ]
         }
     },
@@ -371,6 +371,21 @@
                    {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
                    {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
                    {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
+            ]
+        }
+    },
+    "SDG 15.3.1 Productivity Indicator": {
+        "title": "sdg_prod_combined_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 1, "color": "#AB2727", "label": "sdg_prod_combined_declining"},
+                {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
+                {"value": 5, "color": "#45A146", "label": "sdg_prod_combined_imp"}
             ]
         }
     },
