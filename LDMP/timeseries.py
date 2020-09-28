@@ -41,91 +41,32 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
-        self.dataset_ndvi.addItems(ndvi_datasets)
+        # ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        # self.dataset_ndvi.addItems(ndvi_datasets)
 
         
-        indices_items = [x for x in list(indices_set.values())]
-        self.indices.addItems(indices_items)
+        # indices_items = [x for x in list(indices_set.values())]
+        # self.indices.addItems(indices_items)
         
 
-        self.start_year_climate = 0
-        self.end_year_climate = 9999
-        self.start_year_ndvi = 0
-        self.end_year_ndvi = 9999
+        # self.start_year_climate = 0
+        # self.end_year_climate = 9999
+        # self.start_year_ndvi = 0
+        # self.end_year_ndvi = 9999
 
-        self.dataset_ndvi_changed()
-        # self.indices_changed()
-        self.traj_climate_changed()
-        self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
+        # self.dataset_ndvi_changed()
+        # # self.indices_changed()
+        # self.traj_climate_changed()
+        # self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
 
-        self.dataset_climate_update()
+        # self.dataset_climate_update()
 
-        self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
-        # self.indices.currentIndexChanged.connect(self.indices_changed)
-        self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
+        # self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
+        # # self.indices.currentIndexChanged.connect(self.indices_changed)
+        # self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        # TODO:Temporary until fixed:
-        self.TabBox.removeTab(1)
-
-    def traj_indic_changed(self):
-        self.dataset_climate_update()
-
-    def dataset_climate_update(self):
-        self.traj_climate.clear()
-        self.climate_datasets = {}
-        # Can't use any of the methods but NDVI Trends on the 16 day data, so
-        # don't need climate datasets
-        if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal resolution'] == 'annual':
-            climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
-            for climate_type in climate_types:
-                self.climate_datasets.update(self.datasets[climate_type])
-                self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
-
-    def traj_climate_changed(self):
-        if self.traj_climate.currentText() == "":
-            self.start_year_climate = 0
-            self.end_year_climate = 9999
-        else:
-            self.start_year_climate = self.climate_datasets[self.traj_climate.currentText()]['Start year']
-            self.end_year_climate = self.climate_datasets[self.traj_climate.currentText()]['End year']
-        self.update_time_bounds()
-
-    # def indices_changed(self):
-    #     this_indices = indices_set[self.indices.currentText()]
-
-    def dataset_ndvi_changed(self):
-        this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
-        self.start_year_ndvi = this_ndvi_dataset['Start year']
-        self.end_year_ndvi = this_ndvi_dataset['End year']
-
-        # Don't try to update the climate datasets while traj_indic is empty,
-        # so block signals while clearing it.
-        self.traj_indic.blockSignals(True)
-        self.traj_indic.clear()
-        self.traj_indic.blockSignals(False)
-        # Can't use any of the methods but NDVI Trends on the 16 day data
-        if this_ndvi_dataset['Temporal resolution'] == '16 day':
-            self.traj_indic.addItems(['NDVI trends'])
-        else:
-            self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
-
-        self.update_time_bounds()
-
-    def update_time_bounds(self):
-        # TODO: need to also account for GAEZ and/or CCI data dates for
-        # stratification
-        start_year = QDate(self.start_year_ndvi, 1, 1)
-        end_year = QDate(self.end_year_ndvi, 12, 31)
-
-        # Trajectory - needs to also account for climate data
-        start_year_traj = QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
-        end_year_traj = QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
-
-        self.traj_year_start.setMinimumDate(start_year_traj)
-        self.traj_year_start.setMaximumDate(end_year_traj)
-        self.traj_year_end.setMinimumDate(start_year_traj)
-        self.traj_year_end.setMaximumDate(end_year_traj)
+        # # TODO:Temporary until fixed:
+        # self.TabBox.removeTab(1)
 
     def btn_cancel(self):
         self.close()
@@ -140,25 +81,22 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.close()
 
-        if self.traj_climate.currentText() != "":
-            climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
-            log('climate_gee_dataset {}'.format(climate_gee_dataset))
+        if self.ndvi.isChecked():
+            indices = 'ndvi'
+        elif self.savi.isChecked():
+            indices = 'savi'
         else:
-            climate_gee_dataset = None
-        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
+            indices = 'msavi2'
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
-        payload = {'year_start': self.traj_year_start.date().year(),
-                   'year_end': self.traj_year_end.date().year(),
-                   'crosses_180th': crosses_180th,
+        payload = {'crosses_180th': crosses_180th,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
-                   'ndvi_gee_dataset': ndvi_dataset,
+                   'indices':indices,
                    'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText(),
-                   'climate_gee_dataset': climate_gee_dataset}
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
+        # payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
 
         resp = run_script(get_script_slug('time-series'), payload)
 
