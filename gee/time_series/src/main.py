@@ -38,7 +38,6 @@ def calculateNDVI(geometry):
     """
     Calculate NDVI
     """
-    logger.debug("Entering calculate ndvi function.")
     # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
     # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
 
@@ -66,7 +65,6 @@ def calculateMSAVI2(geometry):
     """
     Calculate MSAVI2
     """
-    logger.debug("Entering calculate msavi2 function.")
     # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
     # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
 
@@ -93,7 +91,6 @@ def calculateSAVI(geometry):
     """
     Calculate SAVI
     """
-    logger.debug("Entering calculate savi function.")
     # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
     # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
 
@@ -116,7 +113,7 @@ def calculateSAVI(geometry):
 
     return saviImages
 
-def zonal_stats(geojsons, EXECUTION_ID, logger):
+def zonal_stats(veg_index, geojsons, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
 
     # =======================================
@@ -124,8 +121,14 @@ def zonal_stats(geojsons, EXECUTION_ID, logger):
     # ========================================
 
     region = ee.Geometry(geojsons)
+    
+    if veg_index == 'ndvi':
+        image = calculateNDVI(region).clip(region)
+    elif veg_index == 'savi':
+        image = calculateSAVI(region).clip(region)
+    else:
+        image = calculateMSAVI2(region).clip(region)
 
-    image = calculateNDVI(region).clip(region)
     scale = ee.Number(image.projection().nominalScale()).getInfo()
 
     ## This produces an average of the region over the image by year
@@ -170,11 +173,9 @@ def zonal_stats(geojsons, EXECUTION_ID, logger):
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_start = params.get('year_start')
-    year_end = params.get('year_end')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    ndvi_gee_dataset = params.get('ndvi_gee_dataset')
+    indices = params.get('indices')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -186,7 +187,6 @@ def run(params, logger):
     # TODO: Right now timeseries will only work on the first geojson - this is 
     # somewhat ok since for the most part this uses points, but should fix in 
     # the future
-    json_result = zonal_stats(geojsons[0], EXECUTION_ID, 
-                              logger)
+    json_result = zonal_stats(indices,geojsons[0], EXECUTION_ID, logger)
 
     return json_result
