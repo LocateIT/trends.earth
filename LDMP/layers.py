@@ -41,7 +41,6 @@ from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 def tr(t):
     return QtWidgets.QApplication.translate('LDMPPlugin', t)
 
-
 # Store layer titles and label text in a dictionary here so that it can be
 # translated - if it were in the syles JSON then gettext would not have access
 # to these strings.

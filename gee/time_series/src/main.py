@@ -18,13 +18,114 @@ import ee
 from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
+dataset = ee.ImageCollection('LANDSAT/LE07/C01/T1_RT_TOA')
+years = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
-def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
+# // mask landsat 7 clouds 
+def maskL7clouds(image):
+    qa = image.select('BQA')
+
+    # // Bits 4 are clouds.
+    cloudBitMask = 1 << 4
+
+    # // flags should be set to zero, indicating clear conditions.
+    mask = qa.bitwiseAnd(cloudBitMask).eq(0)
+
+    return image.updateMask(mask)
+
+
+def calculateNDVI(geometry):
+    """
+    Calculate NDVI
+    """
+    logger.debug("Entering calculate ndvi function.")
+    # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
+    # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
+
+    def yearlyNDVIMean(year):
+        datasets = (dataset.filterDate('{}-01-01'.format(year),'{}-12-31'.format(year))
+            # // Pre-filter to get less cloudy granules.
+            # // .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',50))
+            .filterBounds(geometry)
+            .map(maskL7clouds)
+            .mean())
+                        
+        ndvi = datasets.expression('(nir- red) / (nir + red)',{
+            'nir':datasets.select('B4'),
+            'red':datasets.select('B3')
+            }
+        ).rename('y{}'.format(year))
+        
+        return ndvi
+
+    ndviImages = ee.Image.cat(list(map(yearlyNDVIMean, years)))
+
+    return ndviImages
+
+def calculateMSAVI2(geometry):
+    """
+    Calculate MSAVI2
+    """
+    logger.debug("Entering calculate msavi2 function.")
+    # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
+    # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
+
+    def yearlyMSAVI2Mean(year):
+        datasets = (dataset.filterDate('{}-01-01'.format(year),'{}-12-31'.format(year))
+            # // Pre-filter to get less cloudy granules.
+            # // .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',50))
+            .filterBounds(geometry)
+            .map(maskL7clouds)
+            .mean())
+                        
+        msavi2 = datasets.expression('(2 * nir + 1 - ( (2 * nir + 1)**2 - 8 * (nir -red) )**(1/2) ) / 2',{
+            'nir':datasets.select('B4'),
+            'red':datasets.select('B3')
+        }).rename('y{}'.format(year))
+        
+        return msavi2
+
+    msavi2Images = ee.Image.cat(list(map(yearlyMSAVI2Mean, years)))
+
+    return msavi2Images
+
+def calculateSAVI(geometry):
+    """
+    Calculate SAVI
+    """
+    logger.debug("Entering calculate savi function.")
+    # // Replace country name with EGYPT, LIBYA, ALGERIA, MAURITANIA, MOROCCO, TUNISIA
+    # northAfrica = ee.FeatureCollection("users/miswagrace/Sahel_sahara_boundary")
+
+    def yearlySAVIMean(year):
+        datasets = (dataset.filterDate('{}-01-01'.format(year),'{}-12-31'.format(year))
+            # // Pre-filter to get less cloudy granules.
+            # // .filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE',50))
+            .filterBounds(geometry)
+            .map(maskL7clouds)
+            .mean())
+                        
+        savi = datasets.expression('((nir - red) / (nir + red + 0.5)) * (1 + 0.5)',{
+            'nir':datasets.select('B4'),
+            'red':datasets.select('B3')
+        }).rename('y{}'.format(year))
+        
+        return savi
+
+    saviImages = ee.Image.cat(list(map(yearlySAVIMean, years)))
+
+    return saviImages
+
+def zonal_stats(geojsons, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
+
+    # =======================================
+    # compute nvdi mean first for landsat 7
+    # ========================================
 
     region = ee.Geometry(geojsons)
 
-    image = ee.Image(gee_dataset).clip(region)
+    image = calculateNDVI(region).clip(region)
     scale = ee.Number(image.projection().nominalScale()).getInfo()
 
     ## This produces an average of the region over the image by year
@@ -85,7 +186,7 @@ def run(params, logger):
     # TODO: Right now timeseries will only work on the first geojson - this is 
     # somewhat ok since for the most part this uses points, but should fix in 
     # the future
-    json_result = zonal_stats(ndvi_gee_dataset, geojsons[0], EXECUTION_ID, 
+    json_result = zonal_stats(geojsons[0], EXECUTION_ID, 
                               logger)
 
     return json_result
