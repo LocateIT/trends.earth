@@ -23,7 +23,7 @@ class CQISetupWidget(QtWidgets.QWidget, Ui_WidgetCQISetup):
         self.setupUi(self)
 
         self.use_terra.toggled.connect(self.cqi_source_changed)
-        self.use_custom.toggled.connect(self.cqi_source_changed)
+        # self.use_custom.toggled.connect(self.cqi_source_changed)
 
         self.cqi_source_changed()
 
@@ -31,11 +31,11 @@ class CQISetupWidget(QtWidgets.QWidget, Ui_WidgetCQISetup):
     def cqi_source_changed(self):
         if self.use_terra.isChecked():
             self.groupBox_terra_period.setEnabled(True)
-            self.groupBox_custom_pet.setEnabled(False)
-            self.groupBox_custom_prec.setEnabled(False)
-        elif self.use_custom.isChecked():
-            self.groupBox_terra_period.setEnabled(False)
-            self.groupBox_custom_pet.setEnabled(True)
-            self.groupBox_custom_prec.setEnabled(True)
+            # self.groupBox_custom_pet.setEnabled(False)
+            # self.groupBox_custom_prec.setEnabled(False)
+        # elif self.use_custom.isChecked():
+        #     self.groupBox_terra_period.setEnabled(False)
+        #     self.groupBox_custom_pet.setEnabled(True)
+        #     self.groupBox_custom_prec.setEnabled(True)
 
 cqi_setup_widget = CQISetupWidget()

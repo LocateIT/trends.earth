@@ -228,7 +228,7 @@ style_text_dict = {
     'hyper_arid':tr('Hyper-arid, 2'),
     'arid':tr('Arid, 1.75'),
     'semi_arid':tr('Semi-arid, 1.5'),
-    'dry_sub_humd':tr('Dry sub-humid, 1.25'),
+    'dry_sub_humid':tr('Dry sub-humid, 1.25'),
     'humid':tr('Humid, 1')
 }
 
