@@ -15,6 +15,10 @@
         "script version": "1.0.2",
         "description": "Calculate Climate Quality Index based on Aridity Index"
     },
+    "soil-quality":{
+        "script version": "1.0.2",
+        "description": "Calculate Soil Quality Index"
+    },
     "productivity": {
         "script version": "1.0.2",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",

@@ -348,7 +348,7 @@
         "title": "climate_quality_index",
         "ramp": {
             "type": "categorical",
-            "shader": "interpolated",
+            "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 0.05, "color": "#AB2727", "label": "hyper_arid"},
@@ -768,6 +768,19 @@
     },
     "Soil Grids 250": {
         "title": "soil_grids_250_soc",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
+    "Soil Quality Index": {
+        "title": "soil_quality_index",
         "ramp": {
             "type": "zero-centered stretch",
             "shader": "interpolated",

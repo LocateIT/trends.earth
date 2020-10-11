@@ -47,6 +47,7 @@ from LDMP.gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
 from LDMP.gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
 from LDMP.gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
 from LDMP.gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
+from LDMP.gui.DlgDataIOImportCQI import Ui_DlgDataIOImportCQI
 from LDMP.gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
@@ -1093,6 +1094,77 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                                 'source': 'custom data'})
         self.layer_loaded.emit([l_info])
 
+class DlgDataIOImportCQI(DlgDataIOImportBase, Ui_DlgDataIOImportCQI):
+    def __init__(self, parent=None):
+        super(DlgDataIOImportCQI, self).__init__(parent)
+
+        # This needs to be inserted after the input widget but before the 
+        # button box with ok/cancel
+        self.output_widget = ImportSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)
+
+        self.datatype = 'continuous'
+
+    def done(self, value):
+        if value == QtWidgets.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgDataIOImportCQI, self).done(value)
+
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+
+        ret = super(DlgDataIOImportCQI, self).validate_input(value)
+        if not ret:
+            return
+        
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            l = self.input_widget.get_vector_layer()
+            field = self.input_widget.comboBox_fieldname.currentText()
+            idx = l.fields().lookupField(field)
+            if not l.fields().field(idx).isNumeric():
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
+                return
+            else:
+                stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
+        log(u'Stats are: {}'.format(stats))
+        # if not stats:
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
+        #     return
+        # if stats[0] < 0:
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be >= 0.".format(in_file, stats[0])))
+        #     return
+        # if stats[1] > 1000:
+        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.".format(in_file, stats[1])))
+        #     return
+
+        super(DlgDataIOImportCQI, self).done(value)
+
+        self.ok_clicked()
+
+    def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
+        if self.input_widget.radio_raster_input.isChecked():
+            ret = self.warp_raster(out_file)
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            ret = self.rasterize_vector(in_file, out_file, attribute)
+
+        if not ret:
+            return False
+
+        l_info = self.add_layer('Aridity Index',
+                                {'source': 'custom data'})
+        self.layer_loaded.emit([l_info])
+
+
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def __init__(self, parent=None):
@@ -1332,6 +1404,8 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
             self.dlg_load = DlgDataIOImportLC()
         elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
+        elif self.property("layer_type") == 'Aridity Index':
+            self.dlg_load = DlgDataIOImportCQI()
         else:
             log(u'Unsupported import file type: {}'.format(self.property("layer_type")))
             return

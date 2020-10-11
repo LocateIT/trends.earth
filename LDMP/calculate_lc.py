@@ -268,15 +268,15 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."))
             return
             
-        # if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-        #                                self.tr("You must add an initial land cover layer to your map before you can run the calculation."), None)
-        #     return
+        if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."))
+            return
 
-        # if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-        #                                self.tr("You must add a final land cover layer to your map before you can run the calculation."), None)
-        #     return
+        if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."))
+            return
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
@@ -291,12 +291,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."), None)
+                                       self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
         out_f = self.get_save_raster()

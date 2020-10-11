@@ -620,12 +620,12 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         # TODO: Bad style - fix when refactoring
         from LDMP.calculate_cqi import DlgCalculateCQI
         # from LDMP.calculate_aqi import DlgCalculateAQI
-        # from LDMP.calculate_sqi import DlgCalculateSQI
+        from LDMP.calculate_sqi import DlgCalculateSQI
         # from LDMP.calculate_vqi import DlgCalculateVQI
 
         self.dlg_calculate_cqi = DlgCalculateCQI() 
         # self.dlg_calculate_aqi = DlgCalculateAQI()
-        # self.dlg_calculate_sqi = DlgCalculateSQI()
+        self.dlg_calculate_sqi = DlgCalculateSQI()
         # self.dlg_calculate_vqi = DlgCalculateVQI()
 
         self.btn_calculate_all.clicked.connect(self.btn_calculate_all_clicked)   
@@ -648,10 +648,10 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
                                 self.tr("Anthropic Quality Index coming soon!"))
 
     def btn_calculate_sqi_clicked(self):
-        # self.close()
-        # result = self.dlg_calculate_sqi.exec_()
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("Soil Quality Index coming soon!"))
+        self.close()
+        result = self.dlg_calculate_sqi.exec_()
+        # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+        #                         self.tr("Soil Quality Index coming soon!"))
 
     def btn_calculate_vqi_clicked(self):
         # self.close()
