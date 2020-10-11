@@ -158,8 +158,10 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
+        log('{}'.format(self.sqi_setup_tab.use_depth.value()))
+
         payload = {
-                    'depth': self.cqi_setup_tab.use_usda_depth(),
+                    'depth': self.sqi_setup_tab.use_depth.value(),
                     'geojsons': geometries,
                     'crosses_180th': crosses_180th,
                     'crs': self.aoi.get_crs_dst_wkt(),

@@ -15,6 +15,34 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>150</height>
+      </size>
+     </property>
+     <property name="autoFillBackground">
+      <bool>true</bool>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="html">
+      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Adverse climate conditions such as recurrent and prolonged drought, increase the susceptibility of land to desertification. The &lt;span style=&quot; font-weight:600;&quot;&gt;Climate Quality Index(CQI)&lt;/span&gt; is analyzed using the aridity index (AI), using the formula: &lt;span style=&quot; font-weight:600;&quot;&gt;AI = P/PET&lt;/span&gt; &lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Where &lt;span style=&quot; font-weight:600;&quot;&gt;AI&lt;/span&gt; is the Aridity index; &lt;span style=&quot; font-weight:600;&quot;&gt;P&lt;/span&gt; is the yearly mean precipitation; and &lt;span style=&quot; font-weight:600;&quot;&gt;PET&lt;/span&gt; is the mean potential evapotranspiration.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QRadioButton" name="use_terra">
      <property name="text">
       <string>Terra Climate Data (University of Idaho)</string>
@@ -108,31 +136,78 @@
     </widget>
    </item>
    <item>
-    <widget class="QTextBrowser" name="textBrowser">
+    <widget class="QRadioButton" name="use_custom">
+     <property name="text">
+      <string>Custom Precipitation and Evapotranspiration dataset</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_custom_prec">
      <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>200</height>
-      </size>
+     <property name="title">
+      <string>Yearly Mean Precipitation</string>
      </property>
-     <property name="autoFillBackground">
+     <layout class="QGridLayout" name="gridLayout_4">
+      <item row="0" column="1">
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_prec">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="layer_type" stdset="0">
+         <string notr="true">Aridity Index</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_custom_pet">
+     <property name="enabled">
       <bool>true</bool>
      </property>
-     <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+     <property name="title">
+      <string>Mean Potential Evapotranspiration</string>
      </property>
-     <property name="html">
-      <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Adverse climate conditions such as recurrent and prolonged drought, increase the susceptibility of land to desertification. The &lt;span style=&quot; font-weight:600;&quot;&gt;Climate Quality Index(CQI)&lt;/span&gt; is analyzed using the aridity index (AI), using the formula: &lt;span style=&quot; font-weight:600;&quot;&gt;AI = P/PET&lt;/span&gt; &lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Where &lt;span style=&quot; font-weight:600;&quot;&gt;AI&lt;/span&gt; is the Aridity index; &lt;span style=&quot; font-weight:600;&quot;&gt;P&lt;/span&gt; is the yearly mean precipitation; and &lt;span style=&quot; font-weight:600;&quot;&gt;PET&lt;/span&gt; is the mean potential evapotranspiration.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
+     <layout class="QGridLayout" name="gridLayout_6">
+      <item row="0" column="1">
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_pet">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="layer_type" stdset="0">
+         <string notr="true">Aridity Index</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item>
@@ -165,10 +240,20 @@ p, li { white-space: pre-wrap; }
     </spacer>
    </item>
   </layout>
-  <zorder>textBrowser</zorder>
+  <zorder>use_custom</zorder>
+  <zorder>groupBox_custom_prec</zorder>
+  <zorder>groupBox_custom_pet</zorder>
   <zorder>use_terra</zorder>
   <zorder>groupBox_terra_period</zorder>
+  <zorder>textBrowser</zorder>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetDataIOSelectTELayerImport</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/data_io</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

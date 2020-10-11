@@ -55,7 +55,7 @@ p, li { white-space: pre-wrap; }
       <bool>true</bool>
      </property>
      <property name="title">
-      <string>Depth (ranges from 0.1 to 200.0m )</string>
+      <string>Depth (ranges from 0.1 to 200.0cm )</string>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>

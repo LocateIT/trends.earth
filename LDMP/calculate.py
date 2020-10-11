@@ -648,7 +648,7 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
                                 self.tr("Anthropic Quality Index coming soon!"))
 
     def btn_calculate_sqi_clicked(self):
-        # self.close()
+        self.close()
         result = self.dlg_calculate_sqi.exec_()
         # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
         #                         self.tr("Soil Quality Index coming soon!"))

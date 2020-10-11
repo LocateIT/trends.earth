@@ -229,7 +229,9 @@ style_text_dict = {
     'arid':tr('Arid, 1.75'),
     'semi_arid':tr('Semi-arid, 1.5'),
     'dry_sub_humid':tr('Dry sub-humid, 1.25'),
-    'humid':tr('Humid, 1')
+    'humid':tr('Humid, 1'),
+
+    'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)')
 }
 
 

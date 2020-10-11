@@ -193,7 +193,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-14)
+            start_date = datetime.datetime.now() + datetime.timedelta(-3)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
                 self.jobs = jobs

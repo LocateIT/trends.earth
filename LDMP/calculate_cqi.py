@@ -41,6 +41,7 @@ from LDMP.cqi_setup import cqi_setup_widget
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.layers import create_local_json_metadata, add_layer
 from LDMP.worker import AbstractWorker, StartWorker
+from LDMP.polling import Poller
 
 class ClimateQualityWorker(AbstractWorker):
     def __init__(self, in_f, out_f):
@@ -62,7 +63,7 @@ class ClimateQualityWorker(AbstractWorker):
         ysize = band_prec.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        ds_out = driver.Create(self.out_f, xsize, ysize, 4, gdal.GDT_Int16, 
+        ds_out = driver.Create(self.out_f, xsize, ysize, 1, gdal.GDT_Float64, 
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -89,17 +90,18 @@ class ClimateQualityWorker(AbstractWorker):
                 a_prec = band_prec.ReadAsArray(x, y, cols, rows)
                 a_pet = band_pet.ReadAsArray(x, y, cols, rows)
 
+                a_prec = a_prec.astype('float64')
+                a_pet = a_pet.astype('float64')
                 # calculate aridity index 
-                a_cqi = a_prec/a_pet
-                a_cqi[(a_prec < 1) | (a_pet < 1)] <- -32768
+                a_cqi = (a_prec / a_pet)
+                a_cqi[(a_prec < 0) | (a_pet < 0)] <- -32768
 
-                ds_out.GetRasterBand(1).WriteArray(a_prec, x, y)
-                ds_out.GetRasterBand(2).WriteArray(a_pet, x, y)
-                ds_out.GetRasterBand(3).WriteArray(a_cqi, x, y)
+                ds_out.GetRasterBand(1).WriteArray(a_cqi, x, y)
+                # ds_out.GetRasterBand(2).WriteArray(a_pet, x, y)
+                # ds_out.GetRasterBand(3).WriteArray(a_cqi, x, y)
 
                 blocks += 1
-
-            
+ 
         if self.killed:
             os.remove(out_file)
             return None
@@ -123,9 +125,9 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # These boxes may have been hidden if this widget was last shown on the 
         # SDG one step dialog
         self.cqi_setup_tab.groupBox_terra_period.show()
-        # self.cqi_setup_tab.use_custom.show()
-        # self.cqi_setup_tab.groupBox_custom_prec.show()
-        # self.cqi_setup_tab.groupBox_custom_pet.show()
+        self.cqi_setup_tab.use_custom.show()
+        self.cqi_setup_tab.groupBox_custom_prec.show()
+        self.cqi_setup_tab.groupBox_custom_pet.show()
 
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
@@ -135,8 +137,8 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             self.TabBox.setCurrentIndex(0)
 
         # precipitation and potential evapotranspiration custom input layers
-        # self.cqi_setup_tab.use_custom_prec.populate()
-        # self.cqi_setup_tab.use_custom_pet.populate()
+        self.cqi_setup_tab.use_custom_prec.populate()
+        self.cqi_setup_tab.use_custom_pet.populate()
 
     def btn_calculate(self):
 
@@ -204,6 +206,10 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Submitted"),
                            QtWidgets.QApplication.translate("LDMP", "Climate quality task submitted to Google Earth Engine."),
                            level=0, duration=5)
+            # execution_id = resp['data'].get('id')
+            # if execution_id:
+            #     status = Poller(execution_id).poll()
+            #     log('{}'.format(status))
         else:
             mb.pushMessage(QtWidgets.QApplication.translate("LDMP", "Error"),
                            QtWidgets.QApplication.translate("LDMP", "Unable to submit climate quality task to Google Earth Engine."),
@@ -230,12 +236,12 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             return
         if len(self.cqi_setup_tab.use_custom_prec.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a yearly mean precipitation layer to your map before you can run the calculation."), None)
+                                       self.tr("You must add a yearly mean precipitation layer to your map before you can run the calculation."))
             return
 
         if len(self.cqi_setup_tab.use_custom_pet.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add mean potential evapotranspiration layer to your map before you can run the calculation."), None)
+                                       self.tr("You must add mean potential evapotranspiration layer to your map before you can run the calculation."))
             return
 
         # Select the initial and final bands from initial and final datasets 
@@ -243,15 +249,15 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         custom_prec_vrt = self.cqi_setup_tab.use_custom_prec.get_vrt()
         custom_pet_vrt = self.cqi_setup_tab.use_custom_pet.get_vrt()
 
-        # if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_prec.get_layer().extent())) < .99:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-        #                                self.tr("Area of interest is not entirely within the precipitation layer."), None)
-        #     return
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_prec.get_layer().extent())) < .99:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the precipitation layer."))
+            return
 
-        # if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_pet.get_layer().extent())) < .99:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-        #                                self.tr("Area of interest is not entirely within the potential evapotranspiration layer."), None)
-        #     return
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_pet.get_layer().extent())) < .99:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Area of interest is not entirely within the potential evapotranspiration layer."))
+            return
 
         out_f = self.get_save_raster()
         if not out_f:
@@ -269,13 +275,12 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
                       outputBounds=self.aoi.get_aligned_output_bounds_deprecated(custom_prec_vrt),
                       separate=True)
 
-        #TODO : Fix this 
         lc_change_worker = StartWorker(ClimateQualityWorker,
-                                       'calculating land cover change', in_vrt, 
+                                       'calculating climate quality index', in_vrt, 
                                        out_f)
         if not lc_change_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating land cover change."), None)
+                                       self.tr("Error calculating climate quality index."), None)
             return
 
         band_info = [BandInfo("Aridity Index", add_to_map=True)]
