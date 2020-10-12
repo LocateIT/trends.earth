@@ -193,7 +193,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-3)
+            start_date = datetime.datetime.now() + datetime.timedelta(-1)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
                 self.jobs = jobs
@@ -420,10 +420,10 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             # If file already exists, check its hash and skip redownloading if 
             # it matches
             if os.access(tiles[n], os.R_OK):
-                if check_hash_against_etag(urls[n]['url'], tiles[n], binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
+                if check_hash_against_etag(urls[n]['url'], tiles[n], 'e8f7f40d0ba79bd9963ea9b117709d45'):
                     continue
             resp = download_result(urls[n]['url'], tiles[n], job, 
-                                   binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
+                                   'e8f7f40d0ba79bd9963ea9b117709d45')
             if not resp:
                 return
         # Make a VRT mosaicing the tiles so they can be treated as one file 
@@ -434,7 +434,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
         url = results['urls'][0]
         out_file = f + '.tif'
         resp = download_result(url['url'], out_file, job, 
-                               binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
+                               'e8f7f40d0ba79bd9963ea9b117709d45')
         if not resp:
             return
 
