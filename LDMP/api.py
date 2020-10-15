@@ -31,7 +31,7 @@ from LDMP.worker import AbstractWorker, start_worker
 
 from LDMP import log
 
-API_URL = 'http://localhost:3000'
+API_URL = 'http://ec2-3-137-156-107.us-east-2.compute.amazonaws.com:3000'
 # API_URL = 'https://api.trends.earth/'
 TIMEOUT = 20
 

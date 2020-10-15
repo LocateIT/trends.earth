@@ -3,6 +3,7 @@ boto3
 sphinx
 sphinx-intl
 sphinx-rtd-theme
+sphinx_ops_theme
 transifex-client>=0.13.6
 pylint
 pip>=10.0.0

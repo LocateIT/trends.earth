@@ -351,10 +351,10 @@
             "shader": "discrete",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 0.05, "color": "#AB2727", "label": "hyper_arid"},
-                {"value": 0.20, "color": "#ED7428", "label": "arid"},
-                {"value": 0.50, "color": "#FED652", "label": "semi_arid"},
-                {"value": 0.65, "color": "#B8D779", "label": "dry_sub_humid"},
+                {"value": 0.002, "color": "#AB2727", "label": "hyper_arid"},
+                {"value": 0.03, "color": "#ED7428", "label": "arid"},
+                {"value": 0.05, "color": "#FED652", "label": "semi_arid"},
+                {"value": 0.07, "color": "#B8D779", "label": "dry_sub_humid"},
                 {"value": 1, "color": "#45A146", "label": "humid"}
             ]
         }
@@ -781,13 +781,13 @@
     },
     "Soil Quality Index": {
         "title": "soil_quality_index",
-        "ramp": {
+        "ramp":{
             "type": "zero-centered stretch",
             "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
+            "percent stretch": 0,
+            "min": {"color": "#000000"},
+            "zero": {"color": "#2d2d2d"},
+            "max": {"color": "#ffffff"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }

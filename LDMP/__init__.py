@@ -37,7 +37,7 @@ debug = QtCore.QSettings().value('LDMP/debug', True)
 
 def log(message, level=0):
     if debug:
-        QgsMessageLog.logMessage(message, tag="trends.earth", level=level)
+        QgsMessageLog.logMessage(message, tag="LDMS", level=level)
 
 # noinspection PyPep8Naming
 

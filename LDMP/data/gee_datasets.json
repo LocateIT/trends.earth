@@ -529,24 +529,87 @@
             "Comments": ""
         }
     },
-    "Forest cover": {
-        "Hansen": {
-            "Data source": "",
-            "Start year": 2000,
+    "Soil Texture": {
+        "OpenLandMap Soil texture class (USDA system)": {
+            "Data source": "https://doi.org/10.5281/zenodo.1475451",
+            "Start year": 1950,
             "End year": 2018,
-            "Spatial resolution": "30 m",
+            "Spatial resolution": "250 meters",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Depth in cm",
+            "Description": "Soil texture classes (USDA system) for 6 soil depths (0, 10, 30, 60, 100 and 200 cm) at 250 m.Derived from predicted soil texture fractions using the soiltexture package in R.",
+            "Link to Dataset": "https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02",
+            "GEE Dataset": "OpenLandMap/SOL/SOL_TEXTURE-CLASS_USDA-TT_M/v02",
+            "License": "Creative Commons Attribution 4.0 International License",
+            "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "Source": "Tomislav Hengl. (2018). Soil texture classes (USDA system) for 6 soil depths (0, 10, 30, 60, 100 and 200 cm) at 250 m (Version v02) [Data set]. Zenodo.",
+            "Comments": ""
+        }
+    },
+    "Soil Parent Material": {
+        "Hansen": {
+            "Data source": "http://earthenginepartners.appspot.com/science-2013-global-forest",
+            "Start year": 2000,
+            "End year": 2019,
+            "Spatial resolution": "1 arc seconds",
             "Temporal resolution": "annual",
             "Min Latitude": -90,
             "Max Latitude": 90,
             "Min Longitude": -180,
             "Max Longitude": 180,
             "Units": "Percent forest cover",
-            "Description": "",
-            "Link to Dataset": "",
-            "GEE Dataset": "",
-            "License": "",
-            "License URL": "",
-            "Source": "",
+            "Description": "Results from time-series analysis of Landsat images in characterizing global forest extent and change.",
+            "Link to Dataset": "http://earthenginepartners.appspot.com/science-2013-global-forest",
+            "GEE Dataset": "UMD/hansen/global_forest_change_2019_v1_7",
+            "License": "Creative Commons Attribution 4.0 International License",
+            "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "Source": "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend",
+            "Comments": ""
+        }
+    },
+    "Forest cover": {
+        "Hansen": {
+            "Data source": "http://earthenginepartners.appspot.com/science-2013-global-forest",
+            "Start year": 2000,
+            "End year": 2019,
+            "Spatial resolution": "30m",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Percent forest cover",
+            "Description": "Results from time-series analysis of Landsat images in characterizing global forest extent and change.",
+            "Link to Dataset": "http://earthenginepartners.appspot.com/science-2013-global-forest",
+            "GEE Dataset": "UMD/hansen/global_forest_change_2019_v1_7",
+            "License": "Creative Commons Attribution 4.0 International License",
+            "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
+            "Source": "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend",
+            "Comments": ""
+        }
+    },
+    "Elevation": {
+        "NASA SRTM Digital Elevation": {
+            "Data source": "https://cmr.earthdata.nasa.gov/search/concepts/C1000000240-LPDAAC_ECS.html",
+            "Start year": 2000,
+            "End year": 2000,
+            "Spatial resolution": "30m",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Units": "Meters",
+            "Description": "The Shuttle Radar Topography Mission (SRTM, see Farr et al. 2007) digital elevation data is an international research effort that obtained digital elevation models on a near-global scale. This SRTM V3 product (SRTM Plus) is provided by NASA JPL at a resolution of 1 arc-second (approximately 30m).",
+            "Link to Dataset": "https://cmr.earthdata.nasa.gov/search/concepts/C1000000240-LPDAAC_ECS.html",
+            "GEE Dataset": "USGS/SRTMGL1_003",
+            "License": "images and video on JPL public web sites",
+            "License URL": "https://www.jpl.nasa.gov/imagepolicy/",
+            "Source": "Farr, T.G., Rosen, P.A., Caro, E., Crippen, R., Duren, R., Hensley, S., Kobrick, M., Paller, M., Rodriguez, E., Roth, L., Seal, D., Shaffer, S., Shimada, J., Umland, J., Werner, M., Oskin, M., Burbank, D., and Alsdorf, D.E., 2007, The shuttle radar topography mission: Reviews of Geophysics, v. 45, no. 2, RG2004, at https://doi.org/10.1029/2005RG000183.",
             "Comments": ""
         }
     }

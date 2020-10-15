@@ -136,6 +136,10 @@ class DownloadWorker(AbstractWorker):
         self.toggle_show_cancel.emit(True)
 
         resp = requests.get(self.url, stream=True)
+                
+        if resp.status_code == 401:
+            raise DownloadError(u'Task has expired. Kindly rerun task again')
+
         if resp.status_code != 200:
             log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
             raise DownloadError(u'Unable to start download of {}'.format(self.url))
@@ -213,7 +217,7 @@ class Download(object):
             log("Download failed.")
             QtWidgets.QMessageBox.critical(None,
                                        QtWidgets.QApplication.translate("LDMP", "Error"),
-                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Check your internet connection."))
+                                       QtWidgets.QApplication.translate("LDMP", "Download failed. Task has expired. Kindly rerun task. "))
             return False
         return True
 

@@ -1,7 +1,7 @@
 ﻿Data sources
 ------------
 
-|trends.earth| draws on a number of data sources. The data sets listed below are 
+LDMS draws on a number of data sources. The data sets listed below are 
 owned/made available by the following organizations and individuals under 
 separate terms as indicated in their respective metadata.
 
@@ -11,11 +11,14 @@ NDVI
 +------------------+-----------+---------+--------+------------------+
 | Sensor/Dataset   | Temporal  | Spatial | Extent | License          |
 +==================+===========+=========+========+==================+
+| `LANDSAT7`_      | 2001-2016 | 250 m   | Global | `Public Domain`_ |
++------------------+-----------+---------+--------+------------------+
 | `AVHRR/GIMMS`_   | 1982-2015 | 8 km    | Global | `Public Domain`_ |
 +------------------+-----------+---------+--------+------------------+
 | `MOD13Q1-coll6`_ | 2001-2016 | 250 m   | Global | `Public Domain`_ |
 +------------------+-----------+---------+--------+------------------+
 
+.. _LANDSAT7: https://glam1.gsfc.nasa.gov
 .. _AVHRR/GIMMS: https://glam1.gsfc.nasa.gov
 .. _MOD13Q1-coll6:
    https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006
@@ -101,6 +104,35 @@ Agroecological Zones
 +---------------------------------------------------+----------+---------+--------+------------------+
 
 .. _FAO - IIASA Global Agroecological Zones (GAEZ): http://www.fao.org/nr/gaez/en
+
+
+Soil Quality
+~~~~~~~~~~~~~~
++-----------------------+----------+---------+--------+---------------------+
+| Sensor/Dataset            | Temporal | Spatial | Extent | License         |
++=======================+==========+=========+========+=====================+
+| `Soil Texture and Depth`_ | Present  | 250 m   | Global | `CC by-SA 4.0`_ |
++-----------------------+----------+---------+--------+---------------------+
+| `Parent Material`_        | Present  | 250 m   | Global | `CC by-SA 4.0`_ |
++-----------------------+----------+---------+--------+---------------------+
+| `Slope`_ | Present        | 250 m    | Global  | `CC by-SA 4.0`_          |
++-----------------------+----------+---------+--------+---------------------+
+
+.. _Soil Texture and Depth: http://www.fao.org/nr/gaez/en
+.. _Parent Material: http://www.fao.org/nr/gaez/en
+.. _Slope: http://www.fao.org/nr/gaez/en
+
+Climate
+~~~~~~~~~~~~~~~~~~~~
+
++---------------------------------------------------+----------+---------+--------+------------------+
+| Sensor/Dataset                                    | Temporal | Spatial | Extent | License          |
++===================================================+==========+=========+========+==================+
+| `Terra Climate`_                                  | 2000     | 8 km    | Global | `Public Domain`_ |
++---------------------------------------------------+----------+---------+--------+------------------+
+
+.. _Terra Climate: http://www.fao.org/nr/gaez/en
+
 
 Administrative Boundaries
 ~~~~~~~~~~~~~~~~~~~~~~~~~

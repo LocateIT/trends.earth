@@ -188,12 +188,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         self.download.setEnabled(False)
                         return
                 self.download.setEnabled(True)
-
+  
     def btn_refresh(self):
         self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-1)
+            start_date = datetime.datetime.now() + datetime.timedelta(-2)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
                 self.jobs = jobs

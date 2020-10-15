@@ -137,8 +137,13 @@ p, li { white-space: pre-wrap; }
    </item>
    <item>
     <widget class="QRadioButton" name="use_custom">
+     <property name="font">
+      <font>
+       <italic>true</italic>
+      </font>
+     </property>
      <property name="text">
-      <string>Custom Precipitation and Evapotranspiration dataset</string>
+      <string>Custom Precipitation and Evapotranspiration dataset (*Beta version)</string>
      </property>
     </widget>
    </item>
