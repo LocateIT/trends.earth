@@ -1,7 +1,7 @@
 ﻿Calculate indicators
 ====================
 
-.. image:: /static/common/ldmt_toolbar_highlight_calculate.png
+.. image:: /static/common/plugin_toolbar_calculate.png
    :align: center
 
 Sustainable Development Goal 15.3 intends to combat desertification, restore 
@@ -15,7 +15,7 @@ in soil organic carbon.
 .. contents::
 
 To select the methods and datasets to calculate these indicators, indicators 
-click on the calculator icon (|iconCalculator|). This will open up the 
+click on the calculator icon highlighted above. This will open up the 
 "Calculate Indicators" dialog box.
 
 .. image:: /static/documentation/calculate/LDindicator.png
@@ -27,7 +27,7 @@ Select the Land degradation indicator (SDG indicator 15.3.1) to open the window 
    :align: center
 
 There are several options for calculating the SDG 15.3.1 Indicator. 
-|trends.earth| supports calculating the indicator using the same process as was 
+LDMS supports calculating the indicator using the same process as was 
 used by the UNCCD for the default data provided to countries for the 2018 
 reporting process. The tool also supports customizing this data, or even 
 replacing individual datasets with national-level or other global datasets.
@@ -66,7 +66,7 @@ indicator
 .. note::
     Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed 
     explanation of how each of these sub-indicators is computed in 
-    |trends.earth|
+    LDMS
 
 There are two ways to calculate the indicators: 1) using a simplified tool that 
 will calculate all three indicators at once, but with limited options for 
@@ -115,11 +115,11 @@ requires two datasets to compare change over time. Select Next.
     The provided boundaries are from `Natural Earth 
     <http://www.naturalearthdata.com>`_, and are in the `public domain
     <https://creativecommons.org/publicdomain>`_. The boundaries and names 
-    used, and the designations used, in Trends.Earth do not imply official 
+    used, and the designations used, in LDMS do not imply official 
     endorsement or acceptance by Conservation International Foundation, or by 
     its partner organizations and contributors.
 
-    If using Trends.Earth for official purposes, it is recommended that users 
+    If using LDMS for official purposes, it is recommended that users 
     choose an official boundary provided by the designated office of their 
     country.
 
@@ -142,7 +142,7 @@ ______________________
     manual for a detailed explanation of how productivity is computed.
 
 Productivity measures the trajectory, performance and state of primary 
-productivity using either 8km AVHRR or 250m MODIS datasets. The user can select 
+productivity using either 8km AVHRR, 250m MODIS or 30m LANDSAT 7 (under development) datasets. The user can select 
 one or multiple indicators to calculate, the NDVI dataset, name the tasks and 
 enter in explanatory notes for their intended reporting area.
 

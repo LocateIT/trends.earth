@@ -13,7 +13,7 @@
 
 import sys
 import os
-import sphinx_rtd_theme
+import sphinx_ops_theme
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -46,8 +46,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Trends.Earth'
-copyright = u'2018, Conservation International'
+project = u'LDMS'
+copyright = u'2020'
 
 locale_dirs = ['../i18n/']
 gettext_compact = False
@@ -57,9 +57,9 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = '1.0.2'
+version = '1.0.3'
 # The full version, including alpha/beta/rc tags.
-release = '1.0.2'
+release = '1.0.3'
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png
@@ -143,15 +143,15 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_ops_theme"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
-#html_theme_options = {}
+
 
 # Add any paths that contain custom themes here, relative to this directory.
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_path = [sphinx_ops_theme.get_html_theme_path()]
 
 # The name for this set of Sphinx documents.  If None, it defaults to
 # "<project> v<release> documentation".
@@ -163,12 +163,12 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #html_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
-html_logo = '../resources/en/common/trends_earth_logo_square_32x32.ico'
+html_logo = '../resources/en/common/plugin.ico'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = '../resources/en/common/trends_earth_logo_square_32x32.ico'
+html_favicon = '../resources/en/common/plugin.ico'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -230,18 +230,7 @@ htmlhelp_basename = 'TemplateClassdoc'
 # -- Options for LaTeX output --------------------------------------------------
 
 latex_documents = [
-    ('index', u'Trends.Earth.tex', u'Trends.Earth Documentation', u'Conservation International', 'manual'),
-    ('training/tutorial_installation', u'Trends.Earth_Tutorial01_Installation.tex', u'Installation', u'Conservation International', 'howto'),
-    ('training/tutorial_run_all_subindicators', u'Trends.Earth_Tutorial02_Computing_Indicators.tex', u'Compute Sub-indicators', u'Conservation International', 'howto'),
-    ('training/tutorial_task_download', u'Trends.Earth_Tutorial03_Downloading_Results.tex', u'Downloading Results', u'Conservation International', 'howto'),
-    ('training/tutorial_custom_lpd', u'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex', u'Using Custom Land Productivity Data', u'Conservation International', 'howto'),
-    ('training/tutorial_custom_landcover', u'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex', u'Using Custom Land Cover Data', u'Conservation International', 'howto'),
-    ('training/tutorial_custom_soc', u'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex', u'Using Custom Soil Organic Carbon Data', u'Conservation International', 'howto'),
-    ('training/tutorial_compute_sdg_indicator', u'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex', u'How to Compute the SDG Indicator', u'Conservation International', 'howto'),
-    ('training/tutorial_summary_table', u'Trends.Earth_Tutorial08_The_Summary_Table.tex', u'The Summary Table', u'Conservation International', 'howto'),
-    ('training/tutorial_load_basemap', u'Trends.Earth_Tutorial09_Loading_a_Basemap.tex', u'Loading a Basemap', u'Conservation International', 'howto'),
-    ('training/tutorial_forest_carbon', u'Trends.Earth_Tutorial10_Forest_Carbon.tex', u'Forest and Carbon Change Tool', u'Conservation International', 'howto'),
-    ('training/tutorial_compute_urban_indicator', u'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex', u'Urban Change SDG 11.3.1', u'Conservation International', 'howto'),
+    ('index', u'Trends.Earth.tex', u'Trends.Earth Documentation', u'Conservation International', 'manual')
 ]
 
 latex_elements = {

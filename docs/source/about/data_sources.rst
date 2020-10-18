@@ -1,7 +1,7 @@
 ﻿Data sources
 ------------
 
-|trends.earth| draws on a number of data sources. The data sets listed below are 
+LDMS draws on a number of data sources. The data sets listed below are 
 owned/made available by the following organizations and individuals under 
 separate terms as indicated in their respective metadata.
 
@@ -11,11 +11,14 @@ NDVI
 +------------------+-----------+---------+--------+------------------+
 | Sensor/Dataset   | Temporal  | Spatial | Extent | License          |
 +==================+===========+=========+========+==================+
+| `LANDSAT7`_      | 2001-2020 | 30 m    | Global | `Public Domain`_ |
++------------------+-----------+---------+--------+------------------+
 | `AVHRR/GIMMS`_   | 1982-2015 | 8 km    | Global | `Public Domain`_ |
 +------------------+-----------+---------+--------+------------------+
 | `MOD13Q1-coll6`_ | 2001-2016 | 250 m   | Global | `Public Domain`_ |
 +------------------+-----------+---------+--------+------------------+
 
+.. _LANDSAT7: https://developers.google.com/earth-engine/datasets/catalog/landsat
 .. _AVHRR/GIMMS: https://glam1.gsfc.nasa.gov
 .. _MOD13Q1-coll6:
    https://lpdaac.usgs.gov/dataset_discovery/modis/modis_products_table/mod13q1_v006
@@ -90,6 +93,7 @@ Soil carbon
 
 .. _Soil Grids (ISRIC): https://www.soilgrids.org/
 .. _CC by-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0
+.. _JPL public: https://www.jpl.nasa.gov/imagepolicy/
 
 Agroecological Zones
 ~~~~~~~~~~~~~~~~~~~~
@@ -102,6 +106,35 @@ Agroecological Zones
 
 .. _FAO - IIASA Global Agroecological Zones (GAEZ): http://www.fao.org/nr/gaez/en
 
+
+Soil Quality
+~~~~~~~~~~~~~~
++---------------------------+----------+---------+--------+---------------------+
+| Sensor/Dataset            | Temporal | Spatial | Extent | License             |
++===========================+==========+=========+========+=====================+
+| `Soil Texture and Depth`_ | Present  | 250 m   | Global | `CC by-SA 4.0`_     |
++---------------------------+----------+---------+--------+---------------------+
+| `Parent Material`_        | Present  | N/A     | Global | `CC by-SA 4.0`_     |
++---------------------------+----------+---------+--------+---------------------+
+| `Slope`_                  | Present  | 30 m    | Global  | `JPL public`_      |
++---------------------------+----------+---------+--------+---------------------+
+
+.. _Soil Texture and Depth: https://cmr.earthdata.nasa.gov/search/concepts/C1000000240-LPDAAC_ECS.html
+.. _Parent Material: https://doi.pangaea.de/10.1594/PANGAEA.788537
+.. _Slope: https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02
+
+Climate
+~~~~~~~~~~~~~~~~~~~~
+
++---------------------------------------------------+----------+---------+--------+------------------+
+| Sensor/Dataset                                    | Temporal | Spatial | Extent | License          |
++===================================================+==========+=========+========+==================+
+| `Terra Climate`_                                  | 1985-2019| 30 m    | Global | `Public Domain`_ |
++---------------------------------------------------+----------+---------+--------+------------------+
+
+.. _Terra Climate: https://developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE#description
+
+
 Administrative Boundaries
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -112,13 +145,13 @@ Administrative Boundaries
 +--------------------------------------------+----------+---------+--------+------------------+
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
+    The `Natural Earth Administrative Boundaries`_ provided in LDMS 
     are in the `public domain`_. The boundaries and names used, and the 
-    designations used, in Trends.Earth do not imply official endorsement or 
+    designations used, in LDMS do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 
     organizations and contributors.
 
-    If using Trends.Earth for official purposes, it is recommended that users 
+    If using LDMS for official purposes, it is recommended that users 
     choose an official boundary provided by the designated office of their 
     country.
 

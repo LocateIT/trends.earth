@@ -1,11 +1,11 @@
 Visualization tools
 ===================
 
-.. image:: /static/common/ldmt_toolbar_highlight_reporting.png
+.. image:: /static/common/plugin_toolbar_visualize.png
    :align: center
 
 
-To view the "Visualization Tools", select the report icon (|iconVisualization|). This will open up 
+To view the "Visualization Tools", select the report icon highlighted above. This will open up 
 the "Visualization tools" dialog box:
 
 .. image:: /static/documentation/reporting_tool/image065.png
@@ -29,24 +29,3 @@ After submitting the above message will appear within the QGIS Desktop window. T
    :align: center
 
 If you have a map layer within your QGIS Desktop window, you will now see the Basemap with the administrative level selected clipped out to view the underlying map layer.
-If you would like to export to an image or PDF, select the report icon (|iconVisualization|). This will open up the "Visualization tools" dialog box:
-
-.. image:: /static/documentation/reporting_tool/image069.png
-   :align: center
-
-Enter the title for the map and author(s). Select Portrait or Landscape. Portrait is ideal for boundaries that are longer in height than width, landscape is ideal for boundaries that are longer in width than height.
-   
-.. image:: /static/documentation/reporting_tool/image070.png
-   :align: center
-
-A notification may appear. Select "Ok" after reading to close the window.
-   
-.. image:: /static/documentation/reporting_tool/image071.png
-   :align: center
-
-The Map Composer in QGIS will appear. This allows the user to design a map for export as image (.png or .jpg) or PDF. The user has the ability to change the appearance of the legend and the arrangements of features in the map. The map layer within the QGIS Desktop window will appear within the Composer.
-Underneath the Settings menu options, there are several icons to export.
-   
-.. image:: /static/documentation/reporting_tool/image072.png
-   :align: center
-   

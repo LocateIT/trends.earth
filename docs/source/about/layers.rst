@@ -1,15 +1,15 @@
 Dataset coding
 ==============
 
-The spatial data produced by |trends.earth| is in GeoTiff format. This is a 
+The spatial data produced by LDMS is in GeoTiff format. This is a 
 widely supported format, so theese datasets can be used within QGIS as well as 
 within any other GIS software.
 
-If you wish to use |trends.earth| data outside of the tool itself, you will need to 
+If you wish to use LDMS data outside of the tool itself, you will need to 
 know how the data is coded. The tables below provide guidance on what the exact 
-layers are that are produced by each analysis in |trends.earth|.
+layers are that are produced by each analysis in LDMS.
 
-To see which of the below layers is contained within a |trends.earth| output 
+To see which of the below layers is contained within a LDMS output 
 file, use the `load data <../documentation/load_data.html>`_ tool. When you 
 choose a file with that toool, it will show you a list of the layers within 
 that file, as well as the band number for each layer.
@@ -441,56 +441,6 @@ Soil organic carbon
 | Any other value | Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare |
 +-----------------+--------------------------------------------------------------------------+
 
-SDG 11.3.1 (sustainable urbanization)
-_____________________________________
-
-
-Urban
------
-
-+--------+-----------------------------+
-| Value  | Meaning                     |
-+========+=============================+
-| -32768 | No data                     |
-+--------+-----------------------------+
-|   1    | Urban                       |
-+--------+-----------------------------+
-|   2    | Suburban                    |
-+--------+-----------------------------+
-|   3    | Built-up rural              |
-+--------+-----------------------------+
-|   4    | Open space (fringe)         |
-+--------+-----------------------------+
-|   5    | Open space (captured)       |
-+--------+-----------------------------+
-|   6    | Open space (rural)          |
-+--------+-----------------------------+
-|   7    | Open space (fringe water)   |
-+--------+-----------------------------+
-|   8    | Open space (captured water) |
-+--------+-----------------------------+
-|   9    | Open space (rural water)    |
-+--------+-----------------------------+
-
-Urban series
-------------
-
-+--------+------------------+
-| Value  | Meaning          |
-+========+==================+
-| -32768 | No data          |
-+--------+------------------+
-|  -1    | Water            |
-+--------+------------------+
-|   1    | Built up by 2000 |
-+--------+------------------+
-|   2    | Built up by 2005 |
-+--------+------------------+
-|   3    | Built up by 2010 |
-+--------+------------------+
-|   4    | Built up by 2015 |
-+--------+------------------+
-
 Population
 ----------
 
@@ -500,4 +450,46 @@ Population
 | -32768          | No data                           |
 +-----------------+-----------------------------------+
 | Any other value | Total population within grid cell |
++-----------------+-----------------------------------+
+
+Delta Normalized Burnt Ratio
+-----------------------------
+
++-----------------+-----------------------------------+
+| Value           | Meaning                           |
++=================+===================================+
+| -500            | No data                           |
++-----------------+-----------------------------------+
+| -350            | Hight Severety                    |
++-----------------+-----------------------------------+
+| -300            | Moderate High Severety            |
++-----------------+-----------------------------------+
+| -200            | Moderate Low Severety             |
++-----------------+-----------------------------------+
+| -100            | Low Severety                      |
++-----------------+-----------------------------------+
+|  100            | Unburned                          |
++-----------------+-----------------------------------+
+|  300            | Enhanced Growth Low               |
++-----------------+-----------------------------------+
+|  1000           | Enhanced Growth High              |
++-----------------+-----------------------------------+
+
+Climate Quality Index
+-----------------------------
+
++-----------------+-----------------------------------+
+| Value           | Meaning                           |
++=================+===================================+
+| -32768          | No data                           |
++-----------------+-----------------------------------+
+| 0.002           | Hyper-Arid                        |
++-----------------+-----------------------------------+
+| 0.03            | Arid                              |
++-----------------+-----------------------------------+
+| 0.05            | Semi-Arid                         |
++-----------------+-----------------------------------+
+| 0.07            | Dry Sub Humid                     |
++-----------------+-----------------------------------+
+| 1               | Humid                             |
 +-----------------+-----------------------------------+

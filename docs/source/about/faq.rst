@@ -1,49 +1,10 @@
 Frequently asked questions
 ==========================
 
-This page lists some Frequently Asked Questions (FAQs) for the |trends.earth|
+This page lists some Frequently Asked Questions (FAQs) for the LDMS
 tool.
 
-General Questions
-_________________
-
-Is there a user group I can share experiences with and learn from?
-------------------------------------------------------------------
-
-Yes, we recently created a `Google group for Trends.Earth users 
-<https://groups.google.com/forum/#!forum/trends_earth_users>`_ so please `join 
-<https://groups.google.com/forum/#!forum/trends_earth_users/join>`_ and participate! 
-We aim for this group to be a forum for users to post questions about the tool, 
-methods, and datasets in support of Sustainable Development Goals monitoring. 
-The |trends.earth| team will monitor the group and answer questions as needed, 
-but we'll get the most out of this community if users support each other by 
-answering questions based on their unique background and experiences. The group 
-will also be used for announcements on tool updates and capacity building 
-efforts.
-
-How do I find more information on the project?
-------------------------------------------------------------------
-
-More information on the toolbox can be found at `trends.earth 
-<http://trends.earth>`_ and reports are available on the `Vital Signs Project 
-website <http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ You 
-can also add your contact info at `Vital Signs LD Email Distribution List 
-<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ to stay in touch 
-with any advancements with the projects’ distrubtion list.
-
-How can I provide feedback on the tool?
-------------------------------------------------------------------
-
-There are three ways to give feedback, emailing the project team, visiting the 
-project site and messaging through the anonymous form or rate the toolbox in 
-the plugins menu of QGIS. The project technical team can address questions 
-through trends.earth@conservation.org. Users can rate the toolbox by opening 
-Plugins in QGIS and selecting Manage and Install Plugins. Select All in the 
-side bar and navigate to trends.earth plugin. Click on trends.earth and rate 
-the toolbox by selecting the number of stars you would like to give the plugin, 
-5 stars being highly satisfied.
-
-Installation of Trends.Earth
+Installation of LDMS
 ____________________________
 
 
@@ -51,9 +12,7 @@ What version of Quantum GIS (QGIS) do I need for the toolbox?
 ------------------------------------------------------------------
 
 To download QGIS, please go to the QGIS Downloads page. As of February 2018, 
-version 3.0 was released. Please use version 2.18 for the trends.earth plugin. 
-A version compatible with the latest version will be released in future 
-iterations of the project.
+version 3.0 was released. 
 
 Do I need to download a 32-bit or 64 bit version of QGIS?
 ------------------------------------------------------------------
@@ -84,9 +43,8 @@ Mac:
 How do I install the plugin?
 ------------------------------------------------------------------
 
-Open QGIS, navigate to Plugins on the menu bar, and select Manage and install 
-plugins. On the side menu, select All to view the plugins available in QGIS. 
-Search for trends.earth and select Install plugin at the bottom of the window.
+Open QGIS, navigate to Plugins on the menu bar, and select Install From Zipfile and
+install the Zipfile provided.
 
 How do I upgrade the plugin?
 ------------------------------------------------------------------
@@ -103,7 +61,7 @@ If you would like to uninstall the plugin, normally you can do so with the QGIS
 plugins manager. To access the tool, choose "Plugins" and then "Manage and 
 Install Plugins..." from the QGIS menu bar. From the plugin manager screen, 
 select "Installed" from the menu on the left-hand side. Then click on 
-"Trends.Earth" in the list of plugins, and on "Uninstall Plugin" to uninstall 
+"LDMS" in the list of plugins, and on "Uninstall Plugin" to uninstall 
 it.
 
 If you encounter an error uninstalling the plugin, it is also possible to 
@@ -124,7 +82,7 @@ ________
 When will you update datasets for the current year?
 ------------------------------------------------------------------
 
-Trends.Earth uses publicly available data, as such the most up to date datasets 
+LDMS uses publicly available data, as such the most up to date datasets 
 will be added to the toolbox as soon as the original data providers make them 
 public. If you notice any update that we missed, please do let us know.
 
@@ -137,17 +95,8 @@ toolbox.
 Will the toolbox support higher resolution datasets?
 ------------------------------------------------------------------
 
-The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary 
+The toolbox currently supports AVHRR (8km), LANDSAT 7 (30m) and MODIS (250m) data for primary 
 productivity analysis, and ESA LCC CCI (300m) for land cover change analysis.
-
-Can the toolbox support analysis with national-level datasets?
-------------------------------------------------------------------
-
-This is a common request from users, and one the team is working on. 
-Trends.Earth will allow loading of national-level soil carbon and land cover 
-datasets before the end of March, 2018. This will allow users to take advantage 
-of existing datasets that might be of higher quality at a national-level than 
-the global datasets that are the defaults in the tool.
 
 Methods
 _______
@@ -239,9 +188,9 @@ of patterns of degradation which do not seem to correlate to what is happening
 on the ground, the date of analysis being a very important one. If the climatic 
 conditions at the beginning of the analysis were particularly wet, for example, 
 trends from that moment on could show significant decreases in primary 
-productivity, and degradation. The user can use Trends.Earth to address some of 
+productivity, and degradation. The user can use LMDS to address some of 
 this issues correcting by the effect of climate. The resolution of the data 
-could potentially be another limitation. Trends.Earth by default uses global 
+could potentially be another limitation. LDMS by default uses global 
 datasets which will not be the most relevant at all scales and geographies. A 
 functionality to use local data will be added shortly.
 
@@ -277,11 +226,4 @@ of requiring users to have enough local computing capacity to run analyses
 locally. The technical team intends to build the offline version of the toolbox 
 and provide countries with data relevant for reporting at the national level 
 within the pilot project countries. 
-
-Will you create a trends.earth toolbox for ESRI users?
-------------------------------------------------------------------
-
-The toolbox is currently available as a plugin to QGIS, an open source software 
-package. This allows users around the world free access to the toolbox. There 
-are currently no plans to build a toolbox within ArcGIS or ArcPro. 
 
