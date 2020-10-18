@@ -1,0 +1,36 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.
+
+[general]
+
+name=LDMS
+qgisMinimumVersion=3.10
+description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
+version=1.0.3
+author=LocateIT Ltd
+email=grace.amondi@locateit.co.ke
+
+about=LDMS is a tool for analyzing land degradation in North Africa region. It supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+
+tracker=https://github.com/LocateIT/trends.earth/issues
+
+repository=https://github.com/LocateIT/trends.earth
+
+# Tags are comma separated with spaces allowed
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+
+homepage=https://github.com/LocateIT/trends.earth
+category=Plugins
+icon=trend_plugin_logo.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+hasProcessingProvider=yes

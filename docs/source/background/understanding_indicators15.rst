@@ -29,7 +29,7 @@ Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)
 providing recommendations on how to calculate SDG Indicator 15.3.1.
 
 This document provides a brief introduction to SDG Indicator 15.3.1 and 
-describes how each indicator is calculated by |trends.earth|.
+describes how each indicator is calculated by LDMS.
 
 In order to assess the area degraded, SDG Indicator 15.3.1 uses information 
 from 3 sub-indicators:
@@ -41,7 +41,7 @@ from 3 sub-indicators:
 .. image:: /static/documentation/understanding_indicators15/indicator_15_3_1.png
    :align: center
 
-|trends.earth| allows the user to compute each of these subindicators in a 
+LDMS allows the user to compute each of these subindicators in a 
 spatially explicit way generating raster maps which are then integrated into a 
 final SDG 15.3.1 indicator map and produces a table result reporting areas 
 potentially improved and degraded for the area of analysis.
@@ -65,13 +65,13 @@ NPP.
 
 One of the most commonly used surrogates of NPP is the Normalized Difference 
 Vegetation Index (NDVI), computed using information from the red and near 
-infrared portions of the electromagnetic spectrum. In |trends.earth| we make 
+infrared portions of the electromagnetic spectrum. In LDMS we make 
 use of bi-weekly products from MODIS and AVHRR to compute annual integrals of 
 NDVI (computed as the mean annual NDVI for simplicity of interpretation of 
 results). These annual integrals of NDVI are then used to compute each of the 
 productivity indicators explained below.
 
-Land productivity is assessed in |trends.earth| using three measures of change 
+Land productivity is assessed in LDMS using three measures of change 
 derived from NDVI time series data: trajectory, performance and state
 
 .. image:: /static/documentation/understanding_indicators15/indicator_15_3_1_prod_subindicators.png
@@ -83,7 +83,7 @@ Productivity Trajectory
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 Trajectory measures the rate of change in primary productivity over time. As 
-indicated in the figure below, |trends.earth| computes a linear regression at 
+indicated in the figure below, LDMS computes a linear regression at 
 the pixel level to identify areas experiencing changes in primary productivity 
 for the period under analysis. A Mann-Kendall non-paremetric significance test 
 is then applied, considering only significant changes those that show a p-value 
@@ -109,7 +109,7 @@ as a context. Otherwise, declining productivity trends could be identified as
 human caused land degradation, when they are driven by regional patterns of 
 changes in water availability. 
 
-|trends.earth| allows the user to perform different types of analysis to 
+LDMS allows the user to perform different types of analysis to 
 separate the climatic causes of the changes in primary productivity, from those 
 which could be a consequence of human land use decisions on the ground. The 
 methods currently supported for climate corrections are:
@@ -124,7 +124,7 @@ trend analysis of vegetation index data. Remote Sens. Environ. 2012, 125,
 10–22.` 
 
 **Rain Use Efficiency (RUE):** RUE Is the ratio of annual NPP to annual 
-precipitation. |trends.earth| uses the annual integrals of NDVI as a proxy for 
+precipitation. LDMS uses the annual integrals of NDVI as a proxy for 
 annual NPP, and offers the possibility of choosing among different 
 precipitation products to compute RUE. After RUE is computed for each of the 
 years under analysis, a linear regression and a non-parametric significance 
@@ -148,7 +148,7 @@ non-parametric significance test is applied to the trend of WUE over time.
 Positive significant trends in WUE would indicate potential improvement in land 
 condition, and negative significant trends potential degradation.
 
-The table below list the datasets available in |trends.earth| to perform NDVI 
+The table below list the datasets available in LDMS to perform NDVI 
 trend analysis over time using the original NDVI data or with climatic 
 corrections:
 
@@ -198,7 +198,7 @@ computed as follows:
 .. image:: /static/documentation/understanding_indicators15/lp_state_flow.PNG
    :align: center
 
-The table below list the datasets available in |trends.earth| to compute the 
+The table below list the datasets available in LDMS to compute the 
 Productivity State indicator:
 
 .. image:: /static/documentation/understanding_indicators15/lp_state_variables.PNG
@@ -211,7 +211,7 @@ Productivity Performance
 
 The Productivity Performance indicator measures local productivity relative to 
 other similar vegetation types in similar land cover types or bioclimatic 
-regions throughout the study area. |trends.earth| uses the unique combination 
+regions throughout the study area. LDMS uses the unique combination 
 of soil units (soil taxonomy units using USDA system provided by SoilGrids at 
 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI 
 at 300m resolution) to define this areas of analysis. The indicator is computed 
@@ -239,7 +239,7 @@ as follows:
 .. image:: /static/documentation/understanding_indicators15/lp_perf_flow.PNG
    :align: center
    
-The table below list the datasets available in |trends.earth| to compute the 
+The table below list the datasets available in LDMS to compute the 
 Productivity Performance indicator:
  
 .. image:: /static/documentation/understanding_indicators15/lp_perf_variables.PNG
@@ -252,7 +252,7 @@ Combining Productivity Indicators
 
 The three productivity sub-indicators are then combined as indicated in the 
 tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, but 
-|trends.earth| also produces a 5-class one which takes advantage of the 
+LDMS also produces a 5-class one which takes advantage of the 
 information provided by State to inform the type of degradation occurring in 
 the area.
 
@@ -267,7 +267,7 @@ Land cover
 To assess changes in land cover users need land cover maps covering the study 
 area for the baseline and target years. These maps need to be of acceptable 
 accuracy and created in such a way which allows for valid comparisons. 
-|trends.earth| uses ESA CCI land cover maps as the default dataset, but local 
+LDMS uses ESA CCI land cover maps as the default dataset, but local 
 maps can also be used. The indicator is computed as follows:
 
 #. Reclassify both land cover maps to the 7 land cover classes needed for 
@@ -285,7 +285,7 @@ maps can also be used. The indicator is computed as follows:
 .. image:: /static/documentation/understanding_indicators15/lc_matrix.PNG
    :align: center
 
-#. |trends.earth| will combine the information from the land cover maps and the 
+#. LDMS will combine the information from the land cover maps and the 
    table of degradation typologies by land cover transition to compute the land 
    cover sub-indicator.
 
@@ -304,10 +304,10 @@ reasons, some of them being the high spatial variability of soil properties,
 the time and cost intensiveness of conducting representative soil surveys and 
 the lack of time series data on SOC for most regions of the world. To address 
 some of the limitations, a combined land cover/SOC method is used in 
-|trends.earth| to estimate changes in SOC and identify potentially degraded 
+LDMS to estimate changes in SOC and identify potentially degraded 
 areas. The indicator is computed as follows:
 
-1. Determine the SOC reference values. |trends.earth| uses SoilGrids 250m 
+1. Determine the SOC reference values. LDMS uses SoilGrids 250m 
    carbon stocks for the first 30 cm of the soil profile as the reference 
    values for calculation (NOTE: SoilGrids uses information from a variety of 
    data sources and ranging from many years to produce this product, therefore 

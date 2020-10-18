@@ -1,12 +1,12 @@
 View and download results
 =========================
-.. image:: /static/common/ldmt_toolbar_highlight_tasks.png
+.. image:: /static/common/plugin_toolbar_tasks.png
    :align: center
 
-Once you have submitted a calculation using |trends.earth|, it is sent to 
+Once you have submitted a calculation using LDMS, it is sent to 
 Google Earth Engine to run the calculations in the cloud. To view the Google 
 Earth Engine (GEE) tasks you have running, and to download your results, select 
-the cloud with the arrow facing down icon (|iconCloudDownload|). This will open up the `Download results 
+the cloud with the arrow facing down icon highlighted above. This will open up the `Download results 
 from Earth Engine` dialog box.
    
 Click `Refresh List` to show all the tasks you have submitted and their status.
@@ -17,12 +17,9 @@ and end time of when the task was started and completed and whether or not the
 task was successful. The Details page outlines the different options the user 
 chose for each task.
    
-.. image:: /static/documentation/gee_tasks/image034.png
+.. image:: /static/documentation/gee_tasks/download_results.png
    :align: center
-   
-.. image:: /static/documentation/gee_tasks/image035.png
-   :align: center
-      
+
 To download results to the computer once a task has finished, click on the task 
 you are interested in downloading results for, then click `Download results`.
 In the window that appears, choose the location in which to save the download. 

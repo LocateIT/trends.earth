@@ -7,20 +7,20 @@ div.admonition.note {
     background: #e2e2e2;
 }
 .rst-content .note .admonition-title {
-    background: #646464;
+    background: #2980B9;
 }
 .wy-nav-top {
-    background-color: #646464;
+    background-color: #2980B9;
 }
 .wy-side-nav-search {
-    background-color: #646464;
+    background-color: #2980B9;
 }
 .wy-menu-vertical header, .wy-menu-vertical p.caption {
     color: #777
 }
-/* .wy-nav-side { */
-/*     background: #222c32; */
-/* } */
+.wy-nav-side {
+    background: #343131;
+}
 /* .rst-versions .rst-current-version { */
 /*     background: #222c32; */
 /* } */

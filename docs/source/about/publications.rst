@@ -1,7 +1,7 @@
 ﻿Publications
 ===================
 
-The below publications either use or relate to |trends.earth|.
+The below publications either use or relate to lDMS.
 
 * Arnold S., Jun C., Olav E. 2019. Global and Complementary (Non-authoritative)
   Geospatial Data for SDGs: Role and Utilisation. Report produced jointly by the Task

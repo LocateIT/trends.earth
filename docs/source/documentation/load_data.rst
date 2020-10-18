@@ -1,21 +1,21 @@
 Load data tool
 ==============
-.. image:: /static/common/ldmt_toolbar_highlight_loaddata.png
+.. image:: /static/common/plugin_toolbar_loaddata.png
    :align: center
 
 The "Load data" function allows the user to load data into QGIS and 
-|trends.earth| for analysis.
+LDMS for analysis.
 
-There are two options, to load results of |trends.earth| analysis or to load
+There are two options, to load results of LDMS analysis or to load
 custom datasets which will be used to compute the indicators.
 
 .. image:: /static/documentation/load_data/loaddata_menu.png
    :align: center
 
-Load a dataset produced by Trends.Earth
+Load a dataset produced by LDMS
 ____________________________________________
 
-This option lets you load already downloaded results from |trends.earth|.
+This option lets you load already downloaded results from LDMS.
    
 Productivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,7 +110,7 @@ ____________________________________________
 Productivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use this option to load productivity datasets which have already been generated outside of |trends.earth|. 
+Use this option to load productivity datasets which have already been generated outside of LDMS. 
 
 Productivity classes in the input data must be coded as follows:
 
@@ -150,5 +150,5 @@ tool.
 .. note:: This tool assumes that the units of the raster layer to be imported 
    are **Metrics Tons of organic carbon per hectare**. If your layer is in 
    different units, please make the necessary conversions before using it in 
-   Trends.Earth.
+   LDMS.
 
