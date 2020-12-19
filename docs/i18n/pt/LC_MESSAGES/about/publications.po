@@ -31,7 +31,7 @@ msgstr "Publicações"
 
 #: ../../source/about/publications.rst:4
 #, fuzzy
-msgid "The below publications either use or relate to lDMS."
+msgid "The below publications either use or relate to MISLAND."
 msgstr "As publicações abaixo usam ou referem ao |trends.earth|."
 
 #: ../../source/about/publications.rst:6

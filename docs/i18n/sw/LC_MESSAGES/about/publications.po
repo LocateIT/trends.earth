@@ -30,7 +30,7 @@ msgstr "Machapisho"
 
 #: ../../source/about/publications.rst:4
 #, fuzzy
-msgid "The below publications either use or relate to lDMS."
+msgid "The below publications either use or relate to MISLAND."
 msgstr "Machapisho ya chini yanaweza kutumia au yanahusiana na | trendsearth |."
 
 #: ../../source/about/publications.rst:6

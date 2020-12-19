@@ -27,7 +27,7 @@ Select the Land degradation indicator (SDG indicator 15.3.1) to open the window 
    :align: center
 
 There are several options for calculating the SDG 15.3.1 Indicator. 
-LDMS supports calculating the indicator using the same process as was 
+MISLAND supports calculating the indicator using the same process as was 
 used by the UNCCD for the default data provided to countries for the 2018 
 reporting process. The tool also supports customizing this data, or even 
 replacing individual datasets with national-level or other global datasets.
@@ -66,7 +66,7 @@ indicator
 .. note::
     Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed 
     explanation of how each of these sub-indicators is computed in 
-    LDMS
+    MISLAND
 
 There are two ways to calculate the indicators: 1) using a simplified tool that 
 will calculate all three indicators at once, but with limited options for 
@@ -115,11 +115,11 @@ requires two datasets to compare change over time. Select Next.
     The provided boundaries are from `Natural Earth 
     <http://www.naturalearthdata.com>`_, and are in the `public domain
     <https://creativecommons.org/publicdomain>`_. The boundaries and names 
-    used, and the designations used, in LDMS do not imply official 
+    used, and the designations used, in MISLAND do not imply official 
     endorsement or acceptance by Conservation International Foundation, or by 
     its partner organizations and contributors.
 
-    If using LDMS for official purposes, it is recommended that users 
+    If using MISLAND for official purposes, it is recommended that users 
     choose an official boundary provided by the designated office of their 
     country.
 

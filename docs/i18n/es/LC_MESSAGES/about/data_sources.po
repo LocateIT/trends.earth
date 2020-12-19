@@ -31,7 +31,7 @@ msgstr "Fuentes de datos"
 
 #: ../../source/about/data_sources.rst:4
 msgid ""
-"LDMS draws on a number of data sources. The data sets listed below are "
+"MISLAND draws on a number of data sources. The data sets listed below are "
 "owned/made available by the following organizations and individuals under"
 " separate terms as indicated in their respective metadata."
 msgstr ""
@@ -378,9 +378,9 @@ msgstr "10 / 50m"
 #: ../../source/about/data_sources.rst:147
 #, fuzzy
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in LDMS are in "
+"The `Natural Earth Administrative Boundaries`_ provided in MISLAND are in "
 "the `public domain`_. The boundaries and names used, and the designations"
-" used, in LDMS do not imply official endorsement or acceptance by "
+" used, in MISLAND do not imply official endorsement or acceptance by "
 "Conservation International Foundation, or by its partner organizations "
 "and contributors."
 msgstr ""
@@ -393,7 +393,7 @@ msgstr ""
 #: ../../source/about/data_sources.rst:153
 #, fuzzy
 msgid ""
-"If using LDMS for official purposes, it is recommended that users choose "
+"If using MISLAND for official purposes, it is recommended that users choose "
 "an official boundary provided by the designated office of their country."
 msgstr ""
 "Si utiliza |trends.earth| para fines oficiales, se recomienda que los "

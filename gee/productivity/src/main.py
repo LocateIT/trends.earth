@@ -55,7 +55,7 @@ def run(params, logger):
         for geojson in geojsons:
             this_out = None
             if calc_traj:
-                traj = productivity_trajectory(int(prod_traj_year_initial), 
+                traj = productivity_trajectory(geojsons[0]['coordinates'],int(prod_traj_year_initial), 
                                                int(prod_traj_year_final), prod_traj_method,
                                                ndvi_gee_dataset, climate_gee_dataset, 
                                                logger)
@@ -63,7 +63,7 @@ def run(params, logger):
                     this_out = traj
             
             if calc_perf:
-                perf = productivity_performance(prod_perf_year_initial, 
+                perf = productivity_performance(geojsons[0]['coordinates'],prod_perf_year_initial, 
                                                 prod_perf_year_final, ndvi_gee_dataset, 
                                                 geojson, EXECUTION_ID, logger)
                 if not this_out:
@@ -71,7 +71,7 @@ def run(params, logger):
                 else:
                     this_out.merge(perf)
             if calc_state:
-                state = productivity_state(prod_state_year_bl_start, 
+                state = productivity_state(geojsons[0]['coordinates'],prod_state_year_bl_start, 
                                            prod_state_year_bl_end, 
                                            prod_state_year_tg_start, 
                                            prod_state_year_tg_end,

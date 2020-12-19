@@ -46,7 +46,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'LDMS'
+project = u'MISLAND'
 copyright = u'2020'
 
 locale_dirs = ['../i18n/']
