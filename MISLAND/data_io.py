@@ -48,6 +48,7 @@ from MISLAND.gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
 from MISLAND.gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
 from MISLAND.gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
 from MISLAND.gui.DlgDataIOImportCQI import Ui_DlgDataIOImportCQI
+from MISLAND.gui.DlgDataIOImportSQI import Ui_DlgDataIOImportSQI
 from MISLAND.gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
 from MISLAND.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from MISLAND.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
@@ -1094,6 +1095,132 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                                 'source': 'custom data'})
         self.layer_loaded.emit([l_info])
 
+class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
+    def __init__(self, parent=None):
+        super(DlgDataIOImportSQI, self).__init__(parent)
+
+        # This needs to be inserted after the lc definition widget but before 
+        # the button box with ok/cancel
+        self.output_widget = ImportSelectRasterOutput()
+        self.verticalLayout.insertWidget(2, self.output_widget)
+
+        self.input_widget.inputFileChanged.connect(self.input_changed)
+        self.input_widget.inputTypeChanged.connect(self.input_changed)
+
+        self.checkBox_use_sample.stateChanged.connect(self.clear_dlg_agg)
+
+        self.btn_agg_edit_def.clicked.connect(self.agg_edit)
+        self.btn_agg_edit_def.setEnabled(False)
+
+        self.dlg_agg = None
+
+    def showEvent(self, event):
+        super(DlgDataIOImportSQI, self).showEvent(event)
+
+        # Reset flags to avoid reloading of unique values when files haven't 
+        # changed:
+        self.last_raster = None
+        self.last_band_number = None
+        self.last_vector = None
+        self.idx = None
+
+    def done(self, value):
+        if value == QtWidgets.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgDataIOImportSQI, self).done(value)
+
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        if  not self.dlg_agg:
+            QtWidgets.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the dataset definition before exporting.', None))
+            return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            return
+
+        ret = super(DlgDataIOImportSQI, self).validate_input(value)
+        if not ret:
+            return
+
+        super(DlgDataIOImportSQI, self).done(value)
+
+        self.ok_clicked()
+
+    def clear_dlg_agg(self):
+        self.dlg_agg = None
+
+    def input_changed(self, valid):
+        if valid:
+            self.btn_agg_edit_def.setEnabled(True)
+        else:
+            self.btn_agg_edit_def.setEnabled(False)
+        self.clear_dlg_agg()
+        if self.input_widget.radio_raster_input.isChecked():
+            self.checkBox_use_sample.setEnabled(True)
+            self.checkBox_use_sample_description.setEnabled(True)
+        else:
+            self.checkBox_use_sample.setEnabled(False)
+            self.checkBox_use_sample_description.setEnabled(False)
+
+    def load_agg(self, values):
+        # Set all of the classes to no data by default
+        classes = [{'Initial_Code':value, u'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
+        #TODO Fix on refactor
+        from MISLAND.lc_setup import DlgCalculateLCSetAggregation
+        self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
+
+    def agg_edit(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            f = self.input_widget.lineEdit_raster_file.text()
+            band_number = int(self.input_widget.comboBox_bandnumber.currentText())
+            if not self.dlg_agg or \
+                    (self.last_raster != f or self.last_band_number != band_number):
+                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
+                if not values:
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 60 different land cover classes"))
+                    return
+                self.last_raster = f
+                self.last_band_number = band_number
+                self.load_agg(values)
+        else:
+            f = self.input_widget.lineEdit_vector_file.text()
+            l = self.input_widget.get_vector_layer()
+            idx = l.fields().lookupField(self.input_widget.comboBox_fieldname.currentText())
+            if not self.dlg_agg or \
+                    (self.last_vector != f or self.last_idx != idx):
+                values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
+                if not values:
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 60 different land cover classes"))
+                    return
+                self.last_vector = f
+                self.last_idx = idx
+                self.load_agg(values)
+        self.dlg_agg.exec_()
+
+    def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            remap_ret = self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
+        else:
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            l = self.input_widget.get_vector_layer()
+            remap_ret = self.remap_vector(l,
+                                          out_file, 
+                                          self.dlg_agg.get_agg_as_dict(), 
+                                          attribute)
+        if not remap_ret:
+            return False
+
+        l_info = self.add_layer('Soil Quality Index',
+                                {'year': int(self.input_widget.spinBox_data_year.text()),
+                                'source': 'custom data'})
+
+        self.layer_loaded.emit([l_info])
+
 class DlgDataIOImportCQI(DlgDataIOImportBase, Ui_DlgDataIOImportCQI):
     def __init__(self, parent=None):
         super(DlgDataIOImportCQI, self).__init__(parent)
@@ -1405,6 +1532,8 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
             self.dlg_load = DlgDataIOImportLC()
         elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
+        elif self.property("layer_type") == 'Soil Quality Index':
+            self.dlg_load = DlgDataIOImportSQI()
         elif self.property("layer_type") == 'Aridity Index':
             self.dlg_load = DlgDataIOImportCQI()
         else:

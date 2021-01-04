@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgDataIOImportCQI</class>
- <widget class="QDialog" name="DlgDataIOImportCQI">
+ <class>DlgDataIOImportSQI</class>
+ <widget class="QDialog" name="DlgDataIOImportSQI">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Load a Custom Climate Quality Dataset</string>
+   <string>Load a Custom Soil Quality Dataset</string>
   </property>
   <property name="modal">
    <bool>true</bool>
@@ -38,7 +38,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Choose an aggregation method</string>
+      <string>Choose a soil texture aggregation method</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
       <item>
@@ -145,7 +145,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>accepted()</signal>
-   <receiver>DlgDataIOImportCQI</receiver>
+   <receiver>DlgDataIOImportSQI</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -161,7 +161,7 @@
   <connection>
    <sender>btnBox</sender>
    <signal>rejected()</signal>
-   <receiver>DlgDataIOImportCQI</receiver>
+   <receiver>DlgDataIOImportSQI</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
