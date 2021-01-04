@@ -10,12 +10,12 @@
 
 name=MISLAND
 qgisMinimumVersion=3.10
-description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
+description=The core-service provides land degradation indicators for six North African Countries at two levels.At the regional level(North Africa action zone) where low and medium resolution EO are used.At the pilot site level, where(customized indicators) can be developed, using medium resoultion data(landsat time series imagery and derived vegetation indices, combined with different satellite-derived climate data) Note
 version=1.0.3
-author=LocateIT Ltd
+author=Mustapha MIMOUNI, Nabil KHATRA, Amjed TAIEB, Haithem REJEB, Toure SOULEYMANE, Vivianne META, Derick ONGERI, Grace AMONDI, Seth NYAWACHA, and Simon NDARAU.
 email=grace.amondi@locateit.co.ke
 
-about=MISLAND is a tool for analyzing land degradation in North Africa region. It supports monitoring changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
+about=MISLAND-North Africa is an operational instrument relying on the international standards for reporting SDG 15.3.1 and technical approaches allowing the delivery of regular information on vegetation cover gain/loss to decision makers and environmental agencies at the first place.
 
 tracker=https://github.com/LocateIT/trends.earth/issues
 
@@ -26,7 +26,7 @@ tags=land degradation, land degradation neutrality, soil carbon, productivity, l
 
 homepage=https://github.com/LocateIT/trends.earth
 category=Plugins
-icon=trend_plugin_logo.png
+icon=misland_logo.png
 # experimental flag
 experimental=True
 

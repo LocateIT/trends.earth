@@ -1163,6 +1163,7 @@ class DlgDataIOImportCQI(DlgDataIOImportBase, Ui_DlgDataIOImportCQI):
         l_info = self.add_layer('Aridity Index',
                                 {'source': 'custom data'})
         self.layer_loaded.emit([l_info])
+        
 
 
 

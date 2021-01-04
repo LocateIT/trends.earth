@@ -22,4 +22,4 @@ class Provider(QgsProcessingProvider):
         """Should return a QIcon which is used for your provider inside
         the Processing toolbox.
         """
-        return QIcon(':/plugins/MISLAND/trend_plugin_logo.png')
+        return QIcon(':/plugins/MISLAND/misland_logo.png')

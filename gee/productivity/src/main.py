@@ -40,6 +40,8 @@ def run(params, logger):
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
 
+    # crs = ee.Image("users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019").projection().crs()
+
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))

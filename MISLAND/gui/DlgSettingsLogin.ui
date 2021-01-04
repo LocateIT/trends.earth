@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Login to Land Degradation Monitoring System</string>
+   <string>Login to MISLAND</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

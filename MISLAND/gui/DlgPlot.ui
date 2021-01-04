@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>trends.earth plot</string>
+   <string>MISLAND plot</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>

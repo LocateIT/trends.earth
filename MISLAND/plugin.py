@@ -91,7 +91,7 @@ class LDMPPlugin(object):
         # Declare instance attributes
         self.actions = []
         self.menu = QMenu(QApplication.translate('MISLAND', u'&MISLAND'))
-        self.menu.setIcon(QIcon(':/plugins/MISLAND/trend_plugin_logo.png'))
+        self.menu.setIcon(QIcon(':/plugins/MISLAND/misland_logo.png'))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
         self.toolbar = self.iface.addToolBar(u'MISLAND')

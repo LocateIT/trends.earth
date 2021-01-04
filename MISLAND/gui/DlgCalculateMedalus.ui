@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>397</width>
+    <width>468</width>
     <height>342</height>
    </rect>
   </property>
@@ -32,7 +32,7 @@
       </font>
      </property>
      <property name="title">
-      <string>Step 1: Prepare sub-indicators</string>
+      <string>Step 1: Prepare sub-indicators (*BETA Version)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="1" column="1">
@@ -132,7 +132,8 @@
          </font>
         </property>
         <property name="text">
-         <string>Anthropic Quality Index</string>
+         <string>Land Management System
+ Quality Index</string>
         </property>
        </widget>
       </item>
@@ -198,7 +199,7 @@
       </font>
      </property>
      <property name="title">
-      <string>Step 2: Calculate final MEDALUS layer</string>
+      <string>Step 2: Calculate Sensitivity Desertification Index</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>

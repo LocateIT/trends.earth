@@ -5,6 +5,7 @@
     <file>icons/trends_earth_logo_bl.svg</file>
     <file>trends_earth_logo_square_32x32.png</file>
     <file>trend_plugin_logo.png</file>
+    <file>misland_logo.png</file>
     <file>icons/trends_earth_logo_bl_small.png</file>
     <file>icons/GEF_logo_small.png</file>
     <file>icons/CI_logo_small.png</file>
@@ -23,5 +24,12 @@
     <file>icons/tree1.svg</file>
     <file>icons/wrench2.svg</file>
     <file>icons/spinner.gif</file>
+    <file>icons/misland_logo.png</file>
+    <file>icons/nbr.png</file>
+    <file>icons/msavi2.png</file>
+    <file>icons/ndvi.png</file>
+    <file>icons/cqi.png</file>
+    <file>icons/vqi.png</file>
+    <file>icons/sqi.png</file>
   </qresource>
 </RCC>

@@ -236,6 +236,7 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.close()
 
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
+        log(u'ndvi_dataset is {}'.format(ndvi_dataset))
 
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
