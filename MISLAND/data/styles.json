@@ -784,10 +784,10 @@
         "ramp":{
             "type": "zero-centered stretch",
             "shader": "interpolated",
-            "percent stretch": 0,
-            "min": {"color": "#000000"},
-            "zero": {"color": "#2d2d2d"},
-            "max": {"color": "#ffffff"},
+            "percent stretch": 2,
+            "min": {"color": "#AB2727"},
+            "zero": {"color": "#FFFFE0"},
+            "max": {"color": "#45A146"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"
             }
         }

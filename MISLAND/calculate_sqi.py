@@ -165,6 +165,8 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                     'geojsons': geometries,
                     'crosses_180th': crosses_180th,
                     'crs': self.aoi.get_crs_dst_wkt(),
+                    'texture_matrix':self.sqi_setup_tab.dlg_texture_agg.get_agg_as_list()[1],
+                    'pmaterial_matrix':self.sqi_setup_tab.dlg_pm_agg.get_agg_as_list()[1],
                     'task_name': self.options_tab.task_name.text(),
                     'task_notes': self.options_tab.task_notes.toPlainText()}
 

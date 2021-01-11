@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1047</width>
-    <height>592</height>
+    <width>327</width>
+    <height>638</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QRadioButton" name="use_terra">
+    <widget class="QRadioButton" name="use_default">
      <property name="text">
       <string>Default Misland Climate Quality data</string>
      </property>
@@ -57,7 +57,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_terra_period">
+    <widget class="QGroupBox" name="groupBox_default">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -152,7 +152,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_custom_prec">
+    <widget class="QGroupBox" name="groupBox_custom_rain">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -186,7 +186,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_custom_pet">
+    <widget class="QGroupBox" name="groupBox_custom_aspect">
      <property name="enabled">
       <bool>true</bool>
      </property>
@@ -220,7 +220,7 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBox_custom_aridity">
      <property name="title">
       <string>Aridity Index</string>
      </property>
@@ -281,12 +281,12 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
   <zorder>use_custom</zorder>
-  <zorder>groupBox_custom_prec</zorder>
-  <zorder>groupBox_custom_pet</zorder>
-  <zorder>use_terra</zorder>
-  <zorder>groupBox_terra_period</zorder>
+  <zorder>groupBox_custom_rain</zorder>
+  <zorder>groupBox_custom_aspect</zorder>
+  <zorder>use_default</zorder>
+  <zorder>groupBox_default</zorder>
   <zorder>textBrowser</zorder>
-  <zorder>groupBox</zorder>
+  <zorder>groupBox_custom_aridity</zorder>
  </widget>
  <customwidgets>
   <customwidget>

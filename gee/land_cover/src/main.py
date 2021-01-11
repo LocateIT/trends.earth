@@ -13,6 +13,7 @@ import json
 
 import ee
 
+from landdegradation import GEEIOError
 from landdegradation.land_cover import land_cover
 
 

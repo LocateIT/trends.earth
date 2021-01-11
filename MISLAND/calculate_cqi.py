@@ -124,14 +124,15 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
 
         # These boxes may have been hidden if this widget was last shown on the 
         # SDG one step dialog
-        self.cqi_setup_tab.groupBox_terra_period.show()
+        self.cqi_setup_tab.groupBox_default.show()
         self.cqi_setup_tab.use_custom.show()
-        self.cqi_setup_tab.groupBox_custom_prec.show()
-        self.cqi_setup_tab.groupBox_custom_pet.show()
+        self.cqi_setup_tab.groupBox_custom_aridity.show()
+        self.cqi_setup_tab.groupBox_custom_aspect.show()
+        self.cqi_setup_tab.groupBox_custom_rain.show()
 
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
-        self.cqi_setup_tab.groupBox_terra_period.show()
+        self.cqi_setup_tab.groupBox_default.show()
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
@@ -146,7 +147,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         if not ret:
             return
 
-        if self.cqi_setup_tab.use_terra.isChecked():
+        if self.cqi_setup_tab.use_default.isChecked():
             self.calculate_on_GEE()
         else:
             self.calculate_locally()
