@@ -1096,12 +1096,13 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         self.layer_loaded.emit([l_info])
 
 class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
-    def __init__(self, layer_name,  parent=None):
+    def __init__(self, layer_name, final_classes,  parent=None):
         super(DlgDataIOImportSQI, self).__init__(parent)
 
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
         self.layer_name = layer_name
+        self.final_classes = final_classes
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
@@ -1170,8 +1171,8 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
         # Set all of the classes to no data by default
         classes = [{'Initial_Code':value, u'Initial_Label':str(value), 'Final_Label':'No data', 'Final_Code':-32768} for value in sorted(values)]
         #TODO Fix on refactor
-        from MISLAND.lc_setup import DlgCalculateLCSetAggregation
-        self.dlg_agg = DlgCalculateLCSetAggregation(classes, parent=self)
+        from MISLAND.sqi_setup import DlgCalculateSetAggregation
+        self.dlg_agg = DlgCalculateSetAggregation(classes, self.final_classes, parent=self)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
@@ -1537,15 +1538,37 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
         elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
         elif self.property("layer_type") == 'Parent material (3 class)':
-            self.dlg_load = DlgDataIOImportSQI('Parent material (3 class)')
+            self.dlg_load = DlgDataIOImportSQI('Parent material (3 class)', {'No data': -32768,
+                        'Good': 1,
+                        'Moderate': 1.7,
+                        'Poor': 2,
+                        })
         elif self.property("layer_type") == 'Rock fragments (3 class)':
-            self.dlg_load = DlgDataIOImportSQI('Rock fragments (3 class)')
+            self.dlg_load = DlgDataIOImportSQI('Rock fragments (3 class)', {'No data': -32768,
+                        'Very Stony': 1,
+                        'Stony': 1.3,
+                        'Bare to slightly stony': 2,
+                        })
         elif self.property("layer_type") == 'Soil texture (4 class)':
-            self.dlg_load = DlgDataIOImportSQI('Soil texture (4 class)')
+            self.dlg_load = DlgDataIOImportSQI('Soil texture (4 class)', {'No data': -32768,
+                        'Good': 1,
+                        'Moderate': 1.2,
+                        'Poor': 1.6,
+                        'Very Poor':2
+                        })
         elif self.property("layer_type") == 'Drainage (3 class)':
-            self.dlg_load = DlgDataIOImportSQI('Drainage (3 class)')
+            self.dlg_load = DlgDataIOImportSQI('Drainage (3 class)', {'No data': -32768,
+                        'Well Drained': 1,
+                        'Imperfectly Drained': 1.2,
+                        'Poorly Drained': 2,
+                        })
         elif self.property("layer_type") == 'Slope (4 class)':
-            self.dlg_load = DlgDataIOImportSQI('Slope (4 class)')
+            self.dlg_load = DlgDataIOImportSQI('Slope (4 class)', {'No data': -32768,
+                        'Very gentle to flat': 1,
+                        'Gentle': 1.2,
+                        'Steep': 1.5,
+                        'Very steep':2
+                        })
         elif self.property("layer_type") == 'Aridity Index':
             self.dlg_load = DlgDataIOImportCQI()
         else:
