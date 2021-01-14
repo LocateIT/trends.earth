@@ -51,7 +51,7 @@ class AggTableModel(QAbstractTableModel):
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-# Function to read a file defining land cover aggegation
+# Function to read a file defining soil quality aggegation
 def read_class_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,

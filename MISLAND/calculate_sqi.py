@@ -98,12 +98,18 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
         # SDG one step dialog
         self.sqi_setup_tab.groupBox_usda_depth.show()
         # self.cqi_setup_tab.use_custom.show()
+        self.sqi_setup_tab.groupBox_rock_fragm.show()
+        self.sqi_setup_tab.groupBox_slope.show()
+        self.sqi_setup_tab.groupBox_texture.show()
+        self.sqi_setup_tab.groupBox_drainage.show()
+        self.sqi_setup_tab.groupBox_pm.show()
+        
         # self.cqi_setup_tab.groupBox_custom_prec.show()
         # self.cqi_setup_tab.groupBox_custom_pet.show()
 
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
-        self.sqi_setup_tab.groupBox_usda_depth.show()
+        # self.sqi_setup_tab.groupBox_usda_depth.show()
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)

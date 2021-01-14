@@ -1074,15 +1074,15 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
         write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 64 + i, 2)
 
     try:
-        ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_sdg.add_image(ws_sdg_logo, 'H1')
-        ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_prod.add_image(ws_prod_logo, 'H1')
-        ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_soc.add_image(ws_soc_logo, 'H1')
-        ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_lc.add_image(ws_lc_logo, 'H1')
-        ws_unccd_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_unccd_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_unccd.add_image(ws_unccd_logo, 'G1')
     except ImportError:
         # add_image will fail on computers without PIL installed (this will be 

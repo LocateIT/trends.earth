@@ -1096,11 +1096,12 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         self.layer_loaded.emit([l_info])
 
 class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
-    def __init__(self, parent=None):
+    def __init__(self, layer_name,  parent=None):
         super(DlgDataIOImportSQI, self).__init__(parent)
 
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
+        self.layer_name = layer_name
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
 
@@ -1201,6 +1202,7 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
         self.dlg_agg.exec_()
 
     def ok_clicked(self):
+
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
@@ -1215,9 +1217,11 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
         if not remap_ret:
             return False
 
-        l_info = self.add_layer('Soil Quality Index',
-                                {'year': int(self.input_widget.spinBox_data_year.text()),
+        l_info = self.add_layer(self.layer_name, {'year': int(self.input_widget.spinBox_data_year.text()),
                                 'source': 'custom data'})
+        # l_info = self.add_layer('Parent material (3 class)',
+        #                         {'year': int(self.input_widget.spinBox_data_year.text()),
+        #                         'source': 'custom data'})
 
         self.layer_loaded.emit([l_info])
 
@@ -1532,8 +1536,16 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
             self.dlg_load = DlgDataIOImportLC()
         elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
-        elif self.property("layer_type") == 'Soil Quality Index':
-            self.dlg_load = DlgDataIOImportSQI()
+        elif self.property("layer_type") == 'Parent material (3 class)':
+            self.dlg_load = DlgDataIOImportSQI('Parent material (3 class)')
+        elif self.property("layer_type") == 'Rock fragments (3 class)':
+            self.dlg_load = DlgDataIOImportSQI('Rock fragments (3 class)')
+        elif self.property("layer_type") == 'Soil texture (4 class)':
+            self.dlg_load = DlgDataIOImportSQI('Soil texture (4 class)')
+        elif self.property("layer_type") == 'Drainage (3 class)':
+            self.dlg_load = DlgDataIOImportSQI('Drainage (3 class)')
+        elif self.property("layer_type") == 'Slope (4 class)':
+            self.dlg_load = DlgDataIOImportSQI('Slope (4 class)')
         elif self.property("layer_type") == 'Aridity Index':
             self.dlg_load = DlgDataIOImportCQI()
         else:

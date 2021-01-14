@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>312</width>
-    <height>809</height>
+    <height>886</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -40,7 +40,7 @@
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-size:8pt; background-color:#ffffff;&quot;&gt;The formula used to compute the SQI is as shown below:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600; background-color:#ffffff;&quot;&gt;SQI&lt;/span&gt;&lt;span style=&quot; font-size:8pt; background-color:#ffffff;&quot;&gt;  = (Parent material * Depth * Texture * Slope)^1/4&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; background-color:#ffffff;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600; background-color:#ffffff;&quot;&gt;SQI&lt;/span&gt;&lt;span style=&quot; font-size:8pt; background-color:#ffffff;&quot;&gt;  = (Parent material * Depth * Texture * Slope*Drainage*Rock Fragments)^1/6&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>
@@ -252,11 +252,8 @@ p, li { white-space: pre-wrap; }
           <height>30</height>
          </size>
         </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Aridity Index</string>
+         <string notr="true">Parent material (3 class)</string>
         </property>
        </widget>
       </item>
@@ -287,7 +284,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Aridity Index</string>
+         <string notr="true">Rock fragments (3 class)</string>
         </property>
        </widget>
       </item>
@@ -318,7 +315,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Aridity Index</string>
+         <string notr="true">Slope (4 class)</string>
         </property>
        </widget>
       </item>
@@ -349,7 +346,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Aridity Index</string>
+         <string notr="true">Soil texture (4 class)</string>
         </property>
        </widget>
       </item>
@@ -363,7 +360,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_drainage">
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_initial_5">
         <property name="enabled">
          <bool>true</bool>
         </property>
@@ -380,7 +377,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Aridity Index</string>
+         <string notr="true">Drainage (3 class)</string>
         </property>
        </widget>
       </item>

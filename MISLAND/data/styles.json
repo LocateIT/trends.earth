@@ -146,6 +146,19 @@
             ]
         }
     },
+    "Parent material (3 class)": {
+        "title": "pm_3class_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "pm_good"},
+                {"value": 2, "color": "#FFAC42", "label": "pm_moderate"},
+                {"value": 3, "color": "#FFFB6E", "label": "pm_poor"}
+            ]
+        }
+    },
     "ESA CCI": {
         "title": "lc_esa_mode_title",
             "ramp": {

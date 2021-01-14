@@ -244,7 +244,7 @@
             "Source": "NASA LP DAAC, 2016, MOD13Q1, Version 6. NASA EOSDIS Land Processes DAAC, USGS Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota (https://lpdaac.usgs.gov), accessed [12 15, 2017], at http://dx.doi.org/10.5067/MODIS/MOD13Q1.006",
             "Comments": ""
         },
-        "Landsat (LE07, annual) (BETA)": {
+        "Landsat (LE07, annual)": {
             "Data source": "GEE",
             "Start year": 1999,
             "End year": 2020,
@@ -257,7 +257,7 @@
             "Units": "Mean anual NDVI * 10000",
             "Description": "These Landsat 7 Collection 1 Tier 1 composites are made from Tier 1 orthorectified scenes, using the computed top-of-atmosphere (TOA) reflectance. The Normalized Difference Vegetation Index is generated from the Near-IR and Red bands of each scene as (NIR - Red) / (NIR + Red), and ranges in value from -1.0 to 1.0.These composites are created from all the scenes in each annual period beginning from the first day of the year and continuing to the last day of the year. All the images from each year are included in the composite, with the most recent pixel as the composite value.",
             "Link to Dataset": "https://explorer.earthengine.google.com/#detail/MODIS%2FMOD13Q1",
-            "GEE Dataset": "users/miswagrace/north_africa_ndvi",
+            "GEE Dataset": "users/miswagrace/ndvi_landsat_1999_2020",
             "Source code": "c02_ndvi_modis_int_global_assets",
             "Status": "Stored as assets",
             "License": "Public Domain",

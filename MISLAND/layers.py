@@ -90,6 +90,11 @@ style_text_dict = {
     #post_fire_nbr
     'post_fire_nbr':tr(u'Postfire Normalized Burn Ratio'),
 
+    # soil quality
+    'pm_3class_title':tr(u'Parent material ({year}, 3 class)'),
+    'pm_good': tr(u'Good'),
+    'pm_moderate':tr(u'Moderate'),
+    'pm_poor':tr(u'Poor'),
     # Land cover
     'lc_deg_title': tr(u'Land cover degradation ({year_baseline} to {year_target})'),
     'lc_deg_deg': tr(u'Degradation'),

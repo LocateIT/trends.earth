@@ -516,7 +516,7 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
         self.btn_soc.clicked.connect(self.btn_soc_clicked)
         self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
         self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
-        self.btn_summary_multi_polygons.clicked.connect(self.btn_summary_multi_polygons_clicked)
+        # self.btn_summary_multi_polygons.clicked.connect(self.btn_summary_multi_polygons_clicked)
 
     def btn_prod_clicked(self):
         self.close()
@@ -538,9 +538,9 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
         self.close()
         result = self.dlg_calculate_ldn_advanced.exec_()
 
-    def btn_summary_multi_polygons_clicked(self):
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Multiple polygon summary table calculation coming soon!"))
+    # def btn_summary_multi_polygons_clicked(self):
+    #     QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+    #                                   self.tr("Multiple polygon summary table calculation coming soon!"))
 
 
 class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
