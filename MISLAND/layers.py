@@ -90,11 +90,38 @@ style_text_dict = {
     #post_fire_nbr
     'post_fire_nbr':tr(u'Postfire Normalized Burn Ratio'),
 
-    # soil quality
+    #parent material
     'pm_3class_title':tr(u'Parent material ({year}, 3 class)'),
     'pm_good': tr(u'Good'),
     'pm_moderate':tr(u'Moderate'),
     'pm_poor':tr(u'Poor'),
+ 
+    # rock fragment 
+    'rf_3class_title':tr(u'Rock fragment ({year}, 3 class)'),
+    'very_stony':tr(u'Very Stony'),
+    'stony':tr(u'Stony'),
+    'bare_2_slightly':tr(u'Bare to slightly stony'),
+    
+    # drainage
+    'drain_3class_title':tr(u'Drainage ({year}, 3 class)'),
+    'well_drain':tr(u'Well drained'),
+    'imperfect_drain':tr(u'Imperfectly drained'),
+    'poor_drain':tr(u'Poorly drained'),
+
+    # soil texture 
+    'st_4class_title':tr(u'Soil texture ({year}, 4 class)'),
+    'st_good':tr(u'Good'),
+    'st_moderate':tr(u'Moderate'),
+    'st_poor':tr(u'Poor'),
+    'st_very_poor':tr(u'Very Poor'),
+
+    # slope 
+    'slope_4class_title':tr(u'Slope ({year}, 4 class)'),
+    'slope_flat':tr(u'Very gentle to flat'),
+    'slope_gentle':tr(u'Gentle'),
+    'slope_steep':tr(u'Steep'),
+    'slope_v_steep':tr(u'Very steep'),
+
     # Land cover
     'lc_deg_title': tr(u'Land cover degradation ({year_baseline} to {year_target})'),
     'lc_deg_deg': tr(u'Degradation'),

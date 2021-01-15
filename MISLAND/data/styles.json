@@ -159,6 +159,60 @@
             ]
         }
     },
+    "Rock fragments (3 class)": {
+        "title": "rf_3class_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "very_stony"},
+                {"value": 2, "color": "#FFAC42", "label": "stony"},
+                {"value": 3, "color": "#FFFB6E", "label": "bare_2_slightly"}
+            ]
+        }
+    },
+    "Drainage (3 class)": {
+        "title": "drain_3class_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "well_drain"},
+                {"value": 2, "color": "#FFAC42", "label": "imperfect_drain"},
+                {"value": 3, "color": "#FFFB6E", "label": "poor_drain"}
+            ]
+        }
+    },
+    "Soil texture (4 class)": {
+        "title": "st_4class_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "st_good"},
+                {"value": 2, "color": "#FFAC42", "label": "st_moderate"},
+                {"value": 3, "color": "#FFFB6E", "label": "st_poor"},
+                {"value": 4, "color": "#FFFB6E", "label": "st_very_poor"}
+            ]
+        }
+    },
+    "Slope (4 class)": {
+        "title": "slope_4class_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "slope_flat"},
+                {"value": 2, "color": "#FFAC42", "label": "slope_gentle"},
+                {"value": 3, "color": "#FFFB6E", "label": "slope_steep"},
+                {"value": 4, "color": "#FFFB6E", "label": "slope_v_steep"}
+            ]
+        }
+    },
     "ESA CCI": {
         "title": "lc_esa_mode_title",
             "ramp": {
