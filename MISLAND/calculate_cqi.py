@@ -103,7 +103,7 @@ class ClimateQualityWorker(AbstractWorker):
                 blocks += 1
  
         if self.killed:
-            os.remove(out_file)
+            os.remove(self.out_f)
             return None
         else:
             return True

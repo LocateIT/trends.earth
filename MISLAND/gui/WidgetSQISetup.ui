@@ -360,7 +360,7 @@ p, li { white-space: pre-wrap; }
      </property>
      <layout class="QGridLayout" name="gridLayout_5">
       <item row="0" column="0">
-       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_initial_5">
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_drainage">
         <property name="enabled">
          <bool>true</bool>
         </property>

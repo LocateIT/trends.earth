@@ -846,17 +846,17 @@
             }
         }
     },
-    "Soil Quality Index": {
+    "Soil Quality Index (cm deep)": {
         "title": "soil_quality_index",
-        "ramp":{
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#AB2727"},
-            "zero": {"color": "#FFFFE0"},
-            "max": {"color": "#45A146"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "sqi_high"},
+                {"value": 1.13, "color": "#FFAC42", "label": "sqi_moderate"},
+                {"value": 2, "color": "#FFFB6E", "label": "sqi_low"}
+            ]
         }
     }
 }

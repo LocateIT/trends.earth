@@ -43,13 +43,13 @@ class DlgVisualization(QtWidgets.QDialog, Ui_DlgVisualization):
         self.btn_basemap.clicked.connect(self.clicked_basemap)
         self.btn_create_map.clicked.connect(self.clicked_create_map)
         
-    def clicked_create_map(self):
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon"),
-                                    self.tr("Create Print Map coming soon!"))
+    # def clicked_create_map(self):
+    #     QtWidgets.QMessageBox.information(None, self.tr("Coming soon"),
+    #                                 self.tr("Create Print Map coming soon!"))
 
-    #def clicked_create_map(self):
-        #self.close()
-        #self.dlg_create_map.exec_()
+    def clicked_create_map(self):
+        self.close()
+        self.dlg_create_map.exec_()
 
     def clicked_basemap(self):
         self.close()
@@ -256,6 +256,10 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap)
         else:
             title = 'MISLAND map'
         comp_window = iface.createNewComposer(title)
+
+        # composition = QgsComposition(title)
+        # composition.loadFromTemplate(document)
+        
         composition = comp_window.composition()
         composition.loadFromTemplate(document)
 

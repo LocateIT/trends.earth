@@ -263,7 +263,10 @@ style_text_dict = {
     'dry_sub_humid':tr('Dry sub-humid, 1.25'),
     'humid':tr('Humid, 1'),
 
-    'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)')
+    'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)'),
+    'sqi_high':tr('High'),
+    'sqi_moderate':tr(' Moderate'),
+    'sqi_low':tr('Low'),
 }
 
 
