@@ -20,7 +20,8 @@ from qgis.PyQt import QtWidgets, uic, QtXml
 from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
 
 from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
-    QgsLayerDefinition, QgsReadWriteContext
+    QgsLayerDefinition, QgsReadWriteContext,QgsPrintLayout
+from qgis.gui import QgsMapCanvas
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -255,28 +256,40 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap)
             title = self.title.text()
         else:
             title = 'MISLAND map'
-        comp_window = iface.createNewComposer(title)
 
-        # composition = QgsComposition(title)
-        # composition.loadFromTemplate(document)
+        project = QgsProject.instance()         
+        manager = project.layoutManager()       
+        layout = QgsPrintLayout(project)        
+        layoutName = title
+
         
-        composition = comp_window.composition()
-        composition.loadFromTemplate(document)
+        #initializes default settings for blank print layout canvas
+        layout.initializeDefaults()  
+        
+        layout.setName(layoutName)
+        # manager.addLayout(layout)
+        project.layoutManager().addLayout(layout)
 
-        canvas = iface.mapCanvas()
-        map_item = composition.getComposerItemById('te_map')
-        map_item.setMapCanvas(canvas)
-        map_item.zoomToExtent(canvas.extent())
+        # comp_window = iface.createNewComposer(title)        
+        # composition = comp_window.composition()
+        # composition.loadFromTemplate(document)
 
-        map_item.renderModeUpdateCachedImage()
+        canvas = QgsMapCanvas()
+        canvas.show()
+        # canvas = iface.mapCanvas()
+        # map_item = composition.getComposerItemById('te_map')
+        # map_item.setMapCanvas(canvas)
+        # map_item.zoomToExtent(canvas.extent())
 
-        datasets = composition.getComposerItemById('te_datasets')
-        datasets.setText('Created using <a href="http://trends.earth">trends.earth</a>. Projection: decimal degrees, WGS84. Datasets derived from {{COMING SOON}}.')
-        datasets.setHtmlState(True)
-        author = composition.getComposerItemById('te_authors')
-        author.setText(self.authors.text())
-        logo = composition.getComposerItemById('te_logo')
-        logo_path = os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_600width.png')
-        logo.setPicturePath(logo_path)
-        legend = composition.getComposerItemById('te_legend')
-        legend.setAutoUpdateModel(True)
+        # map_item.renderModeUpdateCachedImage()
+
+        # datasets = composition.getComposerItemById('te_datasets')
+        # datasets.setText('Created using <a href="http://trends.earth">trends.earth</a>. Projection: decimal degrees, WGS84. Datasets derived from {{COMING SOON}}.')
+        # datasets.setHtmlState(True)
+        # author = composition.getComposerItemById('te_authors')
+        # author.setText(self.authors.text())
+        # logo = composition.getComposerItemById('te_logo')
+        # logo_path = os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_600width.png')
+        # logo.setPicturePath(logo_path)
+        # legend = composition.getComposerItemById('te_legend')
+        # legend.setAutoUpdateModel(True)

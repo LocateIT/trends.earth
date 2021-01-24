@@ -14,15 +14,18 @@ import ee
 
 from landdegradation.util import TEImage
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
-from landdegradation.climate_quality import climate_quality
+from landdegradation.vegetation_quality import vegetation_quality
 # from landdegradation.forest_change import forest_loss, forest_gain, forest_loss_year,forest_cover
 
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-
-    month = params.get('month')
-    next_month = params.get('next_month')
+    year = params.get('year')
+    ndvi_start = params.get('ndvi_start')
+    ndvi_end = params.get('ndvi_end')
+    drought_matrix = params.get('drought_matrix')
+    fire_matrix = params.get('fire_matrix')
+    erosion_matrix = params.get('erosion_matrix')
     crs = params.get('crs') 
 
     geojsons = json.loads(params.get('geojsons'))
@@ -35,8 +38,8 @@ def run(params, logger):
 
     logger.debug("Running main script.")
 
-    out = climate_quality(month, next_month ,geojsons[0],EXECUTION_ID, logger)
+    out = vegetation_quality(year, ndvi_start, ndvi_end, drought_matrix, fire_matrix, erosion_matrix, geojsons[0],EXECUTION_ID, logger)
 
-    return out.export(geojsons, 'Climate Quality', crs, logger, EXECUTION_ID)
+    return out.export(geojsons, 'Vegetation Quality', crs, logger, EXECUTION_ID)
     
 

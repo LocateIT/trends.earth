@@ -12,33 +12,6 @@
  ***************************************************************************/
 """
 
-# from future import standard_library
-# standard_library.install_aliases()
-# import os
-# import json
-
-# from qgis.PyQt import QtWidgets
-# from qgis.PyQt.QtCore import QDate
-
-# from qgis.utils import iface
-# mb = iface.messageBar()
-
-# from MISLAND import log
-# from MISLAND.calculate import DlgCalculateBase, get_script_slug
-# from MISLAND.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
-# from MISLAND.api import run_script
-
-
-# class DlgCalculateSQI(DlgCalculateBase, UiDialog):
-#     def __init__(self, parent=None):
-#         """Constructor."""
-#         super(DlgCalculateSQI, self).__init__(parent)
-
-#         self.setupUi(self)
-
-# -*- coding: utf-8 -*-
-
-
 from future import standard_library
 standard_library.install_aliases()
 import os

@@ -109,14 +109,33 @@ class ClimateQualityWorker(AbstractWorker):
             return True
 
 
+months = ['January', 'February', 'March', 'April', 'May',
+    'June', 'July', 'August', 'September', 'October', 'November', 'December'
+]
+
+
 class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateCQI, self).__init__(parent)
 
         self.setupUi(self)
+        self.cqi_setup_tab = cqi_setup_widget
+
+        self.cqi_setup_tab.ecmwf_month.addItems(months)
+        self.cqi_setup_tab.ecmwf_month.setCurrentIndex(0)
+
+        self.ecmwf_month_changed()
+
+        self.cqi_setup_tab.ecmwf_month.currentIndexChanged.connect(self.ecmwf_month_changed)
+
+
+    def ecmwf_month_changed(self):
+        self.cqi_setup_tab = cqi_setup_widget
+        log("{} month".format(self.cqi_setup_tab.ecmwf_month.currentText()))
 
     def showEvent(self, event):
+
         super(DlgCalculateCQI, self).showEvent(event)
 
         self.cqi_setup_tab = cqi_setup_widget
@@ -129,7 +148,10 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         self.cqi_setup_tab.groupBox_custom_aridity.show()
         self.cqi_setup_tab.groupBox_custom_aspect.show()
         self.cqi_setup_tab.groupBox_custom_rain.show()
-
+     
+        # self.
+        
+        
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
         self.cqi_setup_tab.groupBox_default.show()
@@ -140,6 +162,15 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # precipitation and potential evapotranspiration custom input layers
         self.cqi_setup_tab.use_custom_prec.populate()
         self.cqi_setup_tab.use_custom_pet.populate()
+
+        # self.ecmwf_month_changed()
+
+        # self.ecmwf_month.currentIndexChanged.connect(self.ecmwf_month_changed)
+
+    # def dataset_ndvi_changed(self):
+    #     this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
+    #     self.start_year_ndvi = this_ndvi_dataset['Start year']
+    #     self.end_year_ndvi = this_ndvi_dataset['End year']
 
     def btn_calculate(self):
 
@@ -181,7 +212,6 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
                 "type":"Polygon"
             }])
 
-
         elif self.area_tab.area_fromadmin.isChecked():
             geometries =json.dumps([{
                 "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
@@ -193,8 +223,19 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
+        month_index = months.index(self.cqi_setup_tab.ecmwf_month.currentText())+1
+        next_month_index = month_index+1
+
+        if len(str(month_index)) < 2 or next_month_index<2:
+            month_index = '{}'.format(0) + str(month_index)
+            next_month_index = '{}'.format(0) + str(next_month_index)
+        else:
+            month_index = str(month_index)
+            next_month_index = str(next_month_index)
+
         payload = {
-                    'year': self.cqi_setup_tab.use_terra_year.date().year(),
+                    'month': '{}-{}'.format(str(self.cqi_setup_tab.ecmwf_year.date().year()), month_index),
+                    'next_month':'{}-{}'.format(str(self.cqi_setup_tab.ecmwf_year.date().year()),next_month_index),
                     'geojsons': geometries,
                     'crosses_180th': crosses_180th,
                     'crs': self.aoi.get_crs_dst_wkt(),

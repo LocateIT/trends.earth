@@ -256,12 +256,10 @@ style_text_dict = {
     'soil_grids_250_soc': tr('Soil Grids 250'),
 
     # aridity index 
-    'climate_quality_index':tr('Climate Quality Index'),
-    'hyper_arid':tr('Hyper-arid, 2'),
-    'arid':tr('Arid, 1.75'),
-    'semi_arid':tr('Semi-arid, 1.5'),
-    'dry_sub_humid':tr('Dry sub-humid, 1.25'),
-    'humid':tr('Humid, 1'),
+    'climate_quality_index':tr('Climate Quality Index (month)'),
+    'cqi_high':tr('High quality'),
+    'cqi_moderate':tr('Moderate quality'),
+    'cqi_low':tr('Low quality'),
 
     'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)'),
     'sqi_high':tr('High'),

@@ -25,23 +25,23 @@ mb = iface.messageBar()
 
 from MISLAND import log
 from MISLAND.calculate import DlgCalculateBase, get_script_slug
-from MISLAND.gui.DlgCalculateVQI import Ui_DlgCalculateVQI
-from MISLAND.vqi_setup import vqi_setup_widget
+from MISLAND.gui.DlgCalculateMQI import Ui_DlgCalculateMQI
+from MISLAND.mqi_setup import mqi_setup_widget
 from MISLAND.api import run_script
 
 
-class DlgCalculateVQI(DlgCalculateBase, Ui_DlgCalculateVQI):
+class DlgCalculateMQI(DlgCalculateBase, Ui_DlgCalculateMQI):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgCalculateVQI, self).__init__(parent)
+        super(DlgCalculateMQI, self).__init__(parent)
 
         self.setupUi(self)
 
     def showEvent(self, event):
-        super(DlgCalculateVQI, self).showEvent(event)
+        super(DlgCalculateMQI, self).showEvent(event)
 
-        self.vqi_setup_tab = vqi_setup_widget
-        self.TabBox.insertTab(0, self.vqi_setup_tab, self.tr('Vegetation Quality Index Setup'))
+        self.mqi_setup_widget = mqi_setup_widget
+        self.TabBox.insertTab(0, self.mqi_setup_widget, self.tr('Management Quality Index Setup'))
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)

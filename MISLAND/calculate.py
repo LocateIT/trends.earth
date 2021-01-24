@@ -621,12 +621,12 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         from MISLAND.calculate_cqi import DlgCalculateCQI
         # from MISLAND.calculate_aqi import DlgCalculateAQI
         from MISLAND.calculate_sqi import DlgCalculateSQI
-        # from MISLAND.calculate_vqi import DlgCalculateVQI
+        from MISLAND.calculate_vqi import DlgCalculateVQI
 
         self.dlg_calculate_cqi = DlgCalculateCQI() 
         # self.dlg_calculate_aqi = DlgCalculateAQI()
         self.dlg_calculate_sqi = DlgCalculateSQI()
-        # self.dlg_calculate_vqi = DlgCalculateVQI()
+        self.dlg_calculate_vqi = DlgCalculateVQI()
 
         self.btn_calculate_all.clicked.connect(self.btn_calculate_all_clicked)   
         self.btn_calculate_cqi.clicked.connect(self.btn_calculate_cqi_clicked)
@@ -655,9 +655,9 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
 
     def btn_calculate_vqi_clicked(self):
         # self.close()
-        # result = self.dlg_calculate_vqi.exec_()
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("Vegetation Quality Index coming soon!"))
+        result = self.dlg_calculate_vqi.exec_()
+        # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+        #                         self.tr("Vegetation Quality Index coming soon!"))
 
     def btn_calculate_all_clicked(self):
         # self.close()

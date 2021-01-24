@@ -411,18 +411,16 @@
             ]
         }
     },
-    "Aridity Index": {
+    "Climate Quality Index (month)": {
         "title": "climate_quality_index",
         "ramp": {
             "type": "categorical",
-            "shader": "discrete",
+            "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 0.002, "color": "#AB2727", "label": "hyper_arid"},
-                {"value": 0.03, "color": "#ED7428", "label": "arid"},
-                {"value": 0.05, "color": "#FED652", "label": "semi_arid"},
-                {"value": 0.07, "color": "#B8D779", "label": "dry_sub_humid"},
-                {"value": 1, "color": "#45A146", "label": "humid"}
+                {"value": 1, "color": "#45A146", "label": "cqi_high"},
+                {"value": 2, "color": "#ED7428", "label": "cqi_moderate"},
+                {"value": 3, "color": "#AB2727", "label": "cqi_low"}
             ]
         }
     },
