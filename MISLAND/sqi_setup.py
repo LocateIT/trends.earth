@@ -115,7 +115,7 @@ class DlgCalculateSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregat
 
     def btn_load_pressed(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a soil texture definition file'),
+                                              self.tr('Select a definition file'),
                                               QSettings().value("MISLAND/lc_deNonef_dir", ),
                                               self.tr('Soil Texture definition (*.json)'))
         if f:

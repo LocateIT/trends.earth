@@ -619,18 +619,18 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
 
         # TODO: Bad style - fix when refactoring
         from MISLAND.calculate_cqi import DlgCalculateCQI
-        # from MISLAND.calculate_aqi import DlgCalculateAQI
+        from MISLAND.calculate_mqi import DlgCalculateMQI
         from MISLAND.calculate_sqi import DlgCalculateSQI
         from MISLAND.calculate_vqi import DlgCalculateVQI
 
         self.dlg_calculate_cqi = DlgCalculateCQI() 
-        # self.dlg_calculate_aqi = DlgCalculateAQI()
+        self.dlg_calculate_mqi = DlgCalculateMQI()
         self.dlg_calculate_sqi = DlgCalculateSQI()
         self.dlg_calculate_vqi = DlgCalculateVQI()
 
         self.btn_calculate_all.clicked.connect(self.btn_calculate_all_clicked)   
         self.btn_calculate_cqi.clicked.connect(self.btn_calculate_cqi_clicked)
-        self.btn_calculate_aqi.clicked.connect(self.btn_calculate_aqi_clicked)
+        self.btn_calculate_mqi.clicked.connect(self.btn_calculate_mqi_clicked)
         self.btn_calculate_sqi.clicked.connect(self.btn_calculate_sqi_clicked)
         self.btn_calculate_vqi.clicked.connect(self.btn_calculate_vqi_clicked)
         self.btn_calculate_medalus.clicked.connect(self.btn_calculate_medalus_clicked)
@@ -641,11 +641,11 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
         #                         self.tr("Climate Quality Index coming soon!"))
 
-    def btn_calculate_aqi_clicked(self):
-        # self.close()
-        # result = self.dlg_calculate_aqi.exec_()
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("Land Management System Quality Index coming soon!"))
+    def btn_calculate_mqi_clicked(self):
+        self.close()
+        result = self.dlg_calculate_mqi.exec_()
+        # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+        #                         self.tr("Land Management System Quality Index coming soon!"))
 
     def btn_calculate_sqi_clicked(self):
         self.close()
@@ -654,7 +654,7 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         #                         self.tr("Soil Quality Index coming soon!"))
 
     def btn_calculate_vqi_clicked(self):
-        # self.close()
+        self.close()
         result = self.dlg_calculate_vqi.exec_()
         # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
         #                         self.tr("Vegetation Quality Index coming soon!"))
