@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Calculate SDG 15.3.1 Indicator</string>
+   <string>Calculate Sensitivity Desertification Index Indicator</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
