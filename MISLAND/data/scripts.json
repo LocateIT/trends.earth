@@ -70,7 +70,15 @@
         "description": "Calculate potential change in biomass with restoration."
     },
     "forest-change":{
-        "script version":"1.0.2",
+        "script version":"1.0.3",
         "description":"Calculate forest loss, gain and cover with Hansen Data"
+    },
+    "vegetation-quality":{
+        "script version":"1.0.3",
+        "description":"Calculate Vegetation Quality Index"
+    },
+    "management-quality":{
+        "script version":"1.0.3",
+        "description":"Calculate Management Quality Index"
     }
 }

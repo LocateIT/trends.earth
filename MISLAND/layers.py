@@ -257,14 +257,25 @@ style_text_dict = {
 
     # aridity index 
     'climate_quality_index':tr('Climate Quality Index (month)'),
-    'cqi_high':tr('High quality'),
-    'cqi_moderate':tr('Moderate quality'),
-    'cqi_low':tr('Low quality'),
+    'cqi_high':tr('High quality (< 1.15)'),
+    'cqi_moderate':tr('Moderate quality (1.15 to 1.81)'),
+    'cqi_low':tr('Low quality (> 1.81)'),
 
     'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)'),
-    'sqi_high':tr('High'),
-    'sqi_moderate':tr(' Moderate'),
-    'sqi_low':tr('Low'),
+    'sqi_high':tr('High (< 1.13)'),
+    'sqi_moderate':tr('Moderate (1.13 to 1.45)'),
+    'sqi_low':tr('Low (> 1.45)'),
+
+    'vegetation_quality_index': tr(u'Vegetation Quality Index'),
+    'vqi_high':tr('High (< 1.13)'),
+    'vqi_moderate':tr('Moderate (1.13 to 1.38)'),
+    'vqi_low':tr('Low (> 1.38)'),
+
+    
+    'management_quality_index': tr(u'Management Quality Index'),
+    'mqi_high':tr('High (1 to 1.25)'),
+    'mqi_moderate':tr('Moderate (1.26 to 1.50)'),
+    'mqi_low':tr('Low (> 1.51)')
 }
 
 

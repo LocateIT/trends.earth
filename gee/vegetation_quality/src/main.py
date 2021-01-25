@@ -15,7 +15,6 @@ import ee
 from landdegradation.util import TEImage
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 from landdegradation.vegetation_quality import vegetation_quality
-# from landdegradation.forest_change import forest_loss, forest_gain, forest_loss_year,forest_cover
 
 def run(params, logger):
     """."""

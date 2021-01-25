@@ -86,21 +86,6 @@ class DlgCalculateSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregat
         self.final_classes = final_classes
         self.setupUi(self)
         
-        # soil texture classes
-        # self.final_classes = {'No data': -32768,
-        #                       'Good': 1,
-        #                       'Moderate': 2,
-        #                       'Poor': 3,
-        #                       'Very Poor': 4,
-        #                       }
-
-        # # parent material classes
-        # self.final_pm_classes = {'No data': -32768,
-        #                 'Good': 1,
-        #                 'Moderate': 1.7,
-        #                 'Poor': 2,
-        #                 }
-
         self.btn_save.clicked.connect(self.btn_save_pressed)
         self.btn_load.clicked.connect(self.btn_load_pressed)
         self.btn_reset.clicked.connect(self.reset_class_table)

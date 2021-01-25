@@ -852,8 +852,34 @@
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
                 {"value": 1, "color": "#787F1B", "label": "sqi_high"},
-                {"value": 1.13, "color": "#FFAC42", "label": "sqi_moderate"},
-                {"value": 2, "color": "#FFFB6E", "label": "sqi_low"}
+                {"value": 2, "color": "#FFAC42", "label": "sqi_moderate"},
+                {"value": 3, "color": "#FFFB6E", "label": "sqi_low"}
+            ]
+        }
+    },
+    "Vegetation Quality Index": {
+        "title": "vegetation_quality_index",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "vqi_high"},
+                {"value": 2, "color": "#FFAC42", "label": "vqi_moderate"},
+                {"value": 3, "color": "#FFFB6E", "label": "vqi_low"}
+            ]
+        }
+    },
+    "Management Quality Index": {
+        "title": "management_quality_index",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1, "color": "#787F1B", "label": "mqi_high"},
+                {"value": 2, "color": "#FFAC42", "label": "mqi_moderate"},
+                {"value": 3, "color": "#FFFB6E", "label": "mqi_low"}
             ]
         }
     }
