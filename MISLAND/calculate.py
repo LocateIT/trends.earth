@@ -622,17 +622,19 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         from MISLAND.calculate_mqi import DlgCalculateMQI
         from MISLAND.calculate_sqi import DlgCalculateSQI
         from MISLAND.calculate_vqi import DlgCalculateVQI
+        from MISLAND.calculate_sdi import DlgCalculateSDISummaryTableAdmin
 
         self.dlg_calculate_cqi = DlgCalculateCQI() 
         self.dlg_calculate_mqi = DlgCalculateMQI()
         self.dlg_calculate_sqi = DlgCalculateSQI()
         self.dlg_calculate_vqi = DlgCalculateVQI()
+        self.dlg_calculate_sdi = DlgCalculateSDISummaryTableAdmin()
 
         self.btn_calculate_cqi.clicked.connect(self.btn_calculate_cqi_clicked)
         self.btn_calculate_mqi.clicked.connect(self.btn_calculate_mqi_clicked)
         self.btn_calculate_sqi.clicked.connect(self.btn_calculate_sqi_clicked)
         self.btn_calculate_vqi.clicked.connect(self.btn_calculate_vqi_clicked)
-        self.btn_calculate_medalus.clicked.connect(self.btn_calculate_medalus_clicked)
+        self.btn_calculate_sdi.clicked.connect(self.btn_calculate_sdi_clicked)
 
     def btn_calculate_cqi_clicked(self):
         self.close()
@@ -649,11 +651,11 @@ class DlgCalculateMedalus(QtWidgets.QDialog, Ui_DlgCalculateMedalus):
         self.close()
         result = self.dlg_calculate_vqi.exec_()
         
-    def btn_calculate_medalus_clicked(self):
-        # self.close()
-        # result = self.dlg_calculate_vqi.exec_()
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                self.tr("Final Medalus Calculation coming soon!"))
+    def btn_calculate_sdi_clicked(self):
+        self.close()
+        result = self.dlg_calculate_sdi.exec_()
+        # QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
+        #                         self.tr("Final Medalus Calculation coming soon!"))
 
 
 class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
