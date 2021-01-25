@@ -46,7 +46,7 @@ msgid "Videos"
 msgstr "Video"
 
 #: ../../source/index.rst:2
-msgid "LAND DEGRADATION MONITORING SERVICE(LDMS) PLUGIN"
+msgid "LAND DEGRADATION MONITORING SERVICE(MISLAND) PLUGIN"
 msgstr ""
 
 #: ../../source/index.rst:5
@@ -76,7 +76,7 @@ msgstr "**Angalia mabadiliko ya ardhi**"
 #: ../../source/index.rst:11
 #, fuzzy
 msgid ""
-"LDMS is a platform for monitoring land change using earth observations in"
+"MISLAND is a platform for monitoring land change using earth observations in"
 " an innovative desktop and cloud-based system."
 msgstr ""
 "Trends.Earth (zamani ya Ufuatiliaji wa Vifaa vya Uharibifu wa Ardhi) ni "
@@ -94,7 +94,7 @@ msgstr "**Kufuatilia mafanikio ya malengo ya maendeleo endelevu**"
 msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
-"supported by LDMS: productivity, land cover, and soil organic carbon.  "
+"supported by MISLAND: productivity, land cover, and soil organic carbon.  "
 "The tool also supports countries in analyzing data to prepare for their "
 "reporting committments to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
@@ -109,7 +109,7 @@ msgstr ""
 #: ../../source/index.rst:23
 #, fuzzy
 msgid ""
-"LDMS allows users to plot time series of key indicators of land change "
+"MISLAND allows users to plot time series of key indicators of land change "
 "(including degradation and improvement), to produce maps and other "
 "graphics that can support monitoring and reporting, and to track the "
 "impact of sustainable land management or other projects."

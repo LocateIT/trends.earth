@@ -512,7 +512,7 @@ def translate_pull(c, force=False):
         subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
     print("Releasing translations using lrelease...")
     for translation in c.plugin.translations:
-        subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'LDMS.{}.ts'.format(translation))])
+        subprocess.check_call([lrelease, os.path.join(c.plugin.i18n_dir, 'MISLAND.{}.ts'.format(translation))])
 
 # @task
 # def translate_update_resources(c):
@@ -533,7 +533,7 @@ def translate_push(c, force=False, version=3):
 
     print("Gathering strings...")
     gettext(c)
-    print("Generating the pot files for the LDMS toolbox help files...")
+    print("Generating the pot files for the MISLAND toolbox help files...")
     for translation in c.plugin.translations:
         subprocess.check_call("sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}".format(sourcedir=c.sphinx.sourcedir, docroot=c.sphinx.docroot, lang=translation))
 
@@ -863,7 +863,7 @@ def testdata_sync(c):
         print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
 
-    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'LDMS/test/integration/fixtures', c.plugin.testdata_patterns)
+    _s3_sync(c, c.sphinx.deploy_s3_bucket, 'plugin_testdata', 'MISLAND/test/integration/fixtures', c.plugin.testdata_patterns)
 
 def find_binaries(c, folder, version=None):
     files = []
@@ -950,30 +950,30 @@ ns = Collection(set_version, plugin_setup, plugin_install,
 
 ns.configure({
     'plugin': {
-        'name': 'LDMS',
+        'name': 'MISLAND',
         'version_file_raw': 'version.txt',
-        'version_file_details': 'LDMS/version.json',
-        'ext_libs': 'LDMS/ext-libs',
-        'gui_dir': 'LDMS/gui',
-        'source_dir': 'LDMS',
-        'i18n_dir': 'LDMS/i18n',
+        'version_file_details': 'MISLAND/version.json',
+        'ext_libs': 'MISLAND/ext-libs',
+        'gui_dir': 'MISLAND/gui',
+        'source_dir': 'MISLAND',
+        'i18n_dir': 'MISLAND/i18n',
         #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
         'translations': ['fr'],
-        'resource_files': ['LDMS/resources.qrc'],
+        'resource_files': ['MISLAND/resources.qrc'],
         'numba': {
-            'aot_files': ['LDMS/calculate_numba.py',
-                          'LDMS/summary_numba.py'],
+            'aot_files': ['MISLAND/calculate_numba.py',
+                          'MISLAND/summary_numba.py'],
             'binary_extensions': ['.so',
                                   '.pyd'],
-            'binary_folder':  'LDMS/binaries',
-            'binary_list': 'LDMS/data/binaries.txt'
+            'binary_folder':  'MISLAND/binaries',
+            'binary_list': 'MISLAND/data/binaries.txt'
             },
-        'testdata_patterns': ['LDMS/test/integration/fixtures/*'],
+        'testdata_patterns': ['MISLAND/test/integration/fixtures/*'],
         'package_dir': 'build',
-        'tests': ['LDMS/test'],
+        'tests': ['MISLAND/test'],
         'excludes': [
-            'LDMS/data_prep_scripts',
-            'LDMS/binaries',
+            'MISLAND/data_prep_scripts',
+            'MISLAND/binaries',
             'docs',
             'gee',
             'util',
@@ -983,7 +983,7 @@ ns.configure({
         'skip_exclude': []
     },
     'schemas': {
-        'setup_dir': 'LDMS/schemas',
+        'setup_dir': 'MISLAND/schemas',
     },
     'gee': {
         'script_dir': 'gee',

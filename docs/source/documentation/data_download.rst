@@ -7,7 +7,7 @@ Download data
 To download data, select the download icon highlighted above. This will open up the 
 "Download Data" dialog box:
 	
-If you would like to work with the original raw data used in LDMS, 
+If you would like to work with the original raw data used in MISLAND, 
 you can select select an area of interest and download the desired data for 
 further analysis.
 

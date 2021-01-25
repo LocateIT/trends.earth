@@ -21,7 +21,8 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
 
-    year = params.get('year')
+    month = params.get('month')
+    next_month = params.get('next_month')
     crs = params.get('crs') 
 
     geojsons = json.loads(params.get('geojsons'))
@@ -34,7 +35,7 @@ def run(params, logger):
 
     logger.debug("Running main script.")
 
-    out = climate_quality(year,geojsons[0],EXECUTION_ID, logger)
+    out = climate_quality(month, next_month ,geojsons[0],EXECUTION_ID, logger)
 
     return out.export(geojsons, 'Climate Quality', crs, logger, EXECUTION_ID)
     

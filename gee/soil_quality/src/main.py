@@ -12,6 +12,7 @@ import json
 
 import ee
 
+from landdegradation import GEEIOError
 from landdegradation.util import TEImage
 from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
 from landdegradation.soil_quality import soil_quality
@@ -21,10 +22,18 @@ def run(params, logger):
     logger.debug("Loading parameters.")
 
     depth = params.get('depth')
+    pmaterial_matrix = params.get('pmaterial_matrix')
+    texture_matrix = params.get('texture_matrix')
     crs = params.get('crs') 
 
     geojsons = json.loads(params.get('geojsons'))
     
+    if len(pmaterial_matrix) != 15:
+        raise GEEIOError("Transition matrix must be a list with 15 entries")
+
+    if len(texture_matrix) != 12:
+        raise GEEIOError("Transition matrix must be a list with 12 entries")
+
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))
@@ -33,7 +42,7 @@ def run(params, logger):
 
     logger.debug("Running main script.")
 
-    out = soil_quality(depth,geojsons[0],EXECUTION_ID, logger)
+    out = soil_quality(depth,texture_matrix, pmaterial_matrix, geojsons[0],EXECUTION_ID, logger)
 
     return out.export(geojsons, 'Soil Quality', crs, logger, EXECUTION_ID)
     

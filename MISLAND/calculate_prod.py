@@ -1,0 +1,324 @@
+# -*- coding: utf-8 -*-
+"""
+/***************************************************************************
+ MISLAND - A QGIS plugin
+ This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ and in support of the SDG Land Degradation Neutrality (LDN) target.
+                              -------------------
+        begin                : 2017-05-23
+        git sha              : $Format:%H$
+        copyright            : (C) 2017 by Conservation International
+        email                : trends.earth@conservation.org
+ ***************************************************************************/
+"""
+
+from future import standard_library
+standard_library.install_aliases()
+import os
+import json
+
+from qgis.PyQt.QtCore import QDate
+from qgis.PyQt import QtWidgets, uic
+from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
+    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
+    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
+    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
+
+from osgeo import ogr
+from qgis.utils import iface
+mb = iface.messageBar()
+
+from MISLAND import log
+from MISLAND.calculate import DlgCalculateBase, get_script_slug
+from MISLAND.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
+from MISLAND.api import run_script
+
+
+class DlgCalculateProd(DlgCalculateBase, UiDialog):
+    def __init__(self, parent=None):
+        """Constructor."""
+        super(DlgCalculateProd, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
+        self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
+
+        self.dataset_climate_update()
+        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        self.dataset_ndvi.addItems(ndvi_datasets)
+        self.dataset_ndvi.setCurrentIndex(1)
+
+        self.start_year_climate = 0
+        self.end_year_climate = 9999
+        self.start_year_ndvi = 0
+        self.end_year_ndvi = 9999
+
+        self.dataset_ndvi_changed()
+        self.traj_climate_changed()
+
+        self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
+        self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
+
+        self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
+
+        self.mode_te_prod_toggled()
+
+        # self.resize(self.width(), 711)
+
+
+    def showEvent(self, event):
+        super(DlgCalculateProd, self).showEvent(event)
+
+        #######################################################################
+        #######################################################################
+        # Hack to calculate multiple countries at once for workshop preparation
+        #######################################################################
+        #######################################################################
+        # from qgis.PyQt.QtCore import QTimer, Qt
+        # from qgis.PyQt.QtWidgets import QMessageBox, QApplication
+        # from qgis.PyQt.QtTest import QTest
+        # from MISLAND.download import read_json
+        # from MISLAND.worker import AbstractWorker, StartWorker
+        # from time import sleep
+        #
+        # class SleepWorker(AbstractWorker):
+        #     def __init__(self, time):
+        #         super(SleepWorker, self).__init__()
+        #         self.sleep_time = time
+        #
+        #     def work(self):
+        #         for n in range(100):
+        #             if self.killed:
+        #                 return None
+        #             else:
+        #                 sleep(self.sleep_time / float(100))
+        #                 self.progress.emit(n)
+        #         return True
+        #
+        # # Use Trends.Earth for calculation
+        # self.mode_te_prod.setChecked(True)
+        #
+        # # Ensure any message boxes that open are closed within 1 second
+        # def close_msg_boxes():
+        #     for w in QApplication.topLevelWidgets():
+        #         if isinstance(w, QMessageBox):
+        #             print('Closing message box')
+        #             QTest.keyClick(w, Qt.Key_Enter)
+        # timer = QTimer()
+        # timer.timeout.connect(close_msg_boxes)
+        # timer.start(1000)
+        #
+        # first_row = 0
+        # # first_row = self.area_tab.area_admin_0.findText('Turkey') + 1
+        # last_row = self.area_tab.area_admin_0.count()
+        # # last_row = self.area_tab.area_admin_0.findText('Portugal')
+        # log(u'First country: {}'.format(self.area_tab.area_admin_0.itemText(first_row)))
+        # log(u'Last country: {}'.format(self.area_tab.area_admin_0.itemText(last_row - 1)))
+        #
+        # # First make sure all admin boundaries are pre-downloaded
+        # for row in range(first_row, last_row):
+        #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        #     country = self.area_tab.area_admin_0.model().data(index)
+        #     adm0_a3 = self.area_tab.admin_bounds_key[country]['code']
+        #     admin_polys = read_json('admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        #
+        # for row in range(first_row, last_row):
+        #     self.area_tab.area_admin_0.setCurrentIndex(row)
+        #     index = self.area_tab.area_admin_0.model().index(row, 0)
+        #     country = self.area_tab.area_admin_0.model().data(index)
+        #     name = u'{}_TE_Land_Productivity'.format(country)
+        #     log(name)
+        #     self.options_tab.task_name.setText(name)
+        #     self.btn_calculate()
+        #
+        #     # Sleep without freezing interface
+        #     sleep_worker = StartWorker(SleepWorker, 'sleeping', 90)
+        #     if not sleep_worker.success:
+        #         log(u'Processing error on: {}'.format(name))
+        #         #break
+        #######################################################################
+        #######################################################################
+        # End hack
+        #######################################################################
+        #######################################################################
+
+    def traj_indic_changed(self):
+        self.dataset_climate_update()
+
+    def mode_te_prod_toggled(self):
+        if self.mode_lpd_jrc.isChecked():
+            self.groupBox_ndvi_dataset.setEnabled(False)
+            self.groupBox_traj.setEnabled(False)
+            self.groupBox_perf.setEnabled(False)
+            self.groupBox_state.setEnabled(False)
+        else:
+            self.groupBox_ndvi_dataset.setEnabled(True)
+            self.groupBox_traj.setEnabled(True)
+            self.groupBox_perf.setEnabled(True)
+            self.groupBox_state.setEnabled(True)
+
+    def dataset_climate_update(self):
+        self.traj_climate.clear()
+        self.climate_datasets = {}
+        climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
+        for climate_type in climate_types:
+            self.climate_datasets.update(self.datasets[climate_type])
+            self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
+
+    def traj_climate_changed(self):
+        if self.traj_climate.currentText() == "":
+            self.start_year_climate = 0
+            self.end_year_climate = 9999
+        else:
+            self.start_year_climate = self.climate_datasets[self.traj_climate.currentText()]['Start year']
+            self.end_year_climate = self.climate_datasets[self.traj_climate.currentText()]['End year']
+        self.update_time_bounds()
+
+    def dataset_ndvi_changed(self):
+        this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
+        self.start_year_ndvi = this_ndvi_dataset['Start year']
+        self.end_year_ndvi = this_ndvi_dataset['End year']
+
+        self.update_time_bounds()
+
+    def update_time_bounds(self):
+        # State and performance depend only on NDVI data
+        # TODO: need to also account for GAEZ and/or CCI data dates for
+        # stratification
+        start_year = QDate(self.start_year_ndvi, 1, 1)
+        end_year = QDate(self.end_year_ndvi, 12, 31)
+
+        # Performance
+        self.perf_year_start.setMinimumDate(start_year)
+        self.perf_year_start.setMaximumDate(end_year)
+        self.perf_year_end.setMinimumDate(start_year)
+        self.perf_year_end.setMaximumDate(end_year)
+
+        # State
+        self.state_year_bl_start.setMinimumDate(start_year)
+        self.state_year_bl_start.setMaximumDate(end_year)
+        self.state_year_bl_end.setMinimumDate(start_year)
+        self.state_year_bl_end.setMaximumDate(end_year)
+        self.state_year_tg_start.setMinimumDate(start_year)
+        self.state_year_tg_start.setMaximumDate(end_year)
+        self.state_year_tg_end.setMinimumDate(start_year)
+        self.state_year_tg_end.setMaximumDate(end_year)
+
+        # Trajectory - needs to also account for climate data
+        start_year_traj = QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
+        end_year_traj = QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
+
+        self.traj_year_start.setMinimumDate(start_year_traj)
+        self.traj_year_start.setMaximumDate(end_year_traj)
+        self.traj_year_end.setMinimumDate(start_year_traj)
+        self.traj_year_end.setMaximumDate(end_year_traj)
+
+    def btn_cancel(self):
+        self.close()
+
+    def btn_calculate(self):
+        if self.mode_te_prod.isChecked() \
+                and not (self.groupBox_traj.isChecked() or
+                         self.groupBox_perf.isChecked() or
+                         self.groupBox_state.isChecked()):
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Choose one or more productivity sub-indicator to calculate."), None)
+            return
+
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super(DlgCalculateProd, self).btn_calculate()
+        if not ret:
+            return
+
+        self.close()
+
+        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
+        log(u'ndvi_dataset is {}'.format(ndvi_dataset))
+
+        if self.traj_climate.currentText() != "":
+            climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
+            log(u'climate_gee_dataset {}'.format(climate_gee_dataset))
+        else:
+            climate_gee_dataset = None
+
+        if self.mode_te_prod.isChecked():
+            prod_mode = 'Trends.Earth productivity'
+        else:
+            prod_mode = 'JRC LPD'
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = json.dumps([{
+                "coordinates":coords,
+                "type":"Polygon"
+            }])
+
+
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries =json.dumps([{
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }])
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
+        
+        payload = {'prod_mode': prod_mode,
+                   'calc_traj': self.groupBox_traj.isChecked(),
+                   'calc_perf': self.groupBox_perf.isChecked(),
+                   'calc_state': self.groupBox_state.isChecked(),
+                   'prod_traj_year_initial': self.traj_year_start.date().year(),
+                   'prod_traj_year_final': self.traj_year_end.date().year(),
+                   'prod_perf_year_initial': self.perf_year_start.date().year(),
+                   'prod_perf_year_final': self.perf_year_end.date().year(),
+                   'prod_state_year_bl_start': self.state_year_bl_start.date().year(),
+                   'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
+                   'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
+                   'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
+                   'geojsons': geometries,
+                #    'geojsons':json.dumps(geojsons),
+                   'crs': self.aoi.get_crs_dst_wkt(),
+                   'crosses_180th': crosses_180th,
+                   'ndvi_gee_dataset': ndvi_dataset,
+                   'climate_gee_dataset': climate_gee_dataset,
+                   'task_name': self.options_tab.task_name.text(),
+                   'task_notes': self.options_tab.task_notes.toPlainText()}
+
+        # This will add in the trajectory-method parameter for productivity 
+        # trajectory
+        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
+
+        resp = run_script(get_script_slug('productivity'), payload)
+
+        if resp:
+            mb.pushMessage(QtWidgets.QApplication.translate("MISLAND", "Submitted"),
+                           QtWidgets.QApplication.translate("MISLAND", "Productivity task submitted to Google Earth Engine."),
+                           level=0, duration=5)
+        else:
+            mb.pushMessage(QtWidgets.QApplication.translate("MISLAND", "Error"),
+                           QtWidgets.QApplication.translate("MISLAND", "Unable to submit productivity task to Google Earth Engine."),
+                           level=0, duration=5)

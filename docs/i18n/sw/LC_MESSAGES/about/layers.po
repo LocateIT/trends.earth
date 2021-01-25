@@ -32,7 +32,7 @@ msgstr "Kuweka coding"
 #: ../../source/about/layers.rst:4
 #, fuzzy
 msgid ""
-"The spatial data produced by LDMS is in GeoTiff format. This is a widely "
+"The spatial data produced by MISLAND is in GeoTiff format. This is a widely "
 "supported format, so theese datasets can be used within QGIS as well as "
 "within any other GIS software."
 msgstr ""
@@ -44,9 +44,9 @@ msgstr ""
 #: ../../source/about/layers.rst:8
 #, fuzzy
 msgid ""
-"If you wish to use LDMS data outside of the tool itself, you will need to"
+"If you wish to use MISLAND data outside of the tool itself, you will need to"
 " know how the data is coded. The tables below provide guidance on what "
-"the exact layers are that are produced by each analysis in LDMS."
+"the exact layers are that are produced by each analysis in MISLAND."
 msgstr ""
 "Ikiwa unataka kutumia | trends.earth | data nje ya chombo chenyewe, "
 "utahitaji kujua jinsi data inavyowekwa. Jedwali hapa chini linatoa "
@@ -56,7 +56,7 @@ msgstr ""
 #: ../../source/about/layers.rst:12
 #, fuzzy
 msgid ""
-"To see which of the below layers is contained within a LDMS output file, "
+"To see which of the below layers is contained within a MISLAND output file, "
 "use the `load data <../documentation/load_data.html>`_ tool. When you "
 "choose a file with that toool, it will show you a list of the layers "
 "within that file, as well as the band number for each layer."

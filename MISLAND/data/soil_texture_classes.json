@@ -1,0 +1,74 @@
+[
+    {
+        "Final_Code": 4,
+        "Final_Label": "Very Poor",
+        "Initial_Code": 1,
+        "Initial_Label": "Clay"
+    },
+    {
+        "Final_Code": 4,
+        "Final_Label": "Very Poor",
+        "Initial_Code": 2,
+        "Initial_Label": "Silt Clay"
+    },
+    {
+        "Final_Code": 2,
+        "Final_Label": "Moderate",
+        "Initial_Code": 3,
+        "Initial_Label": "Sand Clay"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 4,
+        "Initial_Label": "Clay Loam"
+    },
+    {
+        "Final_Code": 2,
+        "Final_Label": "Moderate",
+        "Initial_Code": 5,
+        "Initial_Label": "Silt Clay Loam"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 6,
+        "Initial_Label": "Sand Clay Loam"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 7,
+        "Initial_Label": "Loam"
+    },
+    {
+        "Final_Code": 2,
+        "Final_Label": "Moderate",
+        "Initial_Code": 8,
+        "Initial_Label": "Silt Loam"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 9,
+        "Initial_Label": "Sand Loam"
+    },
+    {
+        "Final_Code": 3,
+        "Final_Label": "Poor",
+        "Initial_Code": 10,
+        "Initial_Label": "Silt"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 11,
+        "Initial_Label": "Loam Sand"
+    },
+    {
+        "Final_Code": 4,
+        "Final_Label": "Very Poor",
+        "Initial_Code": 12,
+        "Initial_Label": "Sand"
+    }
+]

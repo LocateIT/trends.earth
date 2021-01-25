@@ -4,18 +4,18 @@ Load data tool
    :align: center
 
 The "Load data" function allows the user to load data into QGIS and 
-LDMS for analysis.
+MISLAND for analysis.
 
-There are two options, to load results of LDMS analysis or to load
+There are two options, to load results of MISLAND analysis or to load
 custom datasets which will be used to compute the indicators.
 
 .. image:: /static/documentation/load_data/loaddata_menu.png
    :align: center
 
-Load a dataset produced by LDMS
+Load a dataset produced by MISLAND
 ____________________________________________
 
-This option lets you load already downloaded results from LDMS.
+This option lets you load already downloaded results from MISLAND.
    
 Productivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -110,7 +110,7 @@ ____________________________________________
 Productivity
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Use this option to load productivity datasets which have already been generated outside of LDMS. 
+Use this option to load productivity datasets which have already been generated outside of MISLAND. 
 
 Productivity classes in the input data must be coded as follows:
 
@@ -150,5 +150,5 @@ tool.
 .. note:: This tool assumes that the units of the raster layer to be imported 
    are **Metrics Tons of organic carbon per hectare**. If your layer is in 
    different units, please make the necessary conversions before using it in 
-   LDMS.
+   MISLAND.
 

@@ -1,6 +1,7 @@
-# OSS Land Degradation Monitoring Service (LDMS) QGIS Plugin
+# oss-MISLAND-qgis
+=======
 
-QGIS plugin for OSS Land Degradation Monitoring Service (LDMS)
+QGIS plugin for OSS Land Degradation Monitoring Service (MISLAND)
 
 
 ![flow diagram](docs/resources/en/common/Land_degradation_oss_qgis.png "QGIS Plugin Flow Diagram")

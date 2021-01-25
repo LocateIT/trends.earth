@@ -13,6 +13,7 @@ import json
 
 import ee
 
+from landdegradation import GEEIOError
 from landdegradation.land_cover import land_cover
 
 
@@ -38,7 +39,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = land_cover(year_baseline, year_target, trans_matrix,
+    out = land_cover(geojsons[0]['coordinates'],year_baseline, year_target, trans_matrix,
                      remap_matrix, EXECUTION_ID, logger)
 
     return out.export(geojsons, 'land_cover', crs, logger, EXECUTION_ID)

@@ -1,7 +1,7 @@
 ﻿Data sources
 ------------
 
-LDMS draws on a number of data sources. The data sets listed below are 
+MISLAND draws on a number of data sources. The data sets listed below are 
 owned/made available by the following organizations and individuals under 
 separate terms as indicated in their respective metadata.
 
@@ -145,13 +145,13 @@ Administrative Boundaries
 +--------------------------------------------+----------+---------+--------+------------------+
 
 .. note::
-    The `Natural Earth Administrative Boundaries`_ provided in LDMS 
+    The `Natural Earth Administrative Boundaries`_ provided in MISLAND 
     are in the `public domain`_. The boundaries and names used, and the 
-    designations used, in LDMS do not imply official endorsement or 
+    designations used, in MISLAND do not imply official endorsement or 
     acceptance by Conservation International Foundation, or by its partner 
     organizations and contributors.
 
-    If using LDMS for official purposes, it is recommended that users 
+    If using MISLAND for official purposes, it is recommended that users 
     choose an official boundary provided by the designated office of their 
     country.
 

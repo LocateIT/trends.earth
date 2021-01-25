@@ -45,7 +45,7 @@ You will see a message indicating you have successfully been logged in:
 Updating your user
 ------------------
 
-If you already are registered for LDMS but want to change your login 
+If you already are registered for MISLAND but want to change your login 
 information; update your name, organization, or country; or delete your user, 
 click on "Update user" from the "Settings" dialog.
 
@@ -53,7 +53,7 @@ click on "Update user" from the "Settings" dialog.
    :align: center
 
 If you want to change your username, click on "Change user". Note that this 
-function is only useful if you already have another existing LDMS 
+function is only useful if you already have another existing MISLAND 
 account you want to switch to. To register a new user, see :ref:`registration`.
 To change your user, enter the email and password you wish to change to and 
 click "Ok":

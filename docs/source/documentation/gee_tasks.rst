@@ -3,7 +3,7 @@ View and download results
 .. image:: /static/common/plugin_toolbar_tasks.png
    :align: center
 
-Once you have submitted a calculation using LDMS, it is sent to 
+Once you have submitted a calculation using MISLAND, it is sent to 
 Google Earth Engine to run the calculations in the cloud. To view the Google 
 Earth Engine (GEE) tasks you have running, and to download your results, select 
 the cloud with the arrow facing down icon highlighted above. This will open up the `Download results 

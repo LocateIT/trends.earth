@@ -1,0 +1,36 @@
+# This file contains metadata for your plugin. Since 
+# version 2.0 of QGIS this is the proper way to supply 
+# information about a plugin. The old method of 
+# embedding metadata in __init__.py will 
+# is no longer supported since version 2.0.
+
+# This file should be included when you package your plugin.
+
+[general]
+
+name=MISLAND
+qgisMinimumVersion=3.10
+description=The core-service provides land degradation indicators for six North African Countries at two levels.At the regional level(North Africa action zone) where low and medium resolution EO are used.At the pilot site level, where(customized indicators) can be developed, using medium resoultion data(landsat time series imagery and derived vegetation indices, combined with different satellite-derived climate data) Note
+version=1.0.3
+author=Mustapha MIMOUNI, Nabil KHATRA, Amjed TAIEB, Haithem REJEB, Toure SOULEYMANE, Vivianne META, Derick ONGERI, Grace AMONDI, Seth NYAWACHA, and Simon NDARAU.
+email=grace.amondi@locateit.co.ke
+
+about=MISLAND-North Africa is an operational instrument relying on the international standards for reporting SDG 15.3.1 and technical approaches allowing the delivery of regular information on vegetation cover gain/loss to decision makers and environmental agencies at the first place.
+
+tracker=https://github.com/LocateIT/trends.earth/issues
+
+repository=https://github.com/LocateIT/trends.earth
+
+# Tags are comma separated with spaces allowed
+tags=land degradation, land degradation neutrality, soil carbon, productivity, land cover, reporting, LDN, SDG, UNCCD, 15.3, sustainable development goals
+
+homepage=https://github.com/LocateIT/trends.earth
+category=Plugins
+icon=misland_logo.png
+# experimental flag
+experimental=True
+
+# deprecated flag (applies to the whole plugin, not just a single version)
+deprecated=False
+
+hasProcessingProvider=yes

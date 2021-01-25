@@ -1,10 +1,10 @@
 Frequently asked questions
 ==========================
 
-This page lists some Frequently Asked Questions (FAQs) for the LDMS
+This page lists some Frequently Asked Questions (FAQs) for the MISLAND
 tool.
 
-Installation of LDMS
+Installation of MISLAND
 ____________________________
 
 
@@ -61,7 +61,7 @@ If you would like to uninstall the plugin, normally you can do so with the QGIS
 plugins manager. To access the tool, choose "Plugins" and then "Manage and 
 Install Plugins..." from the QGIS menu bar. From the plugin manager screen, 
 select "Installed" from the menu on the left-hand side. Then click on 
-"LDMS" in the list of plugins, and on "Uninstall Plugin" to uninstall 
+"MISLAND" in the list of plugins, and on "Uninstall Plugin" to uninstall 
 it.
 
 If you encounter an error uninstalling the plugin, it is also possible to 
@@ -82,7 +82,7 @@ ________
 When will you update datasets for the current year?
 ------------------------------------------------------------------
 
-LDMS uses publicly available data, as such the most up to date datasets 
+MISLAND uses publicly available data, as such the most up to date datasets 
 will be added to the toolbox as soon as the original data providers make them 
 public. If you notice any update that we missed, please do let us know.
 
@@ -190,7 +190,7 @@ conditions at the beginning of the analysis were particularly wet, for example,
 trends from that moment on could show significant decreases in primary 
 productivity, and degradation. The user can use LMDS to address some of 
 this issues correcting by the effect of climate. The resolution of the data 
-could potentially be another limitation. LDMS by default uses global 
+could potentially be another limitation. MISLAND by default uses global 
 datasets which will not be the most relevant at all scales and geographies. A 
 functionality to use local data will be added shortly.
 

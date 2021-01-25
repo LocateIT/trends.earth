@@ -1,0 +1,92 @@
+[
+    {
+        "Final_Code": 1.0,
+        "Final_Label": "Good",
+        "Initial_Code": 1,
+        "Initial_Label": "Conglomerate, breccia"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 2,
+        "Initial_Label": "Gypsum, anhydrite"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 3,
+        "Initial_Label": "Halite"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 4,
+        "Initial_Label": "Sandstone, greywacke, arkose"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 5,
+        "Initial_Label": "Siltstone, mudstone, claystone"
+    },
+    {
+        "Final_Code": 1.0,
+        "Final_Label": "Good",
+        "Initial_Code": 6,
+        "Initial_Label": "Shale"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 7,
+        "Initial_Label": "Evaporites"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 8,
+        "Initial_Label": "Limestone, other carbonate rocks"
+    },
+    {
+        "Final_Code": 2,
+        "Final_Label": "Poor",
+        "Initial_Code": 9,
+        "Initial_Label": "Marl and other mixtures"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 10,
+        "Initial_Label": "Colluvial"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 11,
+        "Initial_Label": "Eolean"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 12,
+        "Initial_Label": "Fluvial"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 13,
+        "Initial_Label": "Lacustrine"
+    },
+    {
+        "Final_Code": 1,
+        "Final_Label": "Good",
+        "Initial_Code": 14,
+        "Initial_Label": "Marine"
+    },
+    {
+        "Final_Code": 1.7,
+        "Final_Label": "Moderate",
+        "Initial_Code": 15,
+        "Initial_Label": "Water"
+    }
+]

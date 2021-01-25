@@ -31,14 +31,14 @@ msgstr "Maswali yanayoulizwa mara kwa mara"
 
 #: ../../source/about/faq.rst:4
 #, fuzzy
-msgid "This page lists some Frequently Asked Questions (FAQs) for the LDMS tool."
+msgid "This page lists some Frequently Asked Questions (FAQs) for the MISLAND tool."
 msgstr ""
 "Ukurasa huu unaorodhesha maswali Maswali Yanayoulizwa Mara kwa mara "
 "(FAQs) kwa | trends.earth | chombo."
 
 #: ../../source/about/faq.rst:8
 #, fuzzy
-msgid "Installation of LDMS"
+msgid "Installation of MISLAND"
 msgstr "Uwekaji wa Mwelekeo"
 
 #: ../../source/about/faq.rst:12
@@ -154,7 +154,7 @@ msgid ""
 "the QGIS plugins manager. To access the tool, choose \"Plugins\" and then"
 " \"Manage and Install Plugins...\" from the QGIS menu bar. From the "
 "plugin manager screen, select \"Installed\" from the menu on the left-"
-"hand side. Then click on \"LDMS\" in the list of plugins, and on "
+"hand side. Then click on \"MISLAND\" in the list of plugins, and on "
 "\"Uninstall Plugin\" to uninstall it."
 msgstr ""
 "Ikiwa ungependa kufuta programu-jalizi, kawaida unaweza kufanya hivyo na "
@@ -219,7 +219,7 @@ msgstr "Je! Ni lini utasasisha hifadhidata za mwaka wa sasa?"
 
 #: ../../source/about/faq.rst:85
 msgid ""
-"LDMS uses publicly available data, as such the most up to date datasets "
+"MISLAND uses publicly available data, as such the most up to date datasets "
 "will be added to the toolbox as soon as the original data providers make "
 "them public. If you notice any update that we missed, please do let us "
 "know."
@@ -448,7 +448,7 @@ msgid ""
 "moment on could show significant decreases in primary productivity, and "
 "degradation. The user can use LMDS to address some of this issues "
 "correcting by the effect of climate. The resolution of the data could "
-"potentially be another limitation. LDMS by default uses global datasets "
+"potentially be another limitation. MISLAND by default uses global datasets "
 "which will not be the most relevant at all scales and geographies. A "
 "functionality to use local data will be added shortly."
 msgstr ""
