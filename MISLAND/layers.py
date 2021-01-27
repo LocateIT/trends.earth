@@ -275,7 +275,12 @@ style_text_dict = {
     'management_quality_index': tr(u'Management Quality Index'),
     'mqi_high':tr('High (1 to 1.25)'),
     'mqi_moderate':tr('Moderate (1.26 to 1.50)'),
-    'mqi_low':tr('Low (> 1.51)')
+    'mqi_low':tr('Low (> 1.51)'),
+
+    'sensitivity_desertification_index': tr(u'Sensitivity Desertification Index'),
+    'sdi_high':tr('High (1 to 1.25)'),
+    'sdi_moderate':tr('Moderate (1.26 to 1.50)'),
+    'sdi_low':tr('Low (> 1.51)')
 }
 
 

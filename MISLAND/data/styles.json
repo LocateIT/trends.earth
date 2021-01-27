@@ -882,5 +882,18 @@
                 {"value": 3, "color": "#FFFB6E", "label": "mqi_low"}
             ]
         }
+    },
+    "Sensitivity Desertification Index": {
+        "title": "sensitivity_desertification_index",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
+                {"value": 1.2, "color": "#787F1B", "label": "sdi_high"},
+                {"value": 1.3, "color": "#FFAC42", "label": "sdi_moderate"},
+                {"value": 1.4, "color": "#FFFB6E", "label": "sdi_low"}
+            ]
+        }
     }
 }
