@@ -540,7 +540,7 @@ def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water,
     write_col_to_sheet(ws_summary, carbon_loss, 4, 24) # Years
 
     try:
-        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
+        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'misland_logo_300.png'))
         ws_summary.add_image(ws_summary_logo, 'E1')
     except ImportError:
         # add_image will fail on computers without PIL installed (this will be 
