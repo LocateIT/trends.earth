@@ -37,6 +37,7 @@ from qgis.gui import QgsMessageBar
 from MISLAND import __version__
 from MISLAND.gui.DlgJobs import Ui_DlgJobs
 from MISLAND.gui.DlgJobsDetails import Ui_DlgJobsDetails
+from MISLAND.timeseries import DlgTimeseries
 from MISLAND.plot import DlgPlotTimeries
 
 from MISLAND import log
@@ -219,6 +220,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                 for job in self.jobs:
                     job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
                     job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
+                    job['title'] = job['params'].get('title', '')
                     job['task_name'] = job['params'].get('task_name', '')
                     job['task_notes'] = job['params'].get('task_notes', '')
                     job['params'] = job['params']
@@ -453,15 +455,23 @@ def download_cloud_results(job, f, tr, add_to_map=True):
 
 
 def download_timeseries(job, tr):
+  
+
+    log('zzzzzzzzzzzzzzzzzzzzzzzz{}'.format(job['params'].get('title')))
     log("processing timeseries results...")
     table = job['results'].get('table', None)
+    indices = job['params'].get('indices')
+    title = job['params'].get('title')
     if not table:
         return None
     data = [x for x in table if x['name'] == 'mean'][0]
     dlg_plot = DlgPlotTimeries()
-    labels = {'title': job['task_name'],
+
+    
+    labels = {'title': tr(title),
               'bottom': tr('Time'),
-              'left': [tr('Integrated NDVI'), tr('NDVI x 10000')]}
+              'left': [tr('Integrated {}'.format(indices)), tr('{} x 10000'.format(indices))]}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()
+

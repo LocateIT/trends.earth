@@ -55,7 +55,7 @@ def calculateNDVI(geometry):
             }
         ).rename('y{}'.format(year))
         
-        return ndvi
+        return ndvi.multiply(10000)
 
     ndviImages = ee.Image.cat(list(map(yearlyNDVIMean, years)))
 
@@ -81,7 +81,7 @@ def calculateMSAVI2(geometry):
             'red':datasets.select('B3')
         }).rename('y{}'.format(year))
         
-        return msavi2
+        return msavi2.multiply(10000)
 
     msavi2Images = ee.Image.cat(list(map(yearlyMSAVI2Mean, years)))
 
@@ -107,7 +107,7 @@ def calculateSAVI(geometry):
             'red':datasets.select('B3')
         }).rename('y{}'.format(year))
         
-        return savi
+        return savi.multiply(10000)
 
     saviImages = ee.Image.cat(list(map(yearlySAVIMean, years)))
 
@@ -122,9 +122,9 @@ def zonal_stats(veg_index, geojsons, EXECUTION_ID, logger):
 
     region = ee.Geometry(geojsons)
     
-    if veg_index == 'ndvi':
+    if veg_index == 'NDVI':
         image = calculateNDVI(region).clip(region)
-    elif veg_index == 'savi':
+    elif veg_index == 'SAVI':
         image = calculateSAVI(region).clip(region)
     else:
         image = calculateMSAVI2(region).clip(region)

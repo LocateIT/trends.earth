@@ -1,5 +1,5 @@
 ﻿LAND DEGRADATION MONITORING SERVICE(MISLAND) PLUGIN
-=================================================
+====================================================
 
 **Monitor land change**
 

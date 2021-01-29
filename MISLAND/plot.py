@@ -81,10 +81,10 @@ class DlgPlotTimeries(DlgPlot):
         self.plot_window.showGrid(x=True, y=True)
 
         legend = pg.LegendItem()
-        legend.addItem(line, 'NDVI')
+        # legend.addItem(line, 'NDVI')
         legend.addItem(trend, self.tr('Linear trend (r<sup>2</sup> = {0:.2f})').format(z['determination']))
         legend.setParentItem(self.plot_window.getPlotItem())
-        legend.anchor((1, 0), (1, 0))
+        legend.anchor((1,0),(1, 0))
 
         yaxis = self.plot_window.getPlotItem().getAxis('left')
         yaxis.enableAutoSIPrefix(autoSI)

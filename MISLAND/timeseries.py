@@ -41,32 +41,15 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         self.setupUi(self)
 
-        # ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
-        # self.dataset_ndvi.addItems(ndvi_datasets)
+        self.task_name.textChanged.connect(self.get_title)
+
+        self.get_title()
 
         
-        # indices_items = [x for x in list(indices_set.values())]
-        # self.indices.addItems(indices_items)
-        
+    def get_title(self):
 
-        # self.start_year_climate = 0
-        # self.end_year_climate = 9999
-        # self.start_year_ndvi = 0
-        # self.end_year_ndvi = 9999
-
-        # self.dataset_ndvi_changed()
-        # # self.indices_changed()
-        # self.traj_climate_changed()
-        # self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
-
-        # self.dataset_climate_update()
-
-        # self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
-        # # self.indices.currentIndexChanged.connect(self.indices_changed)
-        # self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-
-        # # TODO:Temporary until fixed:
-        # self.TabBox.removeTab(1)
+        log("{}".format(self.task_name.text()))
+        self.task_name.text()
 
     def btn_cancel(self):
         self.close()
@@ -82,17 +65,18 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.close()
 
         if self.ndvi.isChecked():
-            indices = 'ndvi'
+            indices = 'NDVI'
         elif self.savi.isChecked():
-            indices = 'savi'
+            indices = 'SAVI'
         else:
-            indices = 'msavi2'
+            indices = 'MSAVI2'
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
         payload = {'crosses_180th': crosses_180th,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'indices':indices,
+                   'title':self.task_name.text(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
         # This will add in the method parameter
