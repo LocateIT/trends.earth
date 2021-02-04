@@ -26,6 +26,7 @@ def run(params, logger):
     biomass_data = params.get('biomass_data')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
+    
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -34,7 +35,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = tc(geojsons[0]['coordinates'],fc_threshold, year_start, year_end, method, biomass_data, 
+    out = tc(geojsons[0],fc_threshold, year_start, year_end, method, biomass_data, 
              EXECUTION_ID, logger)
 
     return out.export(geojsons, 'total_carbon', crs, logger, EXECUTION_ID)

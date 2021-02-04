@@ -132,7 +132,6 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
 
     def ecmwf_month_changed(self):
         self.cqi_setup_tab = cqi_setup_widget
-        log("{} month".format(self.cqi_setup_tab.ecmwf_month.currentText()))
 
     def showEvent(self, event):
 

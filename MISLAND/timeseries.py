@@ -44,11 +44,23 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.task_name.textChanged.connect(self.get_title)
 
         self.get_title()
+        # reset date input on user change. Postfire dates come only after prefire dates 
+        self.year_start.userDateChanged.connect(self.update_time_bounds)
+        self.year_end.userDateChanged.connect(self.update_time_bounds)
 
+        self.update_time_bounds()
+
+    def update_time_bounds(self):
+        # default dates
+        end_year = QDate(2020, 12, 31)    
+        # study period 
+        # self.prefire_start_btn.setMinimumDate(start_year)
+        self.year_start.setMaximumDate(end_year)
+        self.year_end.setMinimumDate(self.year_start.date())
+        self.year_end.setMaximumDate(end_year)
         
     def get_title(self):
 
-        log("{}".format(self.task_name.text()))
         self.task_name.text()
 
     def btn_cancel(self):
@@ -76,6 +88,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'indices':indices,
+                   'start':self.year_start.date().year(),
+                   'end':self.year_end.date().year(),
                    'title':self.task_name.text(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
