@@ -101,7 +101,13 @@ class SDIWorker(AbstractWorker):
 
                 # calculate sensitivity desertification index
                 a_sdi = (a_sqi * a_vqi * a_cqi * a_mqi)** (1/4)
-                a_sdi[(a_sqi < 0) | (a_vqi < 0) | (a_cqi < 0) | (a_mqi < 0)] <- -32768
+
+                a_sdi[(a_sdi < 1.2)] = 1
+                a_sdi[(a_sdi >= 1.2) & (a_sdi < 1.3)] = 2
+                a_sdi[(a_sdi >= 1.3) & (a_sdi < 1.4)] = 3
+                a_sdi[(a_sdi >= 1.4) & (a_sdi < 1.6)] = 4
+                a_sdi[(a_sdi >= 1.6)] = 5
+                a_sdi[(a_sqi < 0) | (a_vqi < 0) | (a_cqi < 0) | (a_mqi < 0)] = -32768
 
                 ds_out.GetRasterBand(1).WriteArray(a_sdi, x, y)
    

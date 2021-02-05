@@ -75,6 +75,15 @@ class DlgCalculateVQI(DlgCalculateBase, Ui_DlgCalculateVQI):
         if not ret:
             return
 
+        date_format = '{0}-{1}-{2}'
+        plant_start =date_format.format(self.vqi_setup_tab.plant_start_btn.date().year(), self.vqi_setup_tab.plant_start_btn.date().month(), self.vqi_setup_tab.plant_start_btn.date().day())
+        plant_end = date_format.format(self.vqi_setup_tab.plant_end_btn.date().year(), self.vqi_setup_tab.plant_end_btn.date().month(), self.vqi_setup_tab.plant_end_btn.date().day())
+        
+        if (plant_start == plant_end):
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Plant Cover start and end date cannot be the same."))
+            return
+
         self.close()
 
         crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
@@ -115,9 +124,6 @@ class DlgCalculateVQI(DlgCalculateBase, Ui_DlgCalculateVQI):
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
-        date_format = '{0}-{1}-{2}'
-        plant_start =date_format.format(self.vqi_setup_tab.plant_start_btn.date().year(), self.vqi_setup_tab.plant_start_btn.date().month(), self.vqi_setup_tab.plant_start_btn.date().day())
-        plant_end = date_format.format(self.vqi_setup_tab.plant_end_btn.date().year(), self.vqi_setup_tab.plant_end_btn.date().month(), self.vqi_setup_tab.plant_end_btn.date().day())
         
         payload = {'ndvi_start':plant_start,
                    'ndvi_end': plant_end,

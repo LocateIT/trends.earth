@@ -278,9 +278,11 @@ style_text_dict = {
     'mqi_low':tr('Low (> 1.51)'),
 
     'sensitivity_desertification_index': tr(u'Sensitivity Desertification Index'),
-    'sdi_high':tr('High (1 to 1.25)'),
-    'sdi_moderate':tr('Moderate (1.26 to 1.50)'),
-    'sdi_low':tr('Low (> 1.51)')
+    'sdi_very_low':tr('Non affected or Very Low sensitivity (<1.2)'),
+    'sdi_low':tr('Low sensitivity (1.2 to 1.3)'),
+    'sdi_medium':tr('Medium sensitivity (1.3 to 1.4)'),
+    'sdi_high':tr('High sensitivity (1.4 to 1.6)'),
+    'sdi_very_high':tr('Very High sensitivity (> 1.6)')
 }
 
 
