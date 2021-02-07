@@ -5,20 +5,4 @@ rollbar==0.14.7
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 git+git://github.com/LocateIT/landdegradation.git#egg=landdegradation
-
-
-

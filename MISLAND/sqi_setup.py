@@ -294,14 +294,12 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
             self.groupBox_texture_agg.setEnabled(True)
             self.groupBox_pm.setEnabled(False)
             self.groupBox_rock_fragm.setEnabled(False)
-            self.groupBox_slope.setEnabled(False)
             self.groupBox_texture.setEnabled(False)
             self.groupBox_drainage.setEnabled(False)
         else:
             self.groupBox_texture_agg.setEnabled(False)
             self.groupBox_pm.setEnabled(True)
             self.groupBox_rock_fragm.setEnabled(True)
-            self.groupBox_slope.setEnabled(True)
             self.groupBox_texture.setEnabled(True)
             self.groupBox_drainage.setEnabled(True)
             
