@@ -274,13 +274,7 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
                               'Very Poor': 4,
                               },  parent=self)
 
-        default_pm_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                         'data', 'parent_material_classes.json')
-        self.dlg_pm_agg = DlgCalculateSetAggregation(read_class_file(default_pm_class_file),{'No data': -32768,
-                        'Good': 1,
-                        'Moderate': 1.7,
-                        'Poor': 2,
-                        }, parent=self)
+     
         self.use_default.toggled.connect(self.Sqi_source_changed)
         self.use_default.toggled.connect(self.Sqi_source_changed)
 
@@ -291,7 +285,6 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
         self.use_default.setChecked(False)
 
         self.use_texture_agg_edit.clicked.connect(self.texture_agg_custom_edit)
-        self.use_pm_agg_edit.clicked.connect(self.pm_agg_custom_edit)
 
         self.Sqi_source_changed()
 
@@ -299,25 +292,18 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
     def Sqi_source_changed(self):
         if self.use_default.isChecked():
             self.groupBox_texture_agg.setEnabled(True)
-            self.groupBox_pm_agg.setEnabled(True)
             self.groupBox_pm.setEnabled(False)
             self.groupBox_rock_fragm.setEnabled(False)
-            self.groupBox_slope.setEnabled(False)
             self.groupBox_texture.setEnabled(False)
             self.groupBox_drainage.setEnabled(False)
         else:
             self.groupBox_texture_agg.setEnabled(False)
-            self.groupBox_pm_agg.setEnabled(False)
             self.groupBox_pm.setEnabled(True)
             self.groupBox_rock_fragm.setEnabled(True)
-            self.groupBox_slope.setEnabled(True)
             self.groupBox_texture.setEnabled(True)
             self.groupBox_drainage.setEnabled(True)
             
     def texture_agg_custom_edit(self):
         self.dlg_texture_agg.exec_()
-
-    def pm_agg_custom_edit(self):
-        self.dlg_pm_agg.exec_()
 
 sqi_setup_widget = SQISetupWidget()

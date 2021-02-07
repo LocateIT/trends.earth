@@ -17,7 +17,7 @@ standard_library.install_aliases()
 import os
 import json
 import tempfile
-
+from zipfile import ZipFile
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings
 
@@ -54,10 +54,9 @@ class SoilQualityWorker(AbstractWorker):
 
         band_pm  = ds_in.GetRasterBand(1)
         band_rock_frag = ds_in.GetRasterBand(2)
-        band_slope = ds_in.GetRasterBand(3)
-        band_texture = ds_in.GetRasterBand(4)
-        band_drainage = ds_in.GetRasterBand(5)
-        band_default_slope = ds_in.GetRasterBand(6)
+        band_texture = ds_in.GetRasterBand(3)
+        band_drainage = ds_in.GetRasterBand(4)
+        band_default_slope = ds_in.GetRasterBand(5)
 
         if self.depth<15 :
             depthIndex = 1
@@ -109,18 +108,19 @@ class SoilQualityWorker(AbstractWorker):
                 a_texture = band_texture.ReadAsArray(x, y, cols, rows)
                 a_drainage = band_drainage.ReadAsArray(x, y, cols, rows)
 
-                # TODO: RECLASSIFY DEPTH VALUES ACCORDING TO MEDALUS
+                a_pm = a_pm.astype('float64')
+                a_rock_frag = a_rock_frag.astype('float64')
+                a_slope = a_slope.astype('float64')
+                a_texture = a_texture.astype('float64')
+                a_drainage = a_drainage.astype('float64')
 
                 a_sqi = (a_pm*a_rock_frag*a_slope*a_texture*a_drainage*depthIndex)**(1/6)
-                log("Parent material: {}".format(a_pm))
-                log("Rock Fragment: {}".format(a_rock_frag))
-                log("Slope: {}".format(a_slope))
-                log("Texture: {}".format(a_texture))
-                log("Drainage: {}".format(a_drainage))
-                log("Depth Index: {}".format(depthIndex))
-                log("Soil Quality Index: {}".format(a_sqi))
 
-                a_sqi[(a_pm < 1) | (a_rock_frag < 1) | (a_slope < 1) | (a_texture < 1) | (a_drainage < 1)] <- - 32768
+                a_sqi[(a_sqi < 1.13)] = 1
+                a_sqi[(a_sqi >= 1.13) & (a_sqi < 1.45)] = 2
+                a_sqi[(a_sqi >= 1.45)] = 3
+
+                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = - 32768
 
                 ds_out.GetRasterBand(1).WriteArray(a_sqi, x, y)
 
@@ -149,7 +149,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
         self.sqi_setup_tab.groupBox_usda_depth.show()
         self.sqi_setup_tab.use_custom.show()
         self.sqi_setup_tab.groupBox_rock_fragm.show()
-        self.sqi_setup_tab.groupBox_slope.show()
         self.sqi_setup_tab.groupBox_texture.show()
         self.sqi_setup_tab.groupBox_drainage.show()
         self.sqi_setup_tab.groupBox_pm.show()
@@ -168,7 +167,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
         self.sqi_setup_tab.use_custom_drainage.populate()
         self.sqi_setup_tab.use_custom_texture.populate()
         self.sqi_setup_tab.use_custom_rock_frag.populate()
-        self.sqi_setup_tab.use_custom_slope.populate()
 
     def btn_calculate(self):
 
@@ -222,7 +220,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
-        log('{}'.format(self.sqi_setup_tab.use_depth.value()))
 
         payload = {
                     'depth': self.sqi_setup_tab.use_depth.value(),
@@ -230,7 +227,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                     'crosses_180th': crosses_180th,
                     'crs': self.aoi.get_crs_dst_wkt(),
                     'texture_matrix':self.sqi_setup_tab.dlg_texture_agg.get_agg_as_list()[1],
-                    'pmaterial_matrix':self.sqi_setup_tab.dlg_pm_agg.get_agg_as_list()[1],
                     'task_name': self.options_tab.task_name.text(),
                     'task_notes': self.options_tab.task_notes.toPlainText()}
 
@@ -275,11 +271,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                                        self.tr("You must add a rock fragment layer to your map before you can run the calculation."))
             return
         
-        if len(self.sqi_setup_tab.use_custom_slope.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a slope layer to your map before you can run the calculation."))
-            return
-        
         if len(self.sqi_setup_tab.use_custom_texture.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a soil texture layer to your map before you can run the calculation."))
@@ -293,7 +284,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
         # select the parent material, slope, soil texture, drainage and rock fragment datasets 
         pm_vrt = self.sqi_setup_tab.use_custom_pm.get_vrt()
         drainage_vrt = self.sqi_setup_tab.use_custom_drainage.get_vrt()
-        slope_vrt = self.sqi_setup_tab.use_custom_slope.get_vrt()
         texture_vrt = self.sqi_setup_tab.use_custom_texture.get_vrt()
         rock_frag_vrt = self.sqi_setup_tab.use_custom_rock_frag.get_vrt()
 
@@ -318,11 +308,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                                        self.tr("Area of interest is not entirely within the soil texture layer."))
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.sqi_setup_tab.use_custom_slope.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the slope layer."))
-            return
-
         out_f = self.get_save_raster()
         if not out_f:
             return
@@ -331,7 +316,7 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
 
         # Add the sqi layers to a VRT in case they don't match in resolution, 
         # and set proper output bounds
-        sqi_files = [pm_vrt, texture_vrt, slope_vrt, drainage_vrt, rock_frag_vrt]
+        sqi_files = [pm_vrt, texture_vrt, drainage_vrt, rock_frag_vrt]
         # in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         sqi_vrts = []
 
@@ -346,8 +331,12 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                         separate=True)
 
             sqi_vrts.append(f)
+        slope_zip = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'slope.zip')
+        slope_unzip = ZipFile(slope_zip)
+        slope_unzip.extractall(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data'))
 
-        slope_v = os.path.join(os.path.dirname(__file__), 'data', 'slope.tif')
+        slope_unzip.close()
+        slope_v = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'slope.tif')
 
         in_files = [slope_v]
         in_files.extend(sqi_vrts)

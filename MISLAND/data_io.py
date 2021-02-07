@@ -386,8 +386,10 @@ def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
                 else:
                     v = np.unique(np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel())))
 
-                if v.size > max_unique:
-                    return None
+                # if v.size > max_unique:
+                #     return None
+
+
         return v.tolist()
 
 
@@ -1180,9 +1182,10 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
             band_number = int(self.input_widget.comboBox_bandnumber.currentText())
             if not self.dlg_agg or \
                     (self.last_raster != f or self.last_band_number != band_number):
-                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
+                values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked(), 200)
+                log("Unique Values {}".format(values))
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 60 different land cover classes"))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 200 different classes"))
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
@@ -1195,7 +1198,7 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
                     (self.last_vector != f or self.last_idx != idx):
                 values = get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
                 if not values:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 60 different land cover classes"))
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 60 different classes"))
                     return
                 self.last_vector = f
                 self.last_idx = idx

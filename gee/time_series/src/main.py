@@ -19,7 +19,17 @@ from landdegradation.productivity import productivity_trajectory
 from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 dataset = ee.ImageCollection('LANDSAT/LE07/C01/T1_RT_TOA')
-years = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+
+# years = [1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+
+
+def timeRange(start, end):
+
+    result = []
+    for i in range(start, end+1):
+        result.append(i)
+
+    return result
 
 # // mask landsat 7 clouds 
 def maskL7clouds(image):
@@ -34,7 +44,7 @@ def maskL7clouds(image):
     return image.updateMask(mask)
 
 
-def calculateNDVI(geometry):
+def calculateNDVI(start, end, geometry):
     """
     Calculate NDVI
     """
@@ -57,11 +67,11 @@ def calculateNDVI(geometry):
         
         return ndvi.multiply(10000)
 
-    ndviImages = ee.Image.cat(list(map(yearlyNDVIMean, years)))
+    ndviImages = ee.Image.cat(list(map(yearlyNDVIMean, timeRange(start, end))))
 
     return ndviImages
 
-def calculateMSAVI2(geometry):
+def calculateMSAVI2(start, end, geometry):
     """
     Calculate MSAVI2
     """
@@ -83,11 +93,11 @@ def calculateMSAVI2(geometry):
         
         return msavi2.multiply(10000)
 
-    msavi2Images = ee.Image.cat(list(map(yearlyMSAVI2Mean, years)))
+    msavi2Images = ee.Image.cat(list(map(yearlyMSAVI2Mean, timeRange(start, end))))
 
     return msavi2Images
 
-def calculateSAVI(geometry):
+def calculateSAVI(start, end, geometry):
     """
     Calculate SAVI
     """
@@ -109,11 +119,11 @@ def calculateSAVI(geometry):
         
         return savi.multiply(10000)
 
-    saviImages = ee.Image.cat(list(map(yearlySAVIMean, years)))
+    saviImages = ee.Image.cat(list(map(yearlySAVIMean, timeRange(start, end))))
 
     return saviImages
 
-def zonal_stats(veg_index, geojsons, EXECUTION_ID, logger):
+def zonal_stats(start, end, veg_index, geojsons, EXECUTION_ID, logger):
     logger.debug("Entering zonal_stats function.")
 
     # =======================================
@@ -123,11 +133,11 @@ def zonal_stats(veg_index, geojsons, EXECUTION_ID, logger):
     region = ee.Geometry(geojsons)
     
     if veg_index == 'NDVI':
-        image = calculateNDVI(region).clip(region)
+        image = calculateNDVI(start, end, region).clip(region)
     elif veg_index == 'SAVI':
-        image = calculateSAVI(region).clip(region)
+        image = calculateSAVI(start, end, region).clip(region)
     else:
-        image = calculateMSAVI2(region).clip(region)
+        image = calculateMSAVI2(start, end, region).clip(region)
 
     scale = ee.Number(image.projection().nominalScale()).getInfo()
 
@@ -176,6 +186,8 @@ def run(params, logger):
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
     indices = params.get('indices')
+    start = params.get('start')
+    end = params.get('end')
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -187,6 +199,6 @@ def run(params, logger):
     # TODO: Right now timeseries will only work on the first geojson - this is 
     # somewhat ok since for the most part this uses points, but should fix in 
     # the future
-    json_result = zonal_stats(indices,geojsons[0], EXECUTION_ID, logger)
+    json_result = zonal_stats(start, end, indices,geojsons[0], EXECUTION_ID, logger)
 
     return json_result

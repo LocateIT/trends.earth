@@ -38,7 +38,7 @@ from MISLAND import __version__
 from MISLAND.gui.DlgJobs import Ui_DlgJobs
 from MISLAND.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from MISLAND.timeseries import DlgTimeseries
-from MISLAND.plot import DlgPlotTimeries
+from MISLAND.plot import DlgPlotTimeries, DlgPlotBars
 
 from MISLAND import log
 from MISLAND.api import get_user_email, get_execution
@@ -456,8 +456,6 @@ def download_cloud_results(job, f, tr, add_to_map=True):
 
 def download_timeseries(job, tr):
   
-
-    log('zzzzzzzzzzzzzzzzzzzzzzzz{}'.format(job['params'].get('title')))
     log("processing timeseries results...")
     table = job['results'].get('table', None)
     indices = job['params'].get('indices')
@@ -470,7 +468,7 @@ def download_timeseries(job, tr):
     
     labels = {'title': tr(title),
               'bottom': tr('Time'),
-              'left': [tr('Integrated {}'.format(indices)), tr('{} x 10000'.format(indices))]}
+              'left': [tr('{} Trend'.format(indices)), tr('{} x 10000'.format(indices))]}
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()
