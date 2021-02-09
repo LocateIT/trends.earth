@@ -53,7 +53,7 @@ class ClimateQualityWorker(AbstractWorker):
         ds_in = gdal.Open(self.in_f)
 
         band_prec = ds_in.GetRasterBand(1)
-        band_pet = ds_in.GetRasterBand(2)
+        band_aridity = ds_in.GetRasterBand(2)
 
 
         block_sizes = band_prec.GetBlockSize()
@@ -88,16 +88,16 @@ class ClimateQualityWorker(AbstractWorker):
                     cols = xsize - x
 
                 a_prec = band_prec.ReadAsArray(x, y, cols, rows)
-                a_pet = band_pet.ReadAsArray(x, y, cols, rows)
+                a_aridity = band_aridity.ReadAsArray(x, y, cols, rows)
 
                 a_prec = a_prec.astype('float64')
-                a_pet = a_pet.astype('float64')
+                a_aridity = a_aridity.astype('float64')
                 # calculate aridity index 
-                a_cqi = (a_prec / a_pet)
-                a_cqi[(a_prec < 0) | (a_pet < 0)] <- -32768
+                a_cqi = (a_prec / a_aridity)
+                a_cqi[(a_prec < 0) | (a_aridity < 0)] <- -32768
 
                 ds_out.GetRasterBand(1).WriteArray(a_cqi, x, y)
-                # ds_out.GetRasterBand(2).WriteArray(a_pet, x, y)
+                # ds_out.GetRasterBand(2).WriteArray(a_aridity, x, y)
                 # ds_out.GetRasterBand(3).WriteArray(a_cqi, x, y)
 
                 blocks += 1
@@ -145,7 +145,6 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         self.cqi_setup_tab.groupBox_default.show()
         self.cqi_setup_tab.use_custom.show()
         self.cqi_setup_tab.groupBox_custom_aridity.show()
-        self.cqi_setup_tab.groupBox_custom_aspect.show()
         self.cqi_setup_tab.groupBox_custom_rain.show()
      
         # self.
@@ -160,7 +159,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
 
         # precipitation and potential evapotranspiration custom input layers
         self.cqi_setup_tab.use_custom_prec.populate()
-        self.cqi_setup_tab.use_custom_pet.populate()
+        self.cqi_setup_tab.use_custom_aridity.populate()
 
         # self.ecmwf_month_changed()
 
@@ -280,7 +279,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
                                        self.tr("You must add a yearly mean precipitation layer to your map before you can run the calculation."))
             return
 
-        if len(self.cqi_setup_tab.use_custom_pet.layer_list) == 0:
+        if len(self.cqi_setup_tab.use_custom_aridity.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add mean potential evapotranspiration layer to your map before you can run the calculation."))
             return
@@ -288,14 +287,14 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
         custom_prec_vrt = self.cqi_setup_tab.use_custom_prec.get_vrt()
-        custom_pet_vrt = self.cqi_setup_tab.use_custom_pet.get_vrt()
+        custom_aridity_vrt = self.cqi_setup_tab.use_custom_aridity.get_vrt()
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_prec.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the precipitation layer."))
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_pet.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_aridity.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the potential evapotranspiration layer."))
             return
@@ -310,7 +309,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # and set proper output bounds
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(in_vrt,
-                      [custom_prec_vrt, custom_pet_vrt], 
+                      [custom_prec_vrt, custom_aridity_vrt], 
                       resolution='highest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
                       outputBounds=self.aoi.get_aligned_output_bounds_deprecated(custom_prec_vrt),

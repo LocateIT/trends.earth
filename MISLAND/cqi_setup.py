@@ -32,12 +32,10 @@ class CQISetupWidget(QtWidgets.QWidget, Ui_WidgetCQISetup):
         if self.use_default.isChecked():
             self.groupBox_default.setEnabled(True)
             self.groupBox_custom_aridity.setEnabled(False)
-            self.groupBox_custom_aspect.setEnabled(False)
             self.groupBox_custom_rain.setEnabled(False)
         elif self.use_custom.isChecked():
             self.groupBox_default.setEnabled(False)
             self.groupBox_custom_aridity.setEnabled(True)
-            self.groupBox_custom_aspect.setEnabled(True)
             self.groupBox_custom_rain.setEnabled(True)
 
 cqi_setup_widget = CQISetupWidget()

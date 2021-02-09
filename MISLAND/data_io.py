@@ -355,7 +355,8 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
 
 def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
     if sample:
-        values = np.unique(get_sample(f, band_num, n=1e6)).tolist()
+        values = np.unique(get_sample(f, band_num, n=1e12)).tolist()
+        log("values {}".format(len(values)))
         if len(values) > max_unique:
             values = None
         return values
@@ -1183,7 +1184,7 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
             if not self.dlg_agg or \
                     (self.last_raster != f or self.last_band_number != band_number):
                 values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked(), 200)
-                log("Unique Values {}".format(values))
+                # log("Unique Values {}".format(values))
                 if not values:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 200 different classes"))
                     return

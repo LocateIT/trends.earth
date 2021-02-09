@@ -28,8 +28,11 @@
     <file>icons/nbr.png</file>
     <file>icons/msavi2.png</file>
     <file>icons/ndvi.png</file>
-    <file>icons/cqi.png</file>
-    <file>icons/vqi.png</file>
-    <file>icons/sqi.png</file>
+    <file>icons/cqi1.png</file>
+    <file>icons/vqi1.png</file>
+    <file>icons/vqi3.png</file>
+    <file>icons/sqi1.png</file>
+    <file>icons/mqi_pop.png</file>
+    <file>icons/mqi_lu.png</file>
   </qresource>
 </RCC>
