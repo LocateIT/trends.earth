@@ -331,12 +331,19 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
                         separate=True)
 
             sqi_vrts.append(f)
-        slope_zip = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'slope.zip')
-        slope_unzip = ZipFile(slope_zip)
-        slope_unzip.extractall(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data'))
 
-        slope_unzip.close()
         slope_v = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'slope.tif')
+
+        if not os.path.exists(slope_v):
+            slope_zip = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'slope.zip')
+            slope_unzip = ZipFile(slope_zip)
+            slope_unzip.extractall(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data'))
+
+            slope_unzip.close()
+            log("Extracting slope file...")
+
+        else:
+            log("Slope.tif already exists")
 
         in_files = [slope_v]
         in_files.extend(sqi_vrts)

@@ -99,6 +99,30 @@
             "no data": {"value": -32768, "color": "#ffffff", "label": "nodata"}
         }
     },
+    "Annual Precipitation (mm)": {
+        "title": "ppt_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#ffffff", "label": "nodata"}
+        }
+    },
+    "Annual Evapotranspiration (mm)": {
+        "title": "pet_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#ffffff", "label": "nodata"}
+        }
+    },
     "Soil organic carbon (degradation)": {
         "title": "soc_deg_title",
         "ramp": {
@@ -153,9 +177,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
-                {"value": 1, "color": "#787F1B", "label": "pm_good"},
-                {"value": 2, "color": "#FFAC42", "label": "pm_moderate"},
-                {"value": 3, "color": "#FFFB6E", "label": "pm_poor"}
+                {"value": 10, "color": "#787F1B", "label": "pm_good"},
+                {"value": 17, "color": "#FFAC42", "label": "pm_moderate"},
+                {"value": 20, "color": "#FFFB6E", "label": "pm_poor"}
             ]
         }
     },
@@ -179,9 +203,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
-                {"value": 1, "color": "#787F1B", "label": "well_drain"},
-                {"value": 2, "color": "#FFAC42", "label": "imperfect_drain"},
-                {"value": 3, "color": "#FFFB6E", "label": "poor_drain"}
+                {"value": 10, "color": "#787F1B", "label": "well_drain"},
+                {"value": 12, "color": "#FFAC42", "label": "imperfect_drain"},
+                {"value": 20, "color": "#FFFB6E", "label": "poor_drain"}
             ]
         }
     },
@@ -411,7 +435,7 @@
             ]
         }
     },
-    "Climate Quality Index (month)": {
+    "Climate Quality Index (year)": {
         "title": "climate_quality_index",
         "ramp": {
             "type": "categorical",

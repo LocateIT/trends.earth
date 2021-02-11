@@ -663,5 +663,27 @@ A summary file in xlsx format will be generated on completion similar to the one
 .. image:: /static/documentation/calculate/forest_carbon_excel.png
    :align: center
 
+Compute Mediterrenean Desertification and Land Use (MEDALUS)
+_____________________________________________________________
+
+1. Soil Quality Index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The formula used to compute the SQI is as shown below:
+
+SQI  = (Parent material * Depth * Texture * Slope * Drainage * Rock Fragments)^1/6
+
+2. Vegetation Quality Index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3. Climate Quality Index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+4. Land Management System Quality Index
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Combined desertification Layer
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 .. toctree::
    :maxdepth: 2

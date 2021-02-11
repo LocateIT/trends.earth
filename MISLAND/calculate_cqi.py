@@ -52,15 +52,14 @@ class ClimateQualityWorker(AbstractWorker):
     def work(self):
         ds_in = gdal.Open(self.in_f)
 
-        band_prec = ds_in.GetRasterBand(1)
+        band_ppt = ds_in.GetRasterBand(1)
         band_pet = ds_in.GetRasterBand(2)
 
-
-        block_sizes = band_prec.GetBlockSize()
+        block_sizes = band_ppt.GetBlockSize()
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
-        xsize = band_prec.XSize
-        ysize = band_prec.YSize
+        xsize = band_ppt.XSize
+        ysize = band_pet.YSize
 
         driver = gdal.GetDriverByName("GTiff")
         ds_out = driver.Create(self.out_f, xsize, ysize, 1, gdal.GDT_Float64, 
@@ -87,18 +86,48 @@ class ClimateQualityWorker(AbstractWorker):
                 else:
                     cols = xsize - x
 
-                a_prec = band_prec.ReadAsArray(x, y, cols, rows)
+                a_ppt = band_ppt.ReadAsArray(x, y, cols, rows)
                 a_pet = band_pet.ReadAsArray(x, y, cols, rows)
 
-                a_prec = a_prec.astype('float64')
+                a_ppt = a_ppt.astype('float64')
                 a_pet = a_pet.astype('float64')
+
                 # calculate aridity index 
-                a_cqi = (a_prec / a_pet)
-                a_cqi[(a_prec < 0) | (a_pet < 0)] <- -32768
+                a_aridity = (a_ppt / a_pet)
+
+                # reclassify aridity values to index 
+                a_aridity[(a_aridity >= 1.00)] = 1
+                a_aridity[(a_aridity >= 0.75) & (a_aridity < 1.00)] = 1.05
+                a_aridity[(a_aridity >= 0.65) & (a_aridity < 0.75)] = 1.15
+                a_aridity[(a_aridity >= 0.50) & (a_aridity < 0.65)] = 1.25
+                a_aridity[(a_aridity >= 0.35) & (a_aridity < 0.50)] = 1.35
+                a_aridity[(a_aridity >= 0.20) & (a_aridity < 0.35)] = 1.45
+                a_aridity[(a_aridity >= 0.10) & (a_aridity < 0.20)] = 1.55
+                a_aridity[(a_aridity >= 0.03) & (a_aridity < 0.10)] = 1.75
+                a_aridity[(a_aridity < 0.03)] = 2
+
+                # reclassify precipitation values to index 
+                a_ppt[(a_ppt >= 650)] = 1
+                a_ppt[(a_ppt >= 570) & (a_ppt < 650)] = 1.05
+                a_ppt[(a_ppt >= 490) & (a_ppt < 570)] = 1.15
+                a_ppt[(a_ppt >= 440) & (a_ppt < 490)] = 1.25
+                a_ppt[(a_ppt >= 390) & (a_ppt < 440)] = 1.35
+                a_ppt[(a_ppt >= 345) & (a_ppt < 390)] = 1.50
+                a_ppt[(a_ppt >= 310) & (a_ppt < 345)] = 1.65
+                a_ppt[(a_ppt >= 280) & (a_ppt < 310)] = 1.80
+                a_ppt[(a_ppt < 280)] = 2
+
+
+                a_cqi = (a_aridity*a_ppt)**(1/2)
+
+                # reclassify cqi output 
+                a_cqi[(a_cqi >= 1.81)] = 3
+                a_cqi[(a_cqi >= 1.15) & (a_cqi <= 1.81)] = 2
+                a_cqi[(a_cqi < 1.15)] = 1
+                a_cqi[(a_ppt < 0) | (a_aridity < 0) | (a_pet < 0)] = - 32768
+
 
                 ds_out.GetRasterBand(1).WriteArray(a_cqi, x, y)
-                # ds_out.GetRasterBand(2).WriteArray(a_pet, x, y)
-                # ds_out.GetRasterBand(3).WriteArray(a_cqi, x, y)
 
                 blocks += 1
  
@@ -109,28 +138,12 @@ class ClimateQualityWorker(AbstractWorker):
             return True
 
 
-months = ['January', 'February', 'March', 'April', 'May',
-    'June', 'July', 'August', 'September', 'October', 'November', 'December'
-]
-
-
 class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
     def __init__(self, parent=None):
         """Constructor."""
         super(DlgCalculateCQI, self).__init__(parent)
 
         self.setupUi(self)
-        self.cqi_setup_tab = cqi_setup_widget
-
-        self.cqi_setup_tab.ecmwf_month.addItems(months)
-        self.cqi_setup_tab.ecmwf_month.setCurrentIndex(0)
-
-        self.ecmwf_month_changed()
-
-        self.cqi_setup_tab.ecmwf_month.currentIndexChanged.connect(self.ecmwf_month_changed)
-
-
-    def ecmwf_month_changed(self):
         self.cqi_setup_tab = cqi_setup_widget
 
     def showEvent(self, event):
@@ -144,9 +157,8 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # SDG one step dialog
         self.cqi_setup_tab.groupBox_default.show()
         self.cqi_setup_tab.use_custom.show()
-        self.cqi_setup_tab.groupBox_custom_aridity.show()
-        self.cqi_setup_tab.groupBox_custom_aspect.show()
-        self.cqi_setup_tab.groupBox_custom_rain.show()
+        self.cqi_setup_tab.groupBox_custom_ppt.show()
+        self.cqi_setup_tab.groupBox_custom_pet.show()
      
         # self.
         
@@ -159,7 +171,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             self.TabBox.setCurrentIndex(0)
 
         # precipitation and potential evapotranspiration custom input layers
-        self.cqi_setup_tab.use_custom_prec.populate()
+        self.cqi_setup_tab.use_custom_ppt.populate()
         self.cqi_setup_tab.use_custom_pet.populate()
 
         # self.ecmwf_month_changed()
@@ -221,20 +233,9 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
-        
-        month_index = months.index(self.cqi_setup_tab.ecmwf_month.currentText())+1
-        next_month_index = month_index+1
-
-        if len(str(month_index)) < 2 or next_month_index<2:
-            month_index = '{}'.format(0) + str(month_index)
-            next_month_index = '{}'.format(0) + str(next_month_index)
-        else:
-            month_index = str(month_index)
-            next_month_index = str(next_month_index)
 
         payload = {
-                    'month': '{}-{}'.format(str(self.cqi_setup_tab.ecmwf_year.date().year()), month_index),
-                    'next_month':'{}-{}'.format(str(self.cqi_setup_tab.ecmwf_year.date().year()),next_month_index),
+                    'year': str(self.cqi_setup_tab.ecmwf_year.date().year()),
                     'geojsons': geometries,
                     'crosses_180th': crosses_180th,
                     'crs': self.aoi.get_crs_dst_wkt(),
@@ -275,7 +276,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom precipitation or evapotranspiration layer dataset."))
             return
-        if len(self.cqi_setup_tab.use_custom_prec.layer_list) == 0:
+        if len(self.cqi_setup_tab.use_custom_ppt.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add a yearly mean precipitation layer to your map before you can run the calculation."))
             return
@@ -287,10 +288,10 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
-        custom_prec_vrt = self.cqi_setup_tab.use_custom_prec.get_vrt()
         custom_pet_vrt = self.cqi_setup_tab.use_custom_pet.get_vrt()
+        custom_ppt_vrt = self.cqi_setup_tab.use_custom_ppt.get_vrt()
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_prec.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.cqi_setup_tab.use_custom_ppt.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the precipitation layer."))
             return
@@ -310,10 +311,10 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
         # and set proper output bounds
         in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(in_vrt,
-                      [custom_prec_vrt, custom_pet_vrt], 
+                      [custom_pet_vrt, custom_ppt_vrt], 
                       resolution='highest', 
                       resampleAlg=gdal.GRA_NearestNeighbour,
-                      outputBounds=self.aoi.get_aligned_output_bounds_deprecated(custom_prec_vrt),
+                      outputBounds=self.aoi.get_aligned_output_bounds_deprecated(custom_ppt_vrt),
                       separate=True)
 
         lc_change_worker = StartWorker(ClimateQualityWorker,
@@ -324,7 +325,7 @@ class DlgCalculateCQI(DlgCalculateBase, Ui_DlgCalculateCQI):
                                        self.tr("Error calculating climate quality index."), None)
             return
 
-        band_info = [BandInfo("Aridity Index", add_to_map=True)]
+        band_info = [BandInfo("Climate Quality Index (year)", add_to_map=True)]
         out_json = os.path.splitext(out_f)[0] + '.json'
         create_local_json_metadata(out_json, out_f, band_info)
         schema = BandInfoSchema()

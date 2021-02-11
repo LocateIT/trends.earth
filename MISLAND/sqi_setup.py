@@ -276,7 +276,7 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
 
      
         self.use_default.toggled.connect(self.Sqi_source_changed)
-        self.use_default.toggled.connect(self.Sqi_source_changed)
+        self.use_custom.toggled.connect(self.Sqi_source_changed)
 
         # self.use_custom.toggled.connect(self.cqi_source_changed)
         # Below is a bugfix for checkable group boxes created in QtDesigner - 

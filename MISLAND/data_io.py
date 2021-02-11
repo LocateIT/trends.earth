@@ -356,6 +356,7 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
 def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
     if sample:
         values = np.unique(get_sample(f, band_num, n=1e6)).tolist()
+        log("values {}".format(len(values)))
         if len(values) > max_unique:
             values = None
         return values
@@ -412,11 +413,15 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
         self.dlg_DataIOLoad_lc = DlgDataIOImportLC()
         self.dlg_DataIOLoad_soc = DlgDataIOImportSOC()
         self.dlg_DataIOLoad_prod = DlgDataIOImportProd()
+        self.dlg_DataIOLoad_pet = DlgDataIOImportCQI('Annual Evapotranspiration (mm)')
+        self.dlg_DataIOLoad_ppt = DlgDataIOImportCQI('Annual Precipitation (mm)')
 
         self.btn_te.clicked.connect(self.run_te)
         self.btn_lc.clicked.connect(self.run_lc)
         self.btn_soc.clicked.connect(self.run_soc)
         self.btn_prod.clicked.connect(self.run_prod)
+        self.btn_ppt.clicked.connect(self.run_ppt)
+        self.btn_pet.clicked.connect(self.run_pet)
 
     def run_te(self):
         self.close()
@@ -433,6 +438,14 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
     def run_prod(self):
         self.close()
         self.dlg_DataIOLoad_prod.exec_()
+
+    def run_ppt(self):
+        self.close()
+        self.dlg_DataIOLoad_ppt.exec_()
+
+    def run_pet(self):
+        self.close()
+        self.dlg_DataIOLoad_pet.exec_()
 
 class DlgDataIOLoadTEBase(QtWidgets.QDialog):
     layers_loaded = pyqtSignal(list)
@@ -1097,6 +1110,81 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                                 'source': 'custom data'})
         self.layer_loaded.emit([l_info])
 
+class DlgDataIOImportCQI(DlgDataIOImportBase, Ui_DlgDataIOImportCQI):
+    def __init__(self, title, parent=None):
+        super(DlgDataIOImportCQI, self).__init__(parent)
+
+        # This needs to be inserted after the input widget but before the 
+        # button box with ok/cancel
+        self.output_widget = ImportSelectRasterOutput()
+        self.verticalLayout.insertWidget(1, self.output_widget)
+
+        self.datatype = 'continuous'
+        self.title = title
+
+    def done(self, value):
+        if value == QtWidgets.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super(DlgDataIOImportCQI, self).done(value)
+
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            return
+
+        ret = super(DlgDataIOImportCQI, self).validate_input(value)
+        if not ret:
+            return
+        
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            l = self.input_widget.get_vector_layer()
+            field = self.input_widget.comboBox_fieldname.currentText()
+            idx = l.fields().lookupField(field)
+            if not l.fields().field(idx).isNumeric():
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
+                return
+            else:
+                stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
+        log(u'Stats are: {}'.format(stats))
+        if not stats:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
+            return
+        if stats[0] < 0:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be >= 0.".format(in_file, stats[0])))
+            return
+        if stats[1] > 1000:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.".format(in_file, stats[1])))
+            return
+
+        super(DlgDataIOImportCQI, self).done(value)
+
+        self.ok_clicked()
+
+    def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
+        if self.input_widget.radio_raster_input.isChecked():
+            ret = self.warp_raster(out_file)
+        else:
+            in_file = self.input_widget.lineEdit_vector_file.text()
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            ret = self.rasterize_vector(in_file, out_file, attribute)
+
+        if not ret:
+            return False
+
+        l_info = self.add_layer(self.title,
+                                {'year': int(self.input_widget.spinBox_data_year.text()),
+                                'source': 'custom data'})
+        self.layer_loaded.emit([l_info])
+
 class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
     def __init__(self, layer_name, final_classes,  parent=None):
         super(DlgDataIOImportSQI, self).__init__(parent)
@@ -1183,7 +1271,7 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
             if not self.dlg_agg or \
                     (self.last_raster != f or self.last_band_number != band_number):
                 values = get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked(), 200)
-                log("Unique Values {}".format(values))
+                # log("Unique Values {}".format(values))
                 if not values:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. MISLAND supports a maximum of 200 different classes"))
                     return
@@ -1228,78 +1316,6 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
         #                         'source': 'custom data'})
 
         self.layer_loaded.emit([l_info])
-
-class DlgDataIOImportCQI(DlgDataIOImportBase, Ui_DlgDataIOImportCQI):
-    def __init__(self, parent=None):
-        super(DlgDataIOImportCQI, self).__init__(parent)
-
-        # This needs to be inserted after the input widget but before the 
-        # button box with ok/cancel
-        self.output_widget = ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(1, self.output_widget)
-
-        self.datatype = 'continuous'
-
-    def done(self, value):
-        if value == QtWidgets.QDialog.Accepted:
-            self.validate_input(value)
-        else:
-            super(DlgDataIOImportCQI, self).done(value)
-
-    def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == '':
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
-            return
-
-        ret = super(DlgDataIOImportCQI, self).validate_input(value)
-        if not ret:
-            return
-        
-        if self.input_widget.radio_raster_input.isChecked():
-            in_file = self.input_widget.lineEdit_raster_file.text()
-            stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
-        else:
-            in_file = self.input_widget.lineEdit_vector_file.text()
-            l = self.input_widget.get_vector_layer()
-            field = self.input_widget.comboBox_fieldname.currentText()
-            idx = l.fields().lookupField(field)
-            if not l.fields().field(idx).isNumeric():
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a numeric field.".format(field)))
-                return
-            else:
-                stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
-        log(u'Stats are: {}'.format(stats))
-        # if not stats:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.".format(in_file)))
-        #     return
-        # if stats[0] < 0:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be >= 0.".format(in_file, stats[0])))
-        #     return
-        # if stats[1] > 1000:
-        #     QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.".format(in_file, stats[1])))
-        #     return
-
-        super(DlgDataIOImportCQI, self).done(value)
-
-        self.ok_clicked()
-
-    def ok_clicked(self):
-        out_file = self.output_widget.lineEdit_output_file.text()
-        if self.input_widget.radio_raster_input.isChecked():
-            ret = self.warp_raster(out_file)
-        else:
-            in_file = self.input_widget.lineEdit_vector_file.text()
-            attribute = self.input_widget.comboBox_fieldname.currentText()
-            ret = self.rasterize_vector(in_file, out_file, attribute)
-
-        if not ret:
-            return False
-
-        l_info = self.add_layer('Aridity Index',
-                                {'source': 'custom data'})
-        self.layer_loaded.emit([l_info])
-        
-
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
@@ -1540,12 +1556,16 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
             self.dlg_load = DlgDataIOImportLC()
         elif self.property("layer_type") == 'Soil organic carbon':
             self.dlg_load = DlgDataIOImportSOC()
+        elif self.property("layer_type") == 'Annual Precipitation (mm)':
+            self.dlg_load = DlgDataIOImportCQI('Annual Precipitation (mm)')
+        elif self.property("layer_type") == 'Annual Evapotranspiration (mm)':
+            self.dlg_load = DlgDataIOImportCQI('Annual Evapotranspiration (mm)')
         elif self.property("layer_type") == 'Parent material (3 class)':
             self.dlg_load = DlgDataIOImportSQI('Parent material (3 class)', {'No data': -32768,
-                        'Good': 1,
+                        'Good': 1.0,
                         'Moderate': 1.7,
-                        'Poor': 2,
-                        })
+                        'Poor': 2.0,
+                        }, parent=self)
         elif self.property("layer_type") == 'Rock fragments (3 class)':
             self.dlg_load = DlgDataIOImportSQI('Rock fragments (3 class)', {'No data': -32768,
                         'Very Stony': 1,
@@ -1561,9 +1581,9 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
                         })
         elif self.property("layer_type") == 'Drainage (3 class)':
             self.dlg_load = DlgDataIOImportSQI('Drainage (3 class)', {'No data': -32768,
-                        'Well Drained': 1,
+                        'Well Drained': 1.0,
                         'Imperfectly Drained': 1.2,
-                        'Poorly Drained': 2,
+                        'Poorly Drained': 2.0,
                         })
         elif self.property("layer_type") == 'Slope (4 class)':
             self.dlg_load = DlgDataIOImportSQI('Slope (4 class)', {'No data': -32768,
