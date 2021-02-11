@@ -87,22 +87,6 @@ p, li { white-space: pre-wrap; }
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="ecmwf_month">
-        <property name="minimumSize">
-         <size>
-          <width>30</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="editable">
-         <bool>false</bool>
-        </property>
-        <property name="maxVisibleItems">
-         <number>12</number>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2">
        <widget class="QDateEdit" name="ecmwf_year">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
@@ -167,19 +151,16 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_custom_rain">
+    <widget class="QGroupBox" name="groupBox_custom_ppt">
      <property name="enabled">
       <bool>true</bool>
      </property>
      <property name="title">
-      <string>Annual Precipitation (mm)</string>
+      <string>Annual Mean Precipitation (mm)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_3">
       <item row="0" column="0">
-       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_prec">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_ppt">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -193,7 +174,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Parent material (3 class)</string>
+         <string notr="true">Annual Precipitation (mm)</string>
         </property>
        </widget>
       </item>
@@ -201,16 +182,13 @@ p, li { white-space: pre-wrap; }
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_custom_aridity">
+    <widget class="QGroupBox" name="groupBox_custom_pet">
      <property name="title">
-      <string>Aridity Index</string>
+      <string>Annual Mean Potential Evapotranspiration (mm)</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
-       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_aridity">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
+       <widget class="WidgetDataIOSelectTELayerImport" name="use_custom_pet">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
           <horstretch>0</horstretch>
@@ -224,7 +202,7 @@ p, li { white-space: pre-wrap; }
          </size>
         </property>
         <property name="layer_type" stdset="0">
-         <string notr="true">Parent material (3 class)</string>
+         <string notr="true">Annual Evapotranspiration (mm)</string>
         </property>
        </widget>
       </item>
@@ -262,11 +240,11 @@ p, li { white-space: pre-wrap; }
    </item>
   </layout>
   <zorder>use_custom</zorder>
-  <zorder>groupBox_custom_rain</zorder>
+  <zorder>groupBox_custom_ppt</zorder>
   <zorder>use_default</zorder>
   <zorder>groupBox_default</zorder>
   <zorder>textBrowser</zorder>
-  <zorder>groupBox_custom_aridity</zorder>
+  <zorder>groupBox_custom_pet</zorder>
  </widget>
  <customwidgets>
   <customwidget>

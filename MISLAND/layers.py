@@ -154,6 +154,8 @@ style_text_dict = {
 
     # Soil organic carbon
     'soc_title': tr(u'Soil organic carbon ({year}, tons / ha)'),
+    'ppt_title': tr(u'Annual Precipitation (mm) {year}'),
+    'pet_title': tr(u'Annual Evapotranspiration (mm) {year}'),
 
     'soc_deg_title': tr(u'Soil organic carbon degradation ({year_start} to {year_end})'),
     'soc_deg_deg': tr(u'Degradation'),
@@ -256,7 +258,7 @@ style_text_dict = {
     'soil_grids_250_soc': tr('Soil Grids 250'),
 
     # aridity index 
-    'climate_quality_index':tr('Climate Quality Index (month)'),
+    'climate_quality_index':tr('Climate Quality Index (year)'),
     'cqi_high':tr('High quality (< 1.15)'),
     'cqi_moderate':tr('Moderate quality (1.15 to 1.81)'),
     'cqi_low':tr('Low quality (> 1.81)'),

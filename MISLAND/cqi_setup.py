@@ -31,11 +31,11 @@ class CQISetupWidget(QtWidgets.QWidget, Ui_WidgetCQISetup):
     def cqi_source_changed(self):
         if self.use_default.isChecked():
             self.groupBox_default.setEnabled(True)
-            self.groupBox_custom_aridity.setEnabled(False)
-            self.groupBox_custom_rain.setEnabled(False)
+            self.groupBox_custom_pet.setEnabled(False)
+            self.groupBox_custom_ppt.setEnabled(False)
         elif self.use_custom.isChecked():
             self.groupBox_default.setEnabled(False)
-            self.groupBox_custom_aridity.setEnabled(True)
-            self.groupBox_custom_rain.setEnabled(True)
+            self.groupBox_custom_pet.setEnabled(True)
+            self.groupBox_custom_ppt.setEnabled(True)
 
 cqi_setup_widget = CQISetupWidget()
