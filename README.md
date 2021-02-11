@@ -91,9 +91,9 @@ Datasets used in running of processing scripts in MISLAND QGIS Plugin are as lis
 | --- | --- | --- |
 | Soil Quality Index | Slope | [SRTM Digital Elevation](https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4) |
 |  | Soil Depth | Custom User Input |
-|  | Rock Fragments | Harmonized World Soil Database |
+|  | Rock Fragments | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
 |  | Parent Material | [Digital Sol Map of the world](http://www.fao.org/geonetwork/srv/en/metadata.show%3Fid=14116) |
-|  | Drainage | Harmonized World Soil Database |
+|  | Drainage | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
 |  |Soil Texture | [OpenLandMap Soil texture class (USDA system)](https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02) |
 | Climate Quality Index | Precipitation | [TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces](developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE) |
 |  | Potential Evapotranspiration | [TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces](developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE) |
