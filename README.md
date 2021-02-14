@@ -11,6 +11,7 @@ At the regional level(North Africa action zone) where low and medium resolution 
 At the pilot site level, where(customized indicators) can be developed, using medium resoultion data(landsat time series imagery and derived vegetation indices, combined with different satellite-derived climate data)
 QGIS plugin for OSS Land Degradation Monitoring Service (MISLAND)
 
+---
 
 ### Plugin Modules
 
@@ -37,7 +38,9 @@ Below is an illustration of flow of information from one resource to another wit
 
 An end-user executes a module/script within the plugin eg. forest fires. The plugin sends this request to the backend API which creates an execution and execution logs for this instance as well as requests the script ID from the Postgresql database. The database returns metadata of the script back to the backend API which then sends the the request to [google earth engine](https://earthengine.google.com) python library on which script to run. Execution logs are then recorded in the database as the script runs from start to finish. 
 
-On successful completion of the execution, the final result(tiff file) is exported by google earth engine to [Google Cloud Storage](https://earthengine.google.com) bucket as an object. The end-user is then able to thereafter download and visualize the result via the plugin onto QGIS. This data remains available for download by the end-user for upto 7 days. 
+On successful completion of the execution, the final result(tiff file) is exported by google earth engine to [Google Cloud Storage](https://earthengine.google.com) bucket as an object. The end-user is then able to thereafter download and visualize the result via the plugin onto QGIS. This data remains available for download by the end-user for upto 7 days.
+
+---
 
 ### INSTALLING PLUGIN FROM ZIPILE
 
@@ -53,7 +56,7 @@ MISLAND QGIS Plugin documentation can be found at [MISLAND DOCS](https://misland
 
 ---
 
-### DATASETS
+### DATA SOURCES
 
 Datasets used in running of processing scripts in MISLAND QGIS Plugin are as listed below:
 
@@ -88,11 +91,9 @@ Datasets used in running of processing scripts in MISLAND QGIS Plugin are as lis
 | --- | --- | --- |
 | Soil Quality Index | Slope | [SRTM Digital Elevation](https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4) |
 |  | Soil Depth | Custom User Input |
-|  | Rock Fragments | Harmonized World Soil Database
- |
+|  | Rock Fragments | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
 |  | Parent Material | [Digital Sol Map of the world](http://www.fao.org/geonetwork/srv/en/metadata.show%3Fid=14116) |
-|  | Drainage | Harmonized World Soil Database
- |
+|  | Drainage | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
 |  |Soil Texture | [OpenLandMap Soil texture class (USDA system)](https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02) |
 | Climate Quality Index | Precipitation | [TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces](developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE) |
 |  | Potential Evapotranspiration | [TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces](developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE) |
@@ -103,7 +104,7 @@ Datasets used in running of processing scripts in MISLAND QGIS Plugin are as lis
 | Land Management Quality Index | Land Use Intensity | [ESA CCI–land cover map v2.0.7–2015](http://maps.elie.ucl.ac.be/CCI/viewer/) |
 |  |Population Density | [GPWv411: Population Density (Gridded Population of the World Version 4.11)](https://developers.google.com/earth-engine/datasets/catalog/CIESIN_GPWv411_GPW_Population_Density) |
 
-More info on datasources and data coding visit https://misland.readthedocs.io/en/latest/Introduction/data.html
+More info on data sources and data coding visit https://misland.readthedocs.io/en/latest/Introduction/data.html
 
 ---
 
