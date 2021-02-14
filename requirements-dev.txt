@@ -1,6 +1,6 @@
-invoke
+invoke==1.4.1
 boto3
-sphinx
+sphinx==3.2.1
 sphinx-intl
 sphinx-rtd-theme
 sphinx_ops_theme
@@ -10,3 +10,4 @@ pip>=10.0.0
 PyQt5
 numba==0.48.0
 polling2
+rasterio==1.2.0

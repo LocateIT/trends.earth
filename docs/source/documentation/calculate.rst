@@ -673,17 +673,153 @@ The formula used to compute the SQI is as shown below:
 
 SQI  = (Parent material * Depth * Texture * Slope * Drainage * Rock Fragments)^1/6
 
+Default datasets used for sqi are as shown below:
+
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Indicator**                   | **Variables**                  | **Data Source**                                                                                                                                                                      |
++=================================+================================+======================================================================================================================================================================================+
+| Soil Quality Index              | Slope                          | `SRTM Digital Elevation <https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4>`__                                                                             |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Soil Depth                     | Custom User Input                                                                                                                                                                    |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Rock Fragments                 | `Harmonized World Soil Database <https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4>`__                                               |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Parent Material                | `Digital Sol Map of the world <http://www.fao.org/geonetwork/srv/en/metadata.show%3Fid=14116>`__                                                                                     |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Drainage                       | `Harmonized World Soil Database <https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4>`__                                               |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Soil Texture                   | `OpenLandMap Soil texture class (USDA system) <https://developers.google.com/earth-engine/datasets/catalog/OpenLandMap_SOL_SOL_TEXTURE-CLASS_USDA-TT_M_v02>`__                       |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
+Soil Quality Index can be calculated in two ways:
+
+   1. Using default data (Computed on Google Earth Engine)
+   2. Using Custom data (Computed locally on device)
+
+Using default data (Computed on Google Earth Engine)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Inorder to compute Soil Quality Index using default data use the following steps.
+
+First open the calculate indicators toolbox and select MEDALUS then select the Soil Quality Index 
+option as shown.
+
+Input soil depth (cm) and edit soil texture aggregation method according to case study as shown. This
+will reclassify soil depth values according to the definition selected.
+
+Proceed to select an area of interest and run the computation.
+
+Using Custom data (Computed locally on device)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This step requires the data to be available locally. First Input soil depth (cm) then Select Custom soil 
+quality datasets instead of default and import sqi datasets as below. 
+
+Ensure to reclassifiy values correctly according to case study. Once all 4 datasets are imported proceed 
+to select an area of interest and run the computation. You will be required to select a destination for your 
+output file.
+
 2. Vegetation Quality Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+This index is derived as the geometric mean of the characteristics of the vegetation. Fire Hazard layers (RI), 
+Fire Resistance (FR), drought (RS), vegetation erosion protection (PE) and cover plant (CV) according to the 
+following formula: 
+
+VQI = (RI x PE x RS x CV) ^¼
+
+Default datasets used for vqi are as shown below:
+
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Indicator**                   | **Variables**                  | **Data Source**                                                                                                                                                                      |
++=================================+================================+======================================================================================================================================================================================+
+| Vegetation Quality Index        | Fire Risk                      | `ESA CCI–land cover map v2.0.7–2015 <http://maps.elie.ucl.ac.be/CCI/viewer/>`__                                                                                                      |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Drought Resistance             | `ESA CCI–land cover map v2.0.7–2015 <http://maps.elie.ucl.ac.be/CCI/viewer/>`__                                                                                                      |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Erosion Protection             | `ESA CCI–land cover map v2.0.7–2015 <http://maps.elie.ucl.ac.be/CCI/viewer/>`__                                                                                                      |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Plant Cover                    | `PROBA-V C1 Top Of Canopy Daily Synthesis 100m <https://developers.google.com/earth-engine/datasets/catalog/VITO_PROBAV_C1_S1_TOC_100M>`__                                           |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+To compute vegetation quality index, select Vegetation Quality Index option under the MEDALUS toolbar. For each of the 3 datasets, i.e 
+- Fire Risk
+- Drought Resistance
+- Erosion Protection
+- 
+Select the land cover year and an aggregation definition or use default set aggregation. This will reclassify land cover classes based on definition 
+provided. 
+
+For Plant cover, select a start and end date. Proceed to select an area of interest and run the computation.
+
 
 3. Climate Quality Index
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The climate quality index, according to the MEDALUS approach, is obtained by cross-referencing the three layers of 
+information namely precipitation and aridity index using the following equation: 
+
+CQI = (precipitation*aridity index) ^ 1/2 
+
+Default datasets used for CQI are:
+
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Indicator**                   | **Variables**                  | **Data Source**                                                                                                                                                                      |
++=================================+================================+======================================================================================================================================================================================+
+| Climate Quality Index           | Precipitation                  | `TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces <developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE>`__          |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Potential Evapotranspiration   | `TerraClimate Monthly Climate and Climatic Water Balance for Global Terrestrial Surfaces <developers.google.com/earth-engine/datasets/catalog/IDAHO_EPSCOR_TERRACLIMATE>`__          |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Climate Quality Index can be calculated in two ways:
+
+   1. Using default data (Computed on Google Earth Engine)
+   2. Using Custom data (Computed locally on device)
+
+Using default data (Computed on Google Earth Engine)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Select a year of study between 1979-2020. Proceed to select and area of interest and run the computation.
+
+Using Custom data (Computed locally on device)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+This step requires the data to be available locally. Load both a potential evapotranspiration and precipitation dataset to the 
+plugin as shown below.
+
+Proceed to select an area of interest and run the computation. You will be required to select a destination for your 
+output file.
+
 4. Land Management System Quality Index
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The climate quality index, according to the MEDALUS approach, is obtained by cross-referencing the two layers of information 
+namely Land-Use intensity (LU) and Population Density (PD) using the following equation: 
+
+MQI = (LU X PD)^1/2
+
+Default datasets used for MQI are:
+
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **Indicator**                   | **Variables**                  | **Data Source**                                                                                                                                                                      |
++=================================+================================+======================================================================================================================================================================================+
+| Land Management Quality Index   | Land Use Intensity             | `ESA CCI–land cover map v2.0.7–2015 <http://maps.elie.ucl.ac.be/CCI/viewer/>`__                                                                                                      |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                 | Population Density             | `GPWv411: Population Density (Gridded Population of the World Version 4.11) <https://developers.google.com/earth-engine/datasets/catalog/CIESIN_GPWv411_GPW_Population_Density>`__   |
++---------------------------------+--------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+To compute vegetation quality index, select Land Management System Quality Index option under the MEDALUS toolbar. Select 
+the land cover year an and set aggregation definition for Land Use Intensity. This will reclassify land cover classes 
+based on definition provided. 
+
+Proceed to select an area of interest and run the computation. You will be required to select a destination for your 
+output file.
+
 
 Combined desertification Layer
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
 
 .. toctree::
    :maxdepth: 2

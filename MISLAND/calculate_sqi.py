@@ -17,6 +17,8 @@ standard_library.install_aliases()
 import os
 import json
 import tempfile
+import numpy as np
+
 from zipfile import ZipFile
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings
@@ -50,7 +52,15 @@ class SoilQualityWorker(AbstractWorker):
         self.out_f = out_f
 
     def work(self):
+        geom = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'aoi.geojson')
         ds_in = gdal.Open(self.in_f)
+
+        # resample input layers 
+        ds_in = gdal.Warp(self.in_f, ds_in,xRes=0.001, yRes=0.001, resampleAlg="bilinear")
+
+        # mask input layers to aoi 
+        ds_in = gdal.Warp(self.in_f, ds_in, cutlineDSName =geom, cropToCutline = True, dstNodata = np.nan)
+
 
         band_pm  = ds_in.GetRasterBand(1)
         band_rock_frag = ds_in.GetRasterBand(2)
@@ -58,14 +68,14 @@ class SoilQualityWorker(AbstractWorker):
         band_drainage = ds_in.GetRasterBand(4)
         band_default_slope = ds_in.GetRasterBand(5)
 
-        if self.depth<15 :
-            depthIndex = 1
-        elif self.depth>=15 and self.depth<30:
-            depthIndex = 2
-        elif self.depth>=30 and self.depth<75:
-            depthIndex = 3
-        elif self.depth>=75:
+        if self.depth<15:
             depthIndex = 4
+        elif self.depth>=15 and self.depth<30:
+            depthIndex = 3
+        elif self.depth>=30 and self.depth<75:
+            depthIndex = 2
+        elif self.depth>=75:
+            depthIndex = 1
         else:
             log("Unexpected depth value")
 
@@ -116,11 +126,11 @@ class SoilQualityWorker(AbstractWorker):
 
                 a_sqi = (a_pm*a_rock_frag*a_slope*a_texture*a_drainage*depthIndex)**(1/6)
 
-                a_sqi[(a_sqi < 1.13)] = 1
-                a_sqi[(a_sqi >= 1.13) & (a_sqi < 1.45)] = 2
-                a_sqi[(a_sqi >= 1.45)] = 3
+                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = -32768
 
-                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = - 32768
+                a_sqi[(a_sqi < 1.13)] = 1
+                a_sqi[(a_sqi >= 1.13) & (a_sqi <= 1.46)] = 2
+                a_sqi[(a_sqi > 1.46)] = 3
 
                 ds_out.GetRasterBand(1).WriteArray(a_sqi, x, y)
 
@@ -313,6 +323,58 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
             return
 
         self.close()
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = {
+                "coordinates":coords,
+                "type":"Polygon"
+            }
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries ={
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.loads(QgsGeometry.fromPointXY(point).asJson())
+
+        # write aoi geometry to file for masking output
+        aoi_geom = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                "type": "Feature",
+                "properties": {},
+                "geometry": geometries
+                }
+            ]
+        }
+
+        aoi_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'aoi.geojson')
+        with open(aoi_file, 'w') as filetowrite:
+            filetowrite.write(json.dumps(aoi_geom))
 
         # Add the sqi layers to a VRT in case they don't match in resolution, 
         # and set proper output bounds

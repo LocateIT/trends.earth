@@ -105,8 +105,10 @@ style_text_dict = {
     # drainage
     'drain_3class_title':tr(u'Drainage ({year}, 3 class)'),
     'well_drain':tr(u'Well drained'),
+    'moderate_drain':tr(u'Moderately well Drained'),
     'imperfect_drain':tr(u'Imperfectly drained'),
-    'poor_drain':tr(u'Poorly drained'),
+    'excess_drain':tr(u'Somewhat excessive Drainage'),
+    'poor_drain':tr(u'Poorly, Very Poor, Excessive Drainage'),
 
     # soil texture 
     'st_4class_title':tr(u'Soil texture ({year}, 4 class)'),

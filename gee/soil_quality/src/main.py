@@ -27,8 +27,8 @@ def run(params, logger):
 
     geojsons = json.loads(params.get('geojsons'))
 
-    if len(texture_matrix) != 12:
-        raise GEEIOError("Transition matrix must be a list with 12 entries")
+    if len(texture_matrix) != 13:
+        raise GEEIOError("Transition matrix must be a list with 13 entries")
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
