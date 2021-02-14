@@ -91,6 +91,7 @@ Datasets used in running of processing scripts in MISLAND QGIS Plugin are as lis
 | --- | --- | --- |
 | Soil Quality Index | Slope | [SRTM Digital Elevation](https://developers.google.com/earth-engine/datasets/catalog/CGIAR_SRTM90_V4) |
 |  | Soil Depth | Custom User Input |
+<<<<<<< HEAD
 |  | Rock Fragments | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
 |  | Parent Material | [Digital Sol Map of the world](http://www.fao.org/geonetwork/srv/en/metadata.show%3Fid=14116) |
 |  | Drainage | [Harmonized World Soil Database](https://webarchive.iiasa.ac.at/Research/LUC/External-World-soil-database/HTML/HWSD_Data.html?sb=4) |
