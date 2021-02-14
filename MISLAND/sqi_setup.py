@@ -18,6 +18,13 @@ from MISLAND.gui.WidgetSQISetup import Ui_WidgetSQISetup
 from MISLAND.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 
 
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    #TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
+    if isinstance(obj, QJsonValue.Null):
+        return None
+    raise TypeError("Type {} not serializable".format(type(obj)))
+
 class AggTableModel(QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
@@ -268,10 +275,10 @@ class SQISetupWidget(QtWidgets.QWidget, Ui_WidgetSQISetup):
         default_st_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                          'data', 'soil_texture_classes.json')
         self.dlg_texture_agg = DlgCalculateSetAggregation(read_class_file(default_st_class_file),{'No data': -32768,
-                              'Good': 1,
-                              'Moderate': 2,
-                              'Poor': 3,
-                              'Very Poor': 4,
+                              'Good': 1.0,
+                              'Moderate': 1.2,
+                              'Poor': 1.6,
+                              'Very Poor': 2.0,
                               },  parent=self)
 
      

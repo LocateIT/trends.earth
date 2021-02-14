@@ -177,9 +177,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
-                {"value": 10, "color": "#787F1B", "label": "pm_good"},
-                {"value": 17, "color": "#FFAC42", "label": "pm_moderate"},
-                {"value": 20, "color": "#FFFB6E", "label": "pm_poor"}
+                {"value": 1.0, "color": "#787F1B", "label": "pm_good"},
+                {"value": 1.7, "color": "#FFAC42", "label": "pm_moderate"},
+                {"value": 2.0, "color": "#FFFB6E", "label": "pm_poor"}
             ]
         }
     },
@@ -191,8 +191,8 @@
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
                 {"value": 1, "color": "#787F1B", "label": "very_stony"},
-                {"value": 2, "color": "#FFAC42", "label": "stony"},
-                {"value": 3, "color": "#FFFB6E", "label": "bare_2_slightly"}
+                {"value": 1.3, "color": "#FFAC42", "label": "stony"},
+                {"value": 2, "color": "#FFFB6E", "label": "bare_2_slightly"}
             ]
         }
     },
@@ -203,9 +203,11 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
-                {"value": 10, "color": "#787F1B", "label": "well_drain"},
-                {"value": 12, "color": "#FFAC42", "label": "imperfect_drain"},
-                {"value": 20, "color": "#FFFB6E", "label": "poor_drain"}
+                {"value": 1.0, "color": "#2b83ba", "label": "well_drain"},
+                {"value": 1.2, "color": "#abdda4", "label": "moderate_drain"},
+                {"value": 1.4, "color": "#ffffbf", "label": "imperfect_drain"},
+                {"value": 1.7, "color": "#fdae61", "label": "excess_drain"},
+                {"value": 2.0, "color": "#d7191c", "label": "poor_drain"}
             ]
         }
     },
@@ -216,10 +218,10 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#ffffff", "label": "lc_class_nodata"},
-                {"value": 1, "color": "#787F1B", "label": "st_good"},
-                {"value": 2, "color": "#FFAC42", "label": "st_moderate"},
-                {"value": 3, "color": "#FFFB6E", "label": "st_poor"},
-                {"value": 4, "color": "#FFFB6E", "label": "st_very_poor"}
+                {"value": 1.0, "color": "#abdda4", "label": "st_good"},
+                {"value": 1.2, "color": "#ffffbf", "label": "st_moderate"},
+                {"value": 1.6, "color": "#FFFB6E", "label": "st_poor"},
+                {"value": 2, "color": "#fdae61", "label": "st_very_poor"}
             ]
         }
     },

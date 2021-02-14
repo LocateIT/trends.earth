@@ -146,7 +146,7 @@ class RemapVectorWorker(AbstractWorker):
 
 class RasterizeWorker(AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
-                 attribute, out_data_type=gdal.GDT_Int16):
+                 attribute, out_data_type=gdal.GDT_Float64):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
@@ -183,7 +183,7 @@ class RasterizeWorker(AbstractWorker):
 
 class RasterImportWorker(AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
-                 resample_mode, out_data_type=gdal.GDT_Int16):
+                 resample_mode, out_data_type=gdal.GDT_Float64):
         AbstractWorker.__init__(self)
 
         self.in_file = in_file
@@ -248,7 +248,7 @@ class RemapRasterWorker(AbstractWorker):
         ysize = band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        ds_out = driver.Create(self.out_file, xsize, ysize, 1, gdal.GDT_Int16, 
+        ds_out = driver.Create(self.out_file, xsize, ysize, 1, gdal.GDT_Float64, 
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -274,7 +274,7 @@ class RemapRasterWorker(AbstractWorker):
                     cols = xsize - x
                     d = band.ReadAsArray(x, y, cols, rows)
                     for value, replacement in zip(self.remap_list[0], self.remap_list[1]):
-                        d[d == int(value)] = int(replacement)
+                        d[d == float(value)] = float(replacement)
                 ds_out.GetRasterBand(1).WriteArray(d, x, y)
                 blocks += 1
 
@@ -1582,8 +1582,10 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
         elif self.property("layer_type") == 'Drainage (3 class)':
             self.dlg_load = DlgDataIOImportSQI('Drainage (3 class)', {'No data': -32768,
                         'Well Drained': 1.0,
-                        'Imperfectly Drained': 1.2,
-                        'Poorly Drained': 2.0,
+                        'Moderately well Drained':1.2,
+                        'Imperfectly Drained': 1.4,
+                        'Somewhat excessive Drainage':1.7,
+                        'Poorly, Very Poor, Excessive Drainage': 2.0,
                         })
         elif self.property("layer_type") == 'Slope (4 class)':
             self.dlg_load = DlgDataIOImportSQI('Slope (4 class)', {'No data': -32768,
@@ -1592,8 +1594,6 @@ class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDa
                         'Steep': 1.5,
                         'Very steep':2
                         })
-        elif self.property("layer_type") == 'Aridity Index':
-            self.dlg_load = DlgDataIOImportCQI()
         else:
             log(u'Unsupported import file type: {}'.format(self.property("layer_type")))
             return

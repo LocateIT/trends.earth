@@ -58,14 +58,14 @@ class SoilQualityWorker(AbstractWorker):
         band_drainage = ds_in.GetRasterBand(4)
         band_default_slope = ds_in.GetRasterBand(5)
 
-        if self.depth<15 :
-            depthIndex = 1
-        elif self.depth>=15 and self.depth<30:
-            depthIndex = 2
-        elif self.depth>=30 and self.depth<75:
-            depthIndex = 3
-        elif self.depth>=75:
+        if self.depth<15:
             depthIndex = 4
+        elif self.depth>=15 and self.depth<30:
+            depthIndex = 3
+        elif self.depth>=30 and self.depth<75:
+            depthIndex = 2
+        elif self.depth>=75:
+            depthIndex = 1
         else:
             log("Unexpected depth value")
 
@@ -116,11 +116,11 @@ class SoilQualityWorker(AbstractWorker):
 
                 a_sqi = (a_pm*a_rock_frag*a_slope*a_texture*a_drainage*depthIndex)**(1/6)
 
-                a_sqi[(a_sqi < 1.13)] = 1
-                a_sqi[(a_sqi >= 1.13) & (a_sqi < 1.45)] = 2
-                a_sqi[(a_sqi >= 1.45)] = 3
+                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = -32768
 
-                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = - 32768
+                a_sqi[(a_sqi < 1.13)] = 1
+                a_sqi[(a_sqi >= 1.13) & (a_sqi <= 1.46)] = 2
+                a_sqi[(a_sqi > 1.46)] = 3
 
                 ds_out.GetRasterBand(1).WriteArray(a_sqi, x, y)
 
