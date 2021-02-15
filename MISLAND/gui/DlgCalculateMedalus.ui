@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>468</width>
+    <width>503</width>
     <height>280</height>
    </rect>
   </property>
@@ -56,8 +56,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Land Management System
- Quality Index</string>
+         <string> Management Quality Index</string>
         </property>
        </widget>
       </item>
@@ -161,7 +160,7 @@
       </font>
      </property>
      <property name="title">
-      <string>Step 2: Calculate Sensitivity Desertification Index</string>
+      <string>Step 2: Calculate Environmentally sensitive area (ESA) Index</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
@@ -185,7 +184,7 @@
          </font>
         </property>
         <property name="text">
-         <string>Calculate final MEDALUS for vulnerability to desertification spatial layer </string>
+         <string>Calculate final MEDALUS layer for vulnerability to desertification spatial layer </string>
         </property>
        </widget>
       </item>

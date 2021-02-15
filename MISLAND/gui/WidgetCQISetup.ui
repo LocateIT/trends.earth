@@ -94,7 +94,7 @@ p, li { white-space: pre-wrap; }
          </font>
         </property>
         <property name="text">
-         <string>Target Month:</string>
+         <string>Target Year:</string>
         </property>
        </widget>
       </item>
