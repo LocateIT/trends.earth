@@ -126,11 +126,12 @@ class SoilQualityWorker(AbstractWorker):
 
                 a_sqi = (a_pm*a_rock_frag*a_slope*a_texture*a_drainage*depthIndex)**(1/6)
 
-                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = -32768
 
                 a_sqi[(a_sqi < 1.13)] = 1
                 a_sqi[(a_sqi >= 1.13) & (a_sqi <= 1.46)] = 2
                 a_sqi[(a_sqi > 1.46)] = 3
+                
+                a_sqi[(a_pm < 0) | (a_rock_frag < 0) | (a_slope < 0) | (a_texture < 0) | (a_drainage < 0)] = -32768
 
                 ds_out.GetRasterBand(1).WriteArray(a_sqi, x, y)
 

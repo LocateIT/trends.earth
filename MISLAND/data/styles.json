@@ -792,16 +792,16 @@
         "title":"forest_fire",
         "ramp": {
             "type": "categorical",
-            "shader": "discrete",
+            "shader": "exact",
             "items": [
-                {"value": -500, "color": "#000000", "label": "fire_nodata"},
-                {"value": -350, "color": "#7a8737", "label": "fire_high_severity"},
-                {"value": -300, "color": "#acbe4d", "label": "fire_moderate_high_severity"},
-                {"value": -200, "color": "#abdda4", "label": "fire_moderate_low_severity"},
-                {"value": -100, "color": "#ffffbf", "label": "fire_low_severity"},
-                {"value": 100, "color": "#fdae61", "label": "fire_unburned"},
-                {"value": 300, "color": "#ff641b", "label": "fire_enhanced_growth_low"},
-                {"value": 1000, "color": "#a41fd6", "label": "fire_enhanced_growth_high"}
+                {"value": -32768, "color": "#000000", "label": "fire_nodata"},
+                {"value": 7, "color": "#a41fd6", "label": "fire_high_severity"},
+                {"value": 6, "color": "#ff641b", "label": "fire_moderate_high_severity"},
+                {"value": 5, "color": "#fdae61", "label": "fire_moderate_low_severity"},
+                {"value": 4, "color": "#ffffbf", "label": "fire_low_severity"},
+                {"value": 3, "color": "#abdda4", "label": "fire_unburned"},
+                {"value": 2, "color": "#acbe4d", "label": "fire_enhanced_growth_low"},
+                {"value": 1, "color": "#7a8737", "label": "fire_enhanced_growth_high"}
             ]
         }
     },
@@ -814,7 +814,7 @@
             "min": {"color": "#000000"},
             "zero": {"color": "#2d2d2d"},
             "max": {"color": "#ffffff"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            "no data": {"value": -32768, "color": "#ffffff", "label": "nodata"
             }
         }
     },
@@ -827,7 +827,7 @@
             "min": {"color": "#000000"},
             "zero": {"color": "#2d2d2d"},
             "max": {"color": "#ffffff"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            "no data": {"value": -32768, "color": "#ffffff", "label": "nodata"
             }
         }
     },
