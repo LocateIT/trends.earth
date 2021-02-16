@@ -183,6 +183,15 @@ html_context = {
     'css_files': ['_static/custom.css'],
 }
 
+html_theme_options = {
+    #'analytics_anonymize_ip': False,
+   #  'style_external_links': False,
+    #'vcs_pageview_mode': '',
+    # Toc options
+    'collapse_navigation': True,
+    'sticky_navigation': True,
+	}
+
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
 #html_last_updated_fmt = '%b %d, %Y'

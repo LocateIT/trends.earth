@@ -4,6 +4,4 @@ pyqtgraph==0.10
 openpyxl==3.0.3
 marshmallow==3.3.0
 polling2
-GDAL-3.2.1-cp38-cp38-win32.whl
-rasterio-1.2.0-cp38-cp38-win32.whl
 # test requirements
