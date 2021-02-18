@@ -119,6 +119,21 @@ The project also acknowledges the contribution of national and regional stakehol
 
 Contact the MISLAND-North Africa team with any comments or suggestions. If you have specific bugs to report or improvements to the tool that you would like to suggest, you can also submit them in the issue tracker on Github for MISLAND-North Africa.
 
+#### Reporting an issue (error, possible bug, etc.)
+
+If you think you have found a bug, report your issue to our [issue tracker](https://github.com/LocateIT/trends.earth/issues) so
+the developers can look into it.
+
+When you report an issue, be sure to provide enough information to allow us to be able to reproduce it. In particular, be sure to specify:
+
+What you were doing with the plugin when the problem or error ocurred (for example "I clicked on 'Download Results' and got an error messaging saying describe what the message said".
+The operating system you are using, version of the plugin are you using, and version of QGIS that you are using
+If you are emailing about an error or problem that occurred when downloading results, tell us your username, and the task start time that is listed in the download tool for the task you are referring to
+If the error occurred while processing data with the plugin, tell us the location you were analyzing with the tool (for example: "I selected Argentina from the dropdown menu"). If you used your own shapefile, please send us the file you used.
+If you got a message saying "An error has ocurred while executing Python code", send us either the text of the message, or a a screenshot of the error message. 
+
+Also, send us the content of the MISLAND log messages panel. To access the MISLAND log messages panel, select "View", then "Panels", then "Log Messages" from within QGIS. Copy and paste the text from that panel and include it in your issue report. It will make it easiest for us to track things down (as their will be fewer log messages) if you do this after first starting a new QGIS session and immediately reproducing the error.
+
 ---
 
 ### License
