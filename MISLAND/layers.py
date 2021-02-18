@@ -165,7 +165,7 @@ style_text_dict = {
     'soc_deg_imp': tr(u'Improvement'),
 
     # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr(u'Land productivity (Trends.Earth)'),
+    'sdg_prod_combined_title': tr(u'Land productivity'),
     'sdg_prod_combined_declining': tr(u'Declining'),
     'sdg_prod_combined_earlysigns': tr(u'Early signs of decline'),
     'sdg_prod_combined_stabbutstress': tr(u'Stable but stressed'),
@@ -265,7 +265,7 @@ style_text_dict = {
     'cqi_moderate':tr('Moderate quality (1.15 to 1.81)'),
     'cqi_low':tr('Low quality (> 1.81)'),
 
-    'soil_quality_index': tr(u'Soil Quality Index ({depth} cm deep)'),
+    'soil_quality_index': tr(u'Soil Quality Index (cm deep)'),
     'sqi_high':tr('High (< 1.13)'),
     'sqi_moderate':tr('Moderate (1.13 to 1.45)'),
     'sqi_low':tr('Low (> 1.45)'),
@@ -417,7 +417,7 @@ def add_layer(f, band_number, band_info, activated='default'):
     except KeyError:
         QtWidgets.QMessageBox.information(None,
                                       tr("Information"),
-                                      tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], band_number, f)))
+                                      tr(u'MISLAND does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], band_number, f)))
         log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
         return False
 
@@ -489,10 +489,10 @@ def add_layer(f, band_number, band_info, activated='default'):
                                                   tr_style_text(style['ramp']['no data']['label'])))
 
     else:
-        log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
+        log('Failed to load MISLAND style. Adding layer using QGIS defaults.')
         QtWidgets.QMessageBox.critical(None,
                                        tr("Error"),
-                                       tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
+                                       tr("Failed to load MISLAND style. Adding layer using QGIS defaults."))
         return False
 
     fcn = QgsColorRampShader()
