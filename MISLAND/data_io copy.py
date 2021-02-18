@@ -441,11 +441,11 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
                         })
         self.dlg_DataIOLoad_sqi = DlgDataIOImportMedalus('Soil Quality Index (cm deep)')
 
-        self.dlg_DataIOLoad_vqi = DlgDataIOImportMedalus('Vegetation Quality Index')
+        # self.dlg_DataIOLoad_vqi = DlgDataIOImportMedalus('Vegetation Quality Index')
 
-        self.dlg_DataIOLoad_mqi = DlgDataIOImportMedalus('Management Quality Index')
+        # self.dlg_DataIOLoad_mqi = DlgDataIOImportMedalus('Management Quality Index')
 
-        self.dlg_DataIOLoad_cqi = DlgDataIOImportMedalus('Climate Quality Index (year)')
+        # self.dlg_DataIOLoad_cqi = DlgDataIOImportMedalus('Climate Quality Index (year)')
 
         self.btn_te.clicked.connect(self.run_te)
         self.btn_lc.clicked.connect(self.run_lc)
@@ -458,9 +458,9 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
         self.btn_rock.clicked.connect(self.run_rock)
         self.btn_pm.clicked.connect(self.run_pm)
         self.btn_sqi.clicked.connect(self.run_sqi)
-        self.btn_vqi.clicked.connect(self.run_vqi)
-        self.btn_cqi.clicked.connect(self.run_cqi)
-        self.btn_mqi.clicked.connect(self.run_mqi)
+        # self.btn_vqi.clicked.connect(self.run_vqi)
+        # self.btn_cqi.clicked.connect(self.run_cqi)
+        # self.btn_mqi.clicked.connect(self.run_mqi)
 
     def run_te(self):
         self.close()
@@ -506,17 +506,17 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
         self.close()
         self.dlg_DataIOLoad_sqi.exec_()
 
-    def run_vqi(self):
-        self.close()
-        self.dlg_DataIOLoad_vqi.exec_()
+    # def run_vqi(self):
+    #     self.close()
+    #     self.dlg_DataIOLoad_vqi.exec_()
 
-    def run_cqi(self):
-        self.close()
-        self.dlg_DataIOLoad_cqi.exec_()
+    # def run_cqi(self):
+    #     self.close()
+    #     self.dlg_DataIOLoad_cqi.exec_()
 
-    def run_mqi(self):
-        self.close()
-        self.dlg_DataIOLoad_mqi.exec_()
+    # def run_mqi(self):
+    #     self.close()
+    #     self.dlg_DataIOLoad_mqi.exec_()
 
 class DlgDataIOLoadTEBase(QtWidgets.QDialog):
     layers_loaded = pyqtSignal(list)
@@ -1388,28 +1388,85 @@ class DlgDataIOImportSQI(DlgDataIOImportBase, Ui_DlgDataIOImportSQI):
 
         self.layer_loaded.emit([l_info])
 
+# class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
+#     def __init__(self, layer_name, parent=None):
+#         super(DlgDataIOImportMedalus, self).__init__(parent)
+
+#         # This needs to be inserted after the input widget but before the 
+#         # button box with ok/cancel
+#         self.layer_name = layer_name
+#         self.output_widget = ImportSelectRasterOutput()
+#         self.verticalLayout.insertWidget(1, self.output_widget)
+
+#         self.input_widget.groupBox_year.hide()
+
+#     def done(self, value):
+#         if value == QtWidgets.QDialog.Accepted:
+#             self.validate_input(value)
+#         else:
+#             super(DlgDataIOImportMedalus, self).done(value)
+
+#     def validate_input(self, value):
+#         if self.output_widget.lineEdit_output_file.text() == '':
+#             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+#             return
+
+#         ret = super(DlgDataIOImportMedalus, self).validate_input(value)
+#         if not ret:
+#             return
+
+#         if self.input_widget.radio_raster_input.isChecked():
+#             in_file = self.input_widget.lineEdit_raster_file.text()
+#             values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=5)
+#         else:
+#             in_file = self.input_widget.lineEdit_vector_file.text()
+#             l = self.input_widget.get_vector_layer()
+#             field = self.input_widget.comboBox_fieldname.currentText()
+#             idx = l.fields().lookupField(field)
+#             if not l.fields().field(idx).isNumeric():
+#                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a field that contains numbers.".format(field)))
+#                 return
+#             else:
+#                 values = get_unique_values_vector(l, field, max_unique=5)
+#         if not values:
+#             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid medalus input file.".format(in_file)))
+#             return
+#         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3]]
+#         if len(invalid_values) > 0:
+#             QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid medalus input file. MISLAND will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in an input file are -32768, 1, 2 and 3. There are {} value(s) in the input file that were not recognized.".format(in_file,len(invalid_values))))
+
+#         super(DlgDataIOImportMedalus, self).done(value)
+
+#         self.ok_clicked()
+
+#     def ok_clicked(self):
+#         out_file = self.output_widget.lineEdit_output_file.text()
+#         if self.input_widget.radio_raster_input.isChecked():
+#             ret = self.warp_raster(out_file)
+#         else:
+#             in_file = self.input_widget.lineEdit_vector_file.text()
+#             attribute = self.input_widget.comboBox_fieldname.currentText()
+#             ret = self.rasterize_vector(in_file, out_file, attribute)
+
+#         if not ret:
+#             return False
+
+#         l_info = self.add_layer(self.layer_name,
+#                                 {'source': 'custom data'})
+#         self.layer_loaded.emit([l_info])
+
+
 class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
     def __init__(self, layer_name, parent=None):
         super(DlgDataIOImportMedalus, self).__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
-        self.layer_name = layer_name
-        # self.valid_values = valid_values
-        # self.text_browser = text_browser
         self.output_widget = ImportSelectRasterOutput()
+        self.layer_name = layer_name
         self.verticalLayout.insertWidget(1, self.output_widget)
 
         self.input_widget.groupBox_year.hide()
-
-        # self.define_class()
-
-    
-    # def define_class(self):
-    #     classInfo = "Classes in the input data must be coded as follows: \n" + self.text_browser
-            
-    #     self.textBrowser.setText(classInfo)
-
 
     def done(self, value):
         if value == QtWidgets.QDialog.Accepted:
@@ -1440,16 +1497,15 @@ class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
             else:
                 values = get_unique_values_vector(l, field, max_unique=5)
         if not values:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid {} input file.".format(in_file, self.layer_name)))
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file.".format(in_file)))
             return
         invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3]]
         if len(invalid_values) > 0:
-            QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid medalus input file. MISLAND will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in an input file are -32768, 1, 2 and 3. There are {} value(s) in the input file that were not recognized.".format(in_file,len(invalid_values))))
+            QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. MISLAND will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, and 3. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
         super(DlgDataIOImportMedalus, self).done(value)
 
         self.ok_clicked()
-
 
     def ok_clicked(self):
         out_file = self.output_widget.lineEdit_output_file.text()
@@ -1466,7 +1522,6 @@ class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
         l_info = self.add_layer(self.layer_name,
                                 {'source': 'custom data'})
         self.layer_loaded.emit([l_info])
-
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):

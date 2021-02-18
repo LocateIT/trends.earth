@@ -1,5 +1,5 @@
-httplib2==0.18.0
-requests==2.23.0
+httplib2
+requests
 pyqtgraph==0.10
 openpyxl==3.0.3
 marshmallow==3.3.0
