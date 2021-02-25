@@ -164,9 +164,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
         self.sqi_setup_tab.groupBox_drainage.show()
         self.sqi_setup_tab.groupBox_pm.show()
         
-        # self.cqi_setup_tab.groupBox_custom_prec.show()
-        # self.cqi_setup_tab.groupBox_custom_pet.show()
-
         # This box may have been hidden if this widget was last shown on the 
         # SDG one step dialog
         self.sqi_setup_tab.groupBox_usda_depth.show()
@@ -231,7 +228,6 @@ class DlgCalculateSQI(DlgCalculateBase, Ui_DlgCalculateSQI):
             point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
             geometries = json.dumps(json.loads(QgsGeometry.fromPointXY(point).asJson()))
         
-
         payload = {
                     'depth': self.sqi_setup_tab.use_depth.value(),
                     'geojsons': geometries,

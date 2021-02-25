@@ -10,4 +10,3 @@ pip>=10.0.0
 PyQt5
 numba==0.48.0
 polling2
-rasterio==1.2.0
