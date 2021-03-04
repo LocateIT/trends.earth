@@ -28,8 +28,9 @@ from openpyxl.drawing.image import Image
 
 from qgis.PyQt import QtWidgets, uic, QtXml
 from qgis.PyQt.QtCore import QSettings, QDate
+from qgis.core import (QgsPointXY, QgsGeometry,
+    QgsCoordinateTransform, QgsCoordinateReferenceSystem,QgsProject)
 
-from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -50,7 +51,15 @@ class SDIWorker(AbstractWorker):
         self.out_f = out_f
 
     def work(self):
+        geom = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'aoi.geojson')
         ds_in = gdal.Open(self.in_f)
+
+        # resample input layers 
+        ds_in = gdal.Warp(self.in_f, ds_in,xRes=0.001, yRes=0.001, resampleAlg="bilinear")
+
+        # mask input layers to aoi 
+        ds_in = gdal.Warp(self.in_f, ds_in, cutlineDSName =geom, cropToCutline = True, dstNodata = np.nan)
+
 
         band_sqi = ds_in.GetRasterBand(1)
         band_vqi = ds_in.GetRasterBand(2)
@@ -205,6 +214,59 @@ class DlgCalculateSDISummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateSDISumma
             return
 
         self.close()
+
+        crosses_180th, geojsons = self.aoi.bounding_box_gee_geojson()
+        val = []
+        n = 1
+
+        if self.area_tab.area_fromfile.isChecked():
+            for f in self.aoi.get_layer_wgs84().getFeatures():
+                # Get an OGR geometry from the QGIS geometry
+                geom = f.geometry()
+                val.append(geom)
+                n += 1
+
+            # stringify json object 
+            val_string = '{}'.format(json.loads(val[0].asJson()))
+
+            # create ogr geometry
+            val_geom = ogr.CreateGeometryFromJson(val_string)
+            # simplify polygon to tolerance of 0.003
+            val_geom_simplified = val_geom.Simplify(0.003)
+
+            # fetch coordinates from json  
+            coords= json.loads(val_geom_simplified.ExportToJson())['coordinates']
+            geometries = {
+                "coordinates":coords,
+                "type":"Polygon"
+            }
+        elif self.area_tab.area_fromadmin.isChecked():
+            geometries ={
+                "coordinates":self.get_admin_poly_geojson()['geometry']['coordinates'][0],
+                "type":"Polygon"
+            }
+        elif self.area_tab.area_frompoint.isChecked():
+            point = QgsPointXY(float(self.area_tab.area_frompoint_point_x.text()), float(self.area_tab.area_frompoint_point_y.text()))
+            crs_src = QgsCoordinateReferenceSystem(self.area_tab.canvas.mapSettings().destinationCrs().authid())
+            point = QgsCoordinateTransform(crs_src, self.aoi.crs_dst, QgsProject.instance()).transform(point)
+            geometries = json.loads(QgsGeometry.fromPointXY(point).asJson())
+
+        # write aoi geometry to file for masking output
+        aoi_geom = {
+            "type": "FeatureCollection",
+            "features": [
+                {
+                "type": "Feature",
+                "properties": {},
+                "geometry": geometries
+                }
+            ]
+        }
+
+        aoi_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'aoi.geojson')
+        with open(aoi_file, 'w') as filetowrite:
+            filetowrite.write(json.dumps(aoi_geom))
+
 
         #######################################################################
         # Load all datasets to VRTs (to select only the needed bands)

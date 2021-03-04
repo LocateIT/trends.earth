@@ -24,14 +24,10 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings
 
 from osgeo import gdal, osr,ogr
-from qgis.PyQt import QtWidgets, uic
-from qgis.PyQt.QtCore import QDate
-from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
-    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
-    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
-    QgsVectorFileWriter, QgsFields, QgsWkbTypes, QgsAbstractGeometrySimplifier)
+from qgis.PyQt import QtWidgets
+from qgis.core import (QgsPointXY, QgsGeometry,
+    QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsProject)
 
-from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
