@@ -11,7 +11,7 @@
 name=MISLAND
 qgisMinimumVersion=3.10
 description=The core-service provides land degradation indicators for six North African Countries at two levels.At the regional level(North Africa action zone) where low and medium resolution EO are used.At the pilot site level, where(customized indicators) can be developed, using medium resoultion data(landsat time series imagery and derived vegetation indices, combined with different satellite-derived climate data) Note
-version=1.0.4
+version=1.0.6
 author=Mustapha MIMOUNI, Nabil KHATRA, Amjed TAIEB, Haithem REJEB, Toure SOULEYMANE, Vivianne META, Derick ONGERI, Grace AMONDI, Seth NYAWACHA, and Simon NDARAU.
 email=grace.amondi@locateit.co.ke
 
@@ -28,7 +28,7 @@ homepage=https://github.com/LocateIT/trends.earth
 category=Plugins
 icon=misland_logo.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
@@ -36,7 +36,9 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=1.0.4 (March 4, 2021)
+changelog=1.0.6(March 5, 2021)
+    - Experimental set to false
+  1.0.4 (March 4, 2021)
     - Responsive toolbars for smaller screens
     - Restrict/Clip to AOI of custom computation
   1.0.3 (February 24, 2021)

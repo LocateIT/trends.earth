@@ -1,26 +1,26 @@
 {
     "time-series": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate time series."
     },
     "land-cover": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate land cover change indicator."
     },
     "forest-fire":{
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate Forest Burnt Severity."
     },
     "climate-quality":{
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate Climate Quality Index based on Aridity Index"
     },
     "soil-quality":{
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate Soil Quality Index"
     },
     "productivity": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",
         "trajectory functions": {
             "NDVI trends": {
@@ -46,39 +46,39 @@
         }
     },
     "soil-organic-carbon": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate soil organic carbon."
     },
     "sdg-sub-indicators": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate all three SDG sub-indicators in one step."
     },
     "download-data": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Download data from Google Earth Engine assets."
     },
     "total-carbon": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate total carbon in biomass (above and below ground)."
     },
     "urban-area": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate urban area."
     },
     "restoration-biomass": {
-        "script version": "1.0.4",
+        "script version": "1.0.6",
         "description": "Calculate potential change in biomass with restoration."
     },
     "forest-change":{
-        "script version":"1.0.3",
+        "script version":"1.0.6",
         "description":"Calculate forest loss, gain and cover with Hansen Data"
     },
     "vegetation-quality":{
-        "script version":"1.0.3",
+        "script version":"1.0.6",
         "description":"Calculate Vegetation Quality Index"
     },
     "management-quality":{
-        "script version":"1.0.3",
+        "script version":"1.0.6",
         "description":"Calculate Management Quality Index"
     }
 }

@@ -1,4 +1,5 @@
-earthengine-api==0.1.239
+earthengine-api==0.1.232
 rollbar==0.14.7
+
 git+git://github.com/LocateIT/landdegradation.git#egg=landdegradation
 
