@@ -1428,7 +1428,7 @@ class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
 
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
-            values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=5)
+            values = get_unique_values_raster(in_file, int(self.input_widget.comboBox_bandnumber.currentText()), max_unique=10)
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
@@ -1438,7 +1438,7 @@ class DlgDataIOImportMedalus(DlgDataIOImportBase, Ui_DlgDataIOImportMedalus):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The chosen field ({}) is not numeric. Choose a field that contains numbers.".format(field)))
                 return
             else:
-                values = get_unique_values_vector(l, field, max_unique=5)
+                values = get_unique_values_vector(l, field, max_unique=10)
         if not values:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"The input file ({}) does not appear to be a valid {} input file.".format(in_file, self.layer_name)))
             return
