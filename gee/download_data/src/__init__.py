@@ -1,10 +1,8 @@
-__version__ =  "1.0.4"
+__version__ =  "1.0.6"
 
 import sys
 import os
 import rollbar
-
-from gefcore import logger
 
 rollbar.init(os.getenv('ROLLBAR_SCRIPT_TOKEN'), os.getenv('ENV'))
 
